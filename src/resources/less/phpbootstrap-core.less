@@ -1,0 +1,48 @@
+input[disabled], 
+select[disabled], 
+textarea[disabled],
+fieldset[disabled], 
+input[readonly], 
+select[readonly], 
+textarea[readonly],
+.disabled {
+    cursor: default;
+  	//opacity: 0.50;
+  	//filter: Alpha(Opacity=50);
+}
+a.disabled {
+	opacity: 0.50;
+  	filter: Alpha(Opacity=50);
+}
+a.disabled:hover {
+	text-decoration: none;
+	color: #0088CC;
+}
+
+.disabled .disabled,
+.disabled input[disabled], 
+.disabled select[disabled], 
+.disabled textarea[disabled],
+.disabled fieldset[disabled], 
+.disabled input[readonly], 
+.disabled select[readonly], 
+.disabled textarea[readonly],
+fieldset[disabled] .disabled,
+fieldset[disabled] input[disabled], 
+fieldset[disabled] select[disabled], 
+fieldset[disabled] textarea[disabled], 
+fieldset[disabled] input[readonly], 
+fieldset[disabled] select[readonly], 
+fieldset[disabled] textarea[readonly]{
+	//opacity: 1;
+  	// filter: Alpha(Opacity=100);
+}
+.loading { background: url('images/loading.gif') center right no-repeat; }
+[class="icon-color"] { 
+	display: inline-block;
+ 	width: 16px;
+  	height: 16px;
+  	line-height: 16px;
+  	vertical-align: text-top;
+	background: url("images/icon-color.png") center center no-repeat;
+}

@@ -295,6 +295,7 @@ use PHPBootstrap\Widget\Button\Button;
 	</div>
 	<script type="text/javascript">
 	$(function() {
+		$.fn.datepicker.defaults.language = 'pt-BR';
 		$('[data-method]').click(function(){
 			var $this = $(this),
 				target = $($this.attr('href')).field(),
@@ -309,7 +310,7 @@ use PHPBootstrap\Widget\Button\Button;
 			}
 			return false;
 		});
-		$.fck.path =  'src/resources/vendor/fckeditor/';
+		$.fck.path =  'vendor/fckeditor/';
 	});
 	</script>
 </fieldset>

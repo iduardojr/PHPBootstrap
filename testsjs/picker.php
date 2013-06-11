@@ -96,6 +96,7 @@ use PHPBootstrap\Format\ColorFormat;
 	</div>
 	<script type="text/javascript">
 	$(function() {
+		$.fn.datepicker.defaults.language = 'pt-BR';
 		$('[data-params]').click(function(){
 			$($(this).attr('href')).field('disabled', $(this).data('params'));
 			return false;
