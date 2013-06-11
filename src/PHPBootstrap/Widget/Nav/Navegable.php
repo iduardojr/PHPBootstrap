@@ -1,0 +1,12 @@
+<?php
+namespace PHPBootstrap\Widget\Nav;
+
+use PHPBootstrap\Widget\Widget;
+
+/**
+ * Interface de widget de navegação
+ */
+interface Navegable extends Widget {
+
+}
+?>

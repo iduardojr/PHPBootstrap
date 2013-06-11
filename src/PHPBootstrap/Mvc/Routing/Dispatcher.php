@@ -1,0 +1,103 @@
+<?php
+namespace PHPBootstrap\Mvc\Routing;
+
+use PHPBootstrap\Mvc\Http\HttpResponse;
+use PHPBootstrap\Mvc\Http\HttpRequest;
+use PHPBootstrap\Mvc\Controller;
+use PHPBootstrap\Mvc\Routing\Dispatchable;
+
+/**
+ * Despachador
+ */
+class Dispatcher implements Dispatchable {
+
+	/**
+	 * Controle
+	 *
+	 * @var Controller
+	 */
+	protected $controller;
+
+	/**
+	 * Acão
+	 *
+	 * @var string
+	 */
+	protected $action;
+
+	/**
+	 * Parametros
+	 *
+	 * @var array
+	 */
+	protected $params;
+
+	/**
+	 * Falha
+	 *
+	 * @var \Exception
+	 */
+	protected $exception;
+
+	/**
+	 * Construtor
+	 *
+	 * @param Controller $controller
+	 * @param string $action
+	 * @param array $params
+	 */
+	public function __construct( Controller $controller, $action, array $params ) {
+		$this->controller = $controller;
+		$this->action = $action;
+		$this->params = $params;
+	}
+
+	/**
+	 *
+	 * @see Dispatchable::dispatch()
+	 */
+	public function dispatch( HttpRequest $request, HttpResponse $response ) {
+		try {
+			$this->exception = null;
+			$request->setQuery(array_merge($request->getQuery(), $this->params));
+			$this->controller->setRequest($request);
+			$this->controller->setResponse($response);
+			$result = call_user_func(array( &$this->controller, $this->action ), $request, $response);
+			if ( $result ) {
+				$response->setBody($result);
+			}
+		} catch ( \Exception $e ) {
+			$response->setStatus(HttpResponse::InternalServerError);
+			$this->exception = $e;
+		}
+	}
+
+	/**
+	 * Obtem o controle
+	 *
+	 * @return Controller
+	 */
+	public function getController() {
+		return $this->controller;
+	}
+	
+	/**
+	 * Obtem a ação
+	 *
+	 * @return string
+	 */
+	public function getAction() {
+		return $this->action;
+	}
+
+	/**
+	 * Obtem exceção
+	 * 
+	 * @return Exception
+	 */
+	public function getException() {
+		return $this->exception;
+	}
+
+}
+?>

@@ -1,0 +1,36 @@
+<?php
+namespace PHPBootstrap\Validate\Required;
+
+/**
+ * Identico
+ */
+class EqualTo extends Requirable {
+
+	/**
+	 * Identificação do validação
+	 *
+	 * @var string
+	 */
+	const IDENTIFY = 'equalTo';
+
+	/**
+	 * Construtor
+	 * 
+	 * @param ContextEqualTo $context
+	 */
+	public function __construct( ContextEqualTo $context ) {
+		$this->context = $context;
+	}
+
+	/**
+	 *
+	 * @see Validate::valid()
+	 */
+	public function valid( $value ) {
+		$value = trim($value);
+		$context = trim($this->context->getContextValue());
+		return $value == $context;
+	}
+
+}
+?>

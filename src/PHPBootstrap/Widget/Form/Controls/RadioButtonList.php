@@ -1,0 +1,13 @@
+<?php
+namespace PHPBootstrap\Widget\Form\Controls;
+
+/**
+ * Grupo de caixas de seleção
+ */
+class RadioButtonList extends AbstractInputListChecked {
+
+	// ID Renderizador
+	const RendererType = 'phpbootstrap.widget.form.control.input.radiobuttonlist';
+	
+}
+?>

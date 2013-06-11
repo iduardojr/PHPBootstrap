@@ -1,0 +1,26 @@
+<?php
+namespace PHPBootstrap\Widget\Nav;
+
+use PHPBootstrap\Render\Render;
+
+/**
+ * Interface de um componente de navegação
+ */
+interface Element extends Render {
+
+	/**
+	 * Atribui widget de navegação pai
+	 *
+	 * @param Nav $parent
+	 */
+	public function setNavParent( Navegable $parent = null );
+	
+	/**
+	 * Obtem widget de navegação pai
+	 *
+	 * @return Nav
+	*/
+	public function getNavParent();
+	
+}
+?>

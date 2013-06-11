@@ -1,0 +1,10 @@
+<?php
+namespace PHPBootstrap\Widget\Nav;
+
+/**
+ * Interface de elemento da navegação
+ */
+interface NavElement extends Element {
+
+}
+?>
