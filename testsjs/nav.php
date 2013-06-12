@@ -3,7 +3,7 @@ use PHPBootstrap\Widget\Tab\TgTab;
 use PHPBootstrap\Widget\Nav\TabPane;
 use PHPBootstrap\Widget\Nav\Tabbable;
 use PHPBootstrap\Widget\Nav\NavDivider;
-use PHPBootstrap\Widget\Nav\NavBar;
+use PHPBootstrap\Widget\Nav\Navbar;
 use PHPBootstrap\Widget\Dropdown\DropdownHeader;
 use PHPBootstrap\Widget\Dropdown\DropdownDivider;
 use PHPBootstrap\Widget\Dropdown\DropdownLink;
@@ -56,10 +56,12 @@ $text = '<p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
 	<div class="block">
 		<em>NavBar</em>
 		<?php
-		$w2 = new NavBar('navbar');
+		$w2 = new Navbar('navbar');
 		$w2->setInverse(true);
 		$w2->addItem(new NavBrand('Brand'));
 		$w2->addItem($ui);
+		$w2->render();
+		$w2->setDisplay(Navbar::FixedTop);
 		$w2->render();
 		?>
 	</div>

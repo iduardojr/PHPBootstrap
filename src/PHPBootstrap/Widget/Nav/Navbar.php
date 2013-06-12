@@ -33,6 +33,13 @@ class Navbar extends AbstractWidget implements Navegable {
 	protected $inverse;
 	
 	/**
+	 * Container
+	 * 
+	 * @var boolean
+	 */
+	protected $container;
+	
+	/**
 	 * Items
 	 *
 	 * @var ArrayCollection
@@ -50,6 +57,7 @@ class Navbar extends AbstractWidget implements Navegable {
 		$this->items = new ArrayCollection();
 		$this->setName($name);
 		$this->setInverse($inverse);
+		$this->setContainer(true);
 		if ( $brand ) {
 			$this->addItem($brand, NavItem::Left);
 		}
@@ -124,6 +132,25 @@ class Navbar extends AbstractWidget implements Navegable {
 	public function setInverse( $inverse ) {
 		$this->inverse = ( bool ) $inverse;
 	}
+	
+	/**
+	 * Obtem container
+	 * 
+	 * @return boolean
+	 */
+	public function getContainer() {
+		return $this->container;
+	}
+
+	/**
+	 * Atribui container
+	 * 
+	 * @param boolean $container
+	 */
+	public function setContainer( $container ) {
+		$this->container = ( bool ) $container;
+	}
+
 
 }
 ?>

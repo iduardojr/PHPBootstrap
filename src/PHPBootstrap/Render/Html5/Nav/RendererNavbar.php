@@ -36,19 +36,23 @@ class RendererNavbar extends RendererWidget {
 		$inner = new HtmlNode('div');
 		$inner->addClass('navbar-inner');
 		
+		$container = new HtmlNode('div');
+		$container->addClass($ui->getContainer() ? 'container' : 'container-fluid');
+		
 		foreach ( $ui->getItems() as $item ) {
 			if ( $item->getAlign() ) {
-				$container = new HtmlNode('div');
-				$this->toRender($item->getElement(), new Context($container));
-				foreach($container->getAllNodes() as $content ) {
+				$contents = new HtmlNode('div');
+				$this->toRender($item->getElement(), new Context($contents));
+				foreach($contents->getAllNodes() as $content ) {
 					$content->addClass($item->getAlign());
-					$inner->appendNode($content);
+					$container->appendNode($content);
 				}
 			} else {
-				$this->toRender($item->getElement(), new Context($inner));
+				$this->toRender($item->getElement(), new Context($container));
 			}
 		}
 		
+		$inner->appendNode($container);
 		$node->appendNode($inner);
 	}
 	
