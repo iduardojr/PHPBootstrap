@@ -60,9 +60,7 @@ class Dispatcher implements Dispatchable {
 		try {
 			$this->exception = null;
 			$request->setQuery(array_merge($request->getQuery(), $this->params));
-			$this->controller->setRequest($request);
-			$this->controller->setResponse($response);
-			$result = call_user_func(array( &$this->controller, $this->action ), $request, $response);
+			$result = call_user_func(array( &$this->controller, $this->action ));
 			if ( $result ) {
 				$response->setBody($result);
 			}

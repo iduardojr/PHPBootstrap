@@ -492,7 +492,7 @@ class HttpResponse extends HttpMessage {
 		foreach ( $this->getHeaders() as $header ) {
 			header($header);
 		}
-		if ( $this->isResponseEmpty() ) {
+		if ( ! $this->isResponseEmpty() ) {
 			echo $this->getBody();
 		}
 	}

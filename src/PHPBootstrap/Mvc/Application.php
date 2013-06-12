@@ -133,11 +133,13 @@ class Application {
 			$response->setStatus(HttpResponse::NotFound);
 			$dispatched = true;
 		} else {
+			$dispatcher->getController()->setRequest($request);
+			$dispatcher->getController()->setResponse($response);
 			$dispatcher->getController()->setApplication($this);
 			$dispatched = false;
 		}	
 		foreach ( $this->plugins as $plugin ) {
-			if ( $plugin->preDispatcher($request, $response, $dispatcher) === false ) {
+			if ( $plugin->preDispatch($request, $response, $dispatcher) === false ) {
 				$dispatched = true;
 			}
 		}
@@ -145,7 +147,7 @@ class Application {
 			$dispatcher->dispatch($request, $response);
 		}
 		foreach ( $this->plugins as $plugin ) {
-			$plugin->preDispatcher($request, $response, $dispatcher);
+			$plugin->postDispatch($request, $response, $dispatcher);
 		}
 		$response->send();
 	}
