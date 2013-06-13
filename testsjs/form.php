@@ -12,6 +12,9 @@ use PHPBootstrap\Widget\Action\Action;
 use PHPBootstrap\Widget\Form\Controls\ControlGroup;
 use PHPBootstrap\Widget\Form\Controls\Label;
 use PHPBootstrap\Widget\Form\Controls\CheckBox;
+use PHPBootstrap\Widget\Form\Controls\DateBox;
+use PHPBootstrap\Validate\Pattern\Date;
+use PHPBootstrap\Format\DateFormat;
 ?>
 <fieldset>
 	<legend>Test Widget JavaScript</legend>
@@ -35,7 +38,7 @@ use PHPBootstrap\Widget\Form\Controls\CheckBox;
 		$lastname->setSpan(3);
 		$lastname->setRequired(new Required(), 'Please enter Last Name');
 		
-		$birthday = new TextBox('birthday');
+		$birthday = new DateBox('birthday', new Date(new DateFormat('dd/mm/yyyy')));
 		$birthday->setPlaceholder('dd/mm/yyyy');
 		$birthday->setSpan(3);
 		$birthday->setRequired(new Required(), 'Please enter Birthday');
