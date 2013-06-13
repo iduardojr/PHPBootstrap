@@ -38,10 +38,11 @@ class Min extends Length {
 	}
 
 	/**
+	 * Obtem o valor minimo
 	 * 
-	 * @see Length::getValue()
+	 * @return mixed
 	 */
-	public function getValue() {
+	public function getParameter() {
 		return $this->min;
 	}
 

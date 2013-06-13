@@ -54,14 +54,6 @@ abstract class Length extends Validate {
 	}
 
 	/**
-	 * Obtem o valor
-	 *
-	 * @return string|number|array
-	 */
-	abstract public function getValue();
-	
-	
-	/**
 	 *
 	 * @see Validate::getDefaultMessage()
 	 */

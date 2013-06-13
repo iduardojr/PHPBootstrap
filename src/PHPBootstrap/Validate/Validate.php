@@ -78,5 +78,13 @@ abstract class Validate {
 	 * @throws \RuntimeException
 	 */
 	abstract public function valid( $value );
+	
+	/**
+	 * Obtem o parametro
+	 *
+	 * @return mixed
+	 * @throws \RuntimeException
+	 */
+	abstract public function getParameter();
 }
 ?>

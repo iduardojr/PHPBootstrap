@@ -107,10 +107,11 @@ class Regex extends Pattern {
 	}
 
 	/**
+	 * Obtem a regex
 	 * 
-	 * @see Pattern::getPattern()
+	 * @see string
 	 */
-	public function getPattern() {
+	public function getParameter() {
 		return $this->pattern;
 	}
 

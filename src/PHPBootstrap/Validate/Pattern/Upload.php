@@ -30,10 +30,11 @@ class Upload extends Pattern {
 	}
 
 	/**
+	 * Obtem uma regex das extensoes
 	 * 
-	 * @see Pattern::getPattern()
+	 * @return string
 	 */
-	public function getPattern() {
+	public function getParameter() {
 		return implode('|', array_unique($this->mimeType));
 	}
 

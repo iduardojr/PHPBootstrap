@@ -38,10 +38,11 @@ class Max extends Length {
 	}
 
 	/**
+	 * Obtem o valor maximo
 	 * 
-	 * @see Length::getValue()
+	 * @return mixed
 	 */
-	public function getValue() {
+	public function getParameter() {
 		return $this->max;
 	}
 

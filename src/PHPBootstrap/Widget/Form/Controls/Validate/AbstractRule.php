@@ -16,13 +16,6 @@ abstract class AbstractRule {
 	protected $rule;
 
 	/**
-	 * Mensagem de erro
-	 *
-	 * @var string
-	 */
-	protected $message;
-
-	/**
 	 * Obtem a identificação da regra de validação
 	 *
 	 * @return string
@@ -54,7 +47,7 @@ abstract class AbstractRule {
 	 * @return string
 	 */
 	public function getMessage() {
-		return $this->message;
+		return $this->rule->getMessage();
 	}
 
 	/**

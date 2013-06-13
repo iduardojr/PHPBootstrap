@@ -16,11 +16,11 @@ abstract class Requirable extends Validate {
 	protected $context;
 	
 	/**
-	 * Contexto
+	 * Obtem o contexto
 	 *
 	 * @return Context
 	 */
-	public function getContext() {
+	public function getParameter() {
 		return $this->context;
 	}
 	

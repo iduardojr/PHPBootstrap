@@ -1,10 +1,10 @@
 <?php
 namespace PHPBootstrap\Widget\Form\Controls;
 
+use PHPBootstrap\Validate\Validator;
 use PHPBootstrap\Validate\Required\Required;
 use PHPBootstrap\Validate\Required\Requirable;
 use PHPBootstrap\Widget\Form\Controls\Validate\Validate;
-use PHPBootstrap\Widget\Form\Controls\Validate\Validator;
 use PHPBootstrap\Widget\Form\Controls\Validate\InputContext;
 use PHPBootstrap\Widget\Form\Inputable;
 use PHPBootstrap\Widget\Form\Form;
@@ -63,13 +63,22 @@ abstract class AbstractInput extends AbstractWidget implements Inputable, InputC
 	 * @param string $name
 	 */
 	public function __construct( $name ) {
-		$this->validator = new Validator();
+		$this->setValidator(new Validator());
 		$this->setName($name);
 		$this->setForm(null);
 		$this->setValue(null);
 		$this->setDisabled(false);
 		$this->setAutoComplete(false);
 		$this->setRequired(null);
+	}
+	
+	/**
+	 * Atribui um validador
+	 * 
+	 * @param Validator $validator
+	 */
+	public function setValidator( Validator $validator ) {
+		$this->validator = $validator;
 	}
 
 	/**
@@ -169,10 +178,9 @@ abstract class AbstractInput extends AbstractWidget implements Inputable, InputC
 	 * Atribui campo requerido
 	 *
 	 * @param Required $nule
-	 * @param string $message
 	 */
-	public function setRequired( Required $rule = null, $message = null ) {
-		$this->validator->setRequired($rule, $message);
+	public function setRequired( Required $rule = null ) {
+		$this->validator->setRequired($rule);
 	}
 
 	/**
@@ -203,7 +211,7 @@ abstract class AbstractInput extends AbstractWidget implements Inputable, InputC
 	 * @return Validate
 	 */
 	public function getValidate() {
-		return $this->validator->getValidate();
+		return new Validate($this->validator->getValidate());
 	}
 
 	/**

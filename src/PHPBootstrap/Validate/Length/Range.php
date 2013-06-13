@@ -53,10 +53,11 @@ class Range extends Length {
 	}
 
 	/**
+	 * Obtem o valor de minimo e maximo
 	 * 
-	 * @see Length::getValue()
+	 * @return array
 	 */
-	public function getValue() {
+	public function getParameter() {
 		return array($this->min, $this->max);
 	}
 	

@@ -9,11 +9,9 @@ use PHPBootstrap\Validate\Validate;
 abstract class Pattern extends Validate {
 	
 	/**
-	 * Obtem o padrão
-	 *
-	 * @return string
+	 * @see Validate::getParameter()
 	 */
-	public function getPattern() {
+	public function getParameter() {
 		return null;
 	}
 }
