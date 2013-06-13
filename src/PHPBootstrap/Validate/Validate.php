@@ -14,6 +14,13 @@ abstract class Validate {
 	const IDENTIFY = null;
 
 	/**
+	 * Mensagem
+	 * 
+	 * @var string
+	 */
+	protected $message;
+	
+	/**
 	 * Obtem a identificação da validação
 	 *
 	 * @return string
@@ -23,6 +30,46 @@ abstract class Validate {
 	}
 
 	/**
+	 * Obtem a mensagem
+	 * 
+	 * @return string
+	 */
+	public function getMessage() {
+		return $this->message ? $this->message : $this->getDefaultMessage();
+	}
+
+	/**
+	 * Atribui a mensagem
+	 * 
+	 * @param string $message
+	 */
+	public function setMessage( $message ) {
+		$this->message = $message;
+	}
+
+	/**
+	 * Afirma se é um valor valido
+	 * 
+	 * @param mixed $value
+	 * @throws \InvalidArgumentException
+	 * @throws \RuntimeException
+	 */
+	public function assert( $value ) {
+		if ( !$this->valid($value) ) {
+			throw new \InvalidArgumentException(sprintf($this->getMessage(), $value));
+		}
+	}
+	
+	/**
+	 * Obtem uma mensagem default
+	 * 
+	 * @return string
+	 */
+	protected function getDefaultMessage() {
+		return 'value "%s" is not valid';
+	}
+	
+	/**
 	 * Valida um valor
 	 *
 	 * @param mixed $value
@@ -31,6 +78,5 @@ abstract class Validate {
 	 * @throws \RuntimeException
 	 */
 	abstract public function valid( $value );
-
 }
 ?>

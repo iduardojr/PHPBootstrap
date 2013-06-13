@@ -17,9 +17,11 @@ class Required extends Requirable {
 	 * Construtor
 	 *
 	 * @param Context $context
+	 * @param string $message
 	 */
-	public function __construct( Context $context = null ) {
+	public function __construct( Context $context = null, $message = null ) {
 		$this->context = $context;
+		$this->setMessage($message);
 	}
 
 	/**
@@ -46,6 +48,14 @@ class Required extends Requirable {
 			return strlen(trim($value)) > 0;
 		}
 		return ! empty($value);
+	}
+	
+	/**
+	 * 
+	 * @see Validate::getDefaultMessage()
+	 */
+	public function getDefaultMessage() {
+		return 'invalid value: can not be empty';
 	}
 
 }

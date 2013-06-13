@@ -51,11 +51,15 @@ class NavLink extends AbstractElement implements NavElement {
 	/**
 	 * Construtor
 	 *
-	 * @param string $label
+	 * @param string|Icon $label
 	 * @param Pluggable $toggle
 	 */
 	public function __construct( $label, Pluggable $toggle = null ) {
-		$this->setLabel($label);
+		if ( $label instanceof Icon ) {
+			$this->setIcon($label);
+		} else {
+			$this->setLabel($label);
+		}
 		$this->setToggle($toggle);
 	}
 	

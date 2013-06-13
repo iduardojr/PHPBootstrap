@@ -17,9 +17,11 @@ class EqualTo extends Requirable {
 	 * Construtor
 	 * 
 	 * @param ContextEqualTo $context
+	 * @param string $message
 	 */
-	public function __construct( ContextEqualTo $context ) {
+	public function __construct( ContextEqualTo $context, $message = null ) {
 		$this->context = $context;
+		$this->setMessage($message);
 	}
 
 	/**
@@ -30,6 +32,14 @@ class EqualTo extends Requirable {
 		$value = trim($value);
 		$context = trim($this->context->getContextValue());
 		return $value == $context;
+	}
+	
+	/**
+	 *
+	 * @see Validate::getDefaultMessage()
+	 */
+	public function getDefaultMessage() {
+		return 'invalid value: value "%s" is not equal to "' . $this->context->getContextValue() . '"';
 	}
 
 }

@@ -57,6 +57,14 @@ class Max extends Length {
 		$value = $this->isNumeric($value) ? $value : $this->counter->count($value);
 		return $value <= $max;
 	}
+	
+	/**
+	 *
+	 * @see Validate::getDefaultMessage()
+	 */
+	protected function getDefaultMessage() {
+		return parent::getDefaultMessage() . 'max ' . $this->max;
+	}
 
 }
 ?>

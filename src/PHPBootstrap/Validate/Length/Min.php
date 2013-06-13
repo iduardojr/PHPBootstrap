@@ -58,5 +58,13 @@ class Min extends Length {
 		return $value >= $min;
 	}
 	
+	/**
+	 *
+	 * @see Validate::getDefaultMessage()
+	 */
+	protected function getDefaultMessage() {
+		return parent::getDefaultMessage() . 'min ' . $this->min;
+	}
+	
 }
 ?>

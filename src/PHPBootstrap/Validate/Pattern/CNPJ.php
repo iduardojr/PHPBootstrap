@@ -35,6 +35,15 @@ class CNPJ extends Pattern {
 		}
 		return false;
 	}
+	
+	/**
+	 * Obtem uma mensagem default
+	 *
+	 * @return string
+	 */
+	protected function getDefaultMessage() {
+		return 'value "%s" is not CNPJ valid';
+	}
 
 }
 ?>

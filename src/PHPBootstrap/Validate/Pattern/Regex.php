@@ -221,6 +221,15 @@ class Regex extends Pattern {
 	public static function lettersOnly() {
 		return new Regex(self::PATTERN_LETTERS_ONLY);
 	}
+	
+	/**
+	 * Obtem uma mensagem default
+	 *
+	 * @return string
+	 */
+	protected function getDefaultMessage() {
+		return 'value "%s" is not regex valid';
+	}
 
 }
 ?>

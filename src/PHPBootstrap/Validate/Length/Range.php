@@ -77,5 +77,12 @@ class Range extends Length {
 		return $value >= $min && $max >= $value;
 	}
 
+	/**
+	 *
+	 * @see Validate::getDefaultMessage()
+	 */
+	protected function getDefaultMessage() {
+		return parent::getDefaultMessage() . 'between ' . $this->min . ' and ' . $this->max;
+	}
 }
 ?>

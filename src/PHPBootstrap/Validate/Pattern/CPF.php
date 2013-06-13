@@ -54,6 +54,15 @@ class CPF extends Pattern {
 		}
 		return false;
 	}
+	
+	/**
+	 * Obtem uma mensagem default
+	 *
+	 * @return string
+	 */
+	protected function getDefaultMessage() {
+		return 'value "%s" is not CPF valid';
+	}
 
 }
 ?>

@@ -252,7 +252,7 @@ class HtmlNode implements Response {
 		if ( $this->single ) {
 			throw new \UnexpectedValueException('Node is a single tag and cannot contain child nodes');
 		}
-		if ( ! ( is_scalar($node) || $node instanceof HtmlNode ) ) {
+		if ( ! ( is_scalar($node) || $node instanceof HtmlNode || $node === null ) ) {
 			throw new \InvalidArgumentException('node not is scalar or instance of PHPBootstrap\\Render\\Html5\\HtmlNode');
 		}
 		array_push($this->nodes, $node);

@@ -59,6 +59,15 @@ class Upload extends Pattern {
 								 'image/gif' => 'gif', 
 								 'image/png' => 'png' ));
 	}
+	
+	/**
+	 * Obtem uma mensagem default
+	 *
+	 * @return string
+	 */
+	protected function getDefaultMessage() {
+		return 'value "%s" is not file valid';
+	}
 
 }
 ?>

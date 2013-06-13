@@ -60,5 +60,15 @@ abstract class Length extends Validate {
 	 */
 	abstract public function getValue();
 	
+	
+	/**
+	 *
+	 * @see Validate::getDefaultMessage()
+	 */
+	protected function getDefaultMessage() {
+		$counter = $this->counter ? $this->counter->getIdentify() . ' ' : '';
+		return $counter . 'range invalid: value "%s" not ';
+	}
+	
 }
 ?>
