@@ -4,9 +4,9 @@ namespace PHPBootstrap\Widget\Form\Controls\Validate;
 use PHPBootstrap\Validate\Required\Requirable;
 
 /**
- * Decorador de regras requeriveis
+ * Decorador requerivel
  */
-class RuleRequirable extends AbstractRule {
+class DecoratorRequired extends Decorator {
 
 	/**
 	 * Construtor
@@ -15,18 +15,14 @@ class RuleRequirable extends AbstractRule {
 	 * @param string $message
 	 * @throws \InvalidArgumentException
 	 */
-	public function __construct( Requirable $rule, $message ) {
-		$context = $rule->getContext();
-		if ( isset($context) && ! $context instanceof InputContext ) {
-			throw new \InvalidArgumentException('context in rule not is instance of PHPBootstrap\Widget\Form\Controls\Validate\InputContext');
-		}
+	public function __construct( Requirable $rule ) {
+		$context = $rule->getParameter();
+		
 		$this->rule = $rule;
-		$this->message = $message;
 	}
 
 	/**
-	 *
-	 * @see Rule::getParameter()
+	 * @see Decorator::getParameter()
 	 */
 	public function getParameter() {
 		$context = $this->rule->getContext();

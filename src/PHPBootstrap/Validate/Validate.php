@@ -2,50 +2,37 @@
 namespace PHPBootstrap\Validate;
 
 /**
- * Validação
+ * Interface de validação
  */
-abstract class Validate {
-
-	/**
-	 * Identificação da validação
-	 * 
-	 * @var string
-	 */
-	const IDENTIFY = null;
-
-	/**
-	 * Mensagem
-	 * 
-	 * @var string
-	 */
-	protected $message;
+interface Validate {
 	
 	/**
 	 * Obtem a identificação da validação
 	 *
 	 * @return string
 	 */
-	public function getIdentify() {
-		return static::IDENTIFY;
-	}
+	public function getIdentify();
+	
+	/**
+	 * Obtem o contexto
+	 *
+	 * @return mixed
+	 */
+	public function getContext();
 
 	/**
 	 * Obtem a mensagem
 	 * 
 	 * @return string
 	 */
-	public function getMessage() {
-		return $this->message ? $this->message : $this->getDefaultMessage();
-	}
+	public function getMessage();
 
 	/**
 	 * Atribui a mensagem
 	 * 
 	 * @param string $message
 	 */
-	public function setMessage( $message ) {
-		$this->message = $message;
-	}
+	public function setMessage( $message );
 
 	/**
 	 * Afirma se é um valor valido
@@ -54,20 +41,7 @@ abstract class Validate {
 	 * @throws \InvalidArgumentException
 	 * @throws \RuntimeException
 	 */
-	public function assert( $value ) {
-		if ( !$this->valid($value) ) {
-			throw new \InvalidArgumentException(sprintf($this->getMessage(), $value));
-		}
-	}
-	
-	/**
-	 * Obtem uma mensagem default
-	 * 
-	 * @return string
-	 */
-	protected function getDefaultMessage() {
-		return 'value "%s" is not valid';
-	}
+	public function assert( $value );
 	
 	/**
 	 * Valida um valor
@@ -77,14 +51,7 @@ abstract class Validate {
 	 * @throws \InvalidArgumentException
 	 * @throws \RuntimeException
 	 */
-	abstract public function valid( $value );
+	public function valid( $value );
 	
-	/**
-	 * Obtem o parametro
-	 *
-	 * @return mixed
-	 * @throws \RuntimeException
-	 */
-	abstract public function getParameter();
 }
 ?>

@@ -1,20 +1,20 @@
 <?php
-namespace PHPBootstrap\Validate\Length\Counter;
+namespace PHPBootstrap\Validate\Measure\Ruler;
 
 /**
- * Contador abstrato
+ * Regua abstrata
  */
-abstract class Counter {
+abstract class Ruler {
 
 	/**
-	 * Identificador do contador
+	 * Identificador
 	 *
 	 * @return string
 	 */
 	const IDENTIFY = null;
 
 	/**
-	 * Obtem a Identificador do contador
+	 * Obtem o identificador
 	 *
 	 * @return string
 	 */
@@ -23,13 +23,13 @@ abstract class Counter {
 	}
 
 	/**
-	 * Conta a quantidade de elementos do valor
+	 * Medi o valor
 	 *
 	 * @param mixed $value
 	 * @return number
 	 * @throws \InvalidArgumentException
 	 */
-	abstract public function count( $value );
+	abstract public function measure( $value );
 
 }
 ?>

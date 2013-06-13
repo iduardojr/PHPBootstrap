@@ -1,10 +1,12 @@
 <?php
 namespace PHPBootstrap\Validate\Pattern;
 
+use PHPBootstrap\Validate\AbstractValidate;
+use PHPBootstrap\Validate\Patternable;
 /**
  * E-mail
  */
-class Email extends Pattern {
+class Email extends AbstractValidate implements Patternable {
 
 	/**
 	 * Identificação do validação

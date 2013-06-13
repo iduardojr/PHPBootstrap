@@ -1,13 +1,13 @@
 <?php
-namespace PHPBootstrap\Validate\Length\Counter;
+namespace PHPBootstrap\Validate\Measure\Ruler;
 
 /**
- * Calcula o tamanho do upload
+ * Regua de upload
  */
-class UploadLen extends Counter {
+class RulerUpload extends Ruler {
 	
 	/**
-	 * Identificação do contador
+	 * Identificação
 	 *
 	 * @var string
 	 */
@@ -16,7 +16,7 @@ class UploadLen extends Counter {
 	/**
 	 * Instancia
 	 *
-	 * @var UploadLen
+	 * @var RulerUpload
 	 */
 	protected static $instance;
 	
@@ -28,9 +28,9 @@ class UploadLen extends Counter {
 	}
 	
 	/**
-	 * Obtem uma instancia do contador
+	 * Obtem uma instancia
 	 *
-	 * @return UploadLen
+	 * @return RulerUpload
 	 */
 	public static function getInstance() {
 		if ( ! isset(static::$instance) ) {
@@ -41,10 +41,10 @@ class UploadLen extends Counter {
 	}
 	
 	/**
-	 *
-	 * @see Counter::count()
+	 * 
+	 * @see Ruler::measure()
 	 */
-	public function count( $value ) {
+	public function measure( $value ) {
 		if ( !isset($value['size']) || ! isset($value['error']) || $value['error'] !== UPLOAD_ERR_OK) {
 			throw new \InvalidArgumentException('value not is a upload valid');
 		}

@@ -1,13 +1,13 @@
 <?php
-namespace PHPBootstrap\Validate\Length\Counter;
+namespace PHPBootstrap\Validate\Measure\Ruler;
 
 /**
- * Calcula a quantidade de Palavras
+ * Regua de Palavras
  */
-class WordsLen extends Counter {
+class RulerWords extends Ruler {
 
 	/**
-	 * Identificação do contador
+	 * Identificação
 	 *
 	 * @var string
 	 */
@@ -16,7 +16,7 @@ class WordsLen extends Counter {
 	/**
 	 * Instancia
 	 *
-	 * @var WordsLen
+	 * @var RulerWords
 	 */
 	protected static $instance;
 	
@@ -28,9 +28,9 @@ class WordsLen extends Counter {
 	}
 	
 	/**
-	 * Obtem uma instancia do contador
+	 * Obtem uma instancia
 	 *
-	 * @return WordsLen
+	 * @return RulerWords
 	 */
 	public static function getInstance() {
 		if ( ! isset(static::$instance) ) {
@@ -41,10 +41,10 @@ class WordsLen extends Counter {
 	}
 	
 	/**
-	 *
-	 * @see Counter::count()
+	 * 
+	 * @see Ruler::measure()
 	 */
-	public function count( $value ) {
+	public function measure( $value ) {
 		if (! is_string($value)) {
 			throw new \InvalidArgumentException('value is not type string');
 		}

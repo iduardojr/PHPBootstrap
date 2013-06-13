@@ -1,14 +1,10 @@
 <?php
 namespace PHPBootstrap\Validate;
 
-use PHPBootstrap\Validate\Required\Requirable;
-use PHPBootstrap\Validate\Pattern\Pattern;
-use PHPBootstrap\Validate\Length\Length;
-
 /**
  * Validador
  */
-class Validator implements Validatable {
+class Validator {
 
 	/**
 	 * Requerido
@@ -20,14 +16,14 @@ class Validator implements Validatable {
 	/**
 	 * Padrão
 	 *
-	 * @var Pattern
+	 * @var Patternable
 	 */
 	protected $pattern;
 
 	/**
 	 * Tamanho
 	 *
-	 * @var Length
+	 * @var Measurable
 	 */
 	protected $length;
 
@@ -66,7 +62,7 @@ class Validator implements Validatable {
 	/**
 	 * Obtem validador padrão
 	 * 
-	 * @return Pattern
+	 * @return Patternable
 	 */
 	public function getPattern() {
 		return $this->pattern;
@@ -75,16 +71,16 @@ class Validator implements Validatable {
 	/**
 	 * Atribui validador padrão
 	 * 
-	 * @param Pattern $rule
+	 * @param Patternable $rule
 	 */
-	public function setPattern( Pattern $rule = null ) {
+	public function setPattern( Patternable $rule = null ) {
 		$this->pattern = $rule;
 	}
 
 	/**
 	 * Obtem validador do tamanho
 	 * 
-	 * @return Length
+	 * @return Measurable
 	 */
 	public function getLength() {
 		return $this->length;
@@ -93,9 +89,9 @@ class Validator implements Validatable {
 	/**
 	 * Atribui validador do tamanho
 	 * 
-	 * @param Length $rule
+	 * @param Measurable $rule
 	 */
-	public function setLength( Length $rule = null ) {
+	public function setLength( Measurable $rule = null ) {
 		$this->length = $rule;
 	}
 

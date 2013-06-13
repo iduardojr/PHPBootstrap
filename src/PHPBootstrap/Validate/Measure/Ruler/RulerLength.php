@@ -1,13 +1,13 @@
 <?php
-namespace PHPBootstrap\Validate\Length\Counter;
+namespace PHPBootstrap\Validate\Measure\Ruler;
 
 /**
- * Calcula o tamanho de uma string, array ou \Countable
+ * Regua de string, array ou \Countable
  */
-class Length extends Counter {
+class RulerLength extends Ruler {
 
 	/**
-	 * Identificação do contador
+	 * Identificação
 	 * 
 	 * @var string
 	 */
@@ -16,7 +16,7 @@ class Length extends Counter {
 	/**
 	 * Instancia
 	 *
-	 * @var Length
+	 * @var RulerLength
 	 */
 	protected static $instance;
 	
@@ -28,9 +28,9 @@ class Length extends Counter {
 	}
 	
 	/**
-	 * Obtem uma instancia do contador
+	 * Obtem uma instancia 
 	 *
-	 * @return Length
+	 * @return RulerLength
 	 */
 	public static function getInstance() {
 		if ( ! isset(static::$instance) ) {
@@ -41,10 +41,10 @@ class Length extends Counter {
 	}
 
 	/**
-	 *
-	 * @see Counter::count()
+	 * 
+	 * @see Ruler::measure()
 	 */
-	public function count( $value ) {
+	public function measure( $value ) {
 		if ( is_string($value) ) {
 			return strlen($value);
 		}

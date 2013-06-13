@@ -1,10 +1,13 @@
 <?php
 namespace PHPBootstrap\Validate\Required;
 
+use PHPBootstrap\Validate\AbstractValidate;
+use PHPBootstrap\Validate\Requirable;
+
 /**
  * Obrigatório
  */
-class Required extends Requirable {
+class Required extends AbstractValidate implements Requirable {
 
 	/**
 	 * Identificação do validação
@@ -12,7 +15,7 @@ class Required extends Requirable {
 	 * @var string
 	 */
 	const IDENTIFY = 'required';
-
+	
 	/**
 	 * Construtor
 	 *
@@ -23,7 +26,7 @@ class Required extends Requirable {
 		$this->context = $context;
 		$this->setMessage($message);
 	}
-
+	
 	/**
 	 *
 	 * @see Validate::valid()
@@ -35,6 +38,14 @@ class Required extends Requirable {
 			}
 		}
 		return $this->notEmpty($value);
+	}
+	
+	/**
+	 *
+	 * @see Validate::getDefaultMessage()
+	 */
+	protected function getDefaultMessage() {
+		return 'invalid value: can not be empty';
 	}
 	
 	/**
@@ -50,13 +61,5 @@ class Required extends Requirable {
 		return ! empty($value);
 	}
 	
-	/**
-	 * 
-	 * @see Validate::getDefaultMessage()
-	 */
-	public function getDefaultMessage() {
-		return 'invalid value: can not be empty';
-	}
-
 }
 ?>

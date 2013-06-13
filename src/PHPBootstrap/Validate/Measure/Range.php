@@ -1,12 +1,12 @@
 <?php
-namespace PHPBootstrap\Validate\Length;
+namespace PHPBootstrap\Validate\Measure;
 
-use PHPBootstrap\Validate\Length\Counter\Counter;
 
+use PHPBootstrap\Validate\Measure\Ruler\Ruler;
 /**
  * Entre Valores
  */
-class Range extends Length {
+class Range extends AbstractMeasure {
 	
 	/**
 	 * Identificação da validação
@@ -16,28 +16,15 @@ class Range extends Length {
 	const IDENTIFY = 'range';
 
 	/**
-	 * Minimo
-	 * 
-	 * @var string|number
-	 */
-	protected $min;
-	
-	/**
-	 * Maximo
-	 *
-	 * @var string|number
-	 */
-	protected $max;
-
-	/**
 	 * Construtor
 	 *
 	 * @param string|number $min
 	 * @param string|number $max
-	 * @param Counter $counter
+	 * @param string $message
+	 * @param Ruler $ruler
 	 * @throws \InvalidArgumentException
 	 */
-	public function __construct( $min, $max, Counter $counter = null ) {
+	public function __construct( $min, $max, $message = null, Ruler $ruler = null ) {
 		if ( ! ( is_string($min) || is_numeric($min) ) ) {
 			throw new \InvalidArgumentException('min is not valid');
 		}
@@ -47,34 +34,25 @@ class Range extends Length {
 		if ( is_numeric($min) && is_numeric($max) && $min >= $max ) {
 			throw new \InvalidArgumentException('min is greater max');
 		}
-		$this->min = $min;
-		$this->max = $max;
-		$this->setCounter($counter);
+		$this->context = array($min, $max);
+		$this->setMessage($message);
+		$this->setRuler($ruler);
 	}
 
-	/**
-	 * Obtem o valor de minimo e maximo
-	 * 
-	 * @return array
-	 */
-	public function getParameter() {
-		return array($this->min, $this->max);
-	}
-	
 	/**
 	 *
 	 * @see Validate::valid()
 	 */
 	public function valid( $value ) {
-		if ( ! $this->counter && ! $this->isNumeric($value) ) {
-			throw new \RuntimeException('no exists counter');
+		if ( ! $this->ruler && ! $this->isNumeric($value) ) {
+			throw new \RuntimeException('no exists ruler for value');
 		}
-		$min = is_numeric($this->min) ? $this->min : $this->counter->count($this->min);
-		$max = is_numeric($this->max) ? $this->max : $this->counter->count($this->max);
+		$min = is_numeric($this->context[0]) ? $this->context[0] : $this->ruler->measure($this->context[0]);
+		$max = is_numeric($this->context[1]) ? $this->context[1] : $this->ruler->measure($this->context[1]);
 		if ( $min >= $max ) {
 			throw new \RuntimeException('min is greater max');
 		}
-		$value = $this->isNumeric($value) ? $value : $this->counter->count($value);
+		$value = $this->isNumeric($value) ? $value : $this->ruler->measure($value);
 		return $value >= $min && $max >= $value;
 	}
 

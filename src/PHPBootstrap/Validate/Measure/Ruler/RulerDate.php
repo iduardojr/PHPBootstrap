@@ -1,12 +1,12 @@
 <?php
-namespace PHPBootstrap\Validate\Length\Counter;
+namespace PHPBootstrap\Validate\Measure\Ruler;
 
 use PHPBootstrap\Format\DateFormatter;
 
 /**
- * Calcula o timestamp de uma data formatada
+ * Regua de data
  */
-class DateLen extends Counter {
+class RulerDate extends Ruler {
 
 	/**
 	 * Identificação do contador
@@ -32,10 +32,10 @@ class DateLen extends Counter {
 	}
 
 	/**
-	 *
-	 * @see Counter::count()
+	 * 
+	 * @see Ruler::measure()
 	 */
-	public function count( $value ) {
+	public function measure( $value ) {
 		$value = $this->format->parse($value);
 		if ( is_string($value) ) {
 			return strtotime($value);

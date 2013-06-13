@@ -1,12 +1,12 @@
 <?php
-namespace PHPBootstrap\Validate\Length\Counter;
+namespace PHPBootstrap\Validate\Measure\Ruler;
 
 use PHPBootstrap\Format\NumberFormat;
 
 /**
- * Calcula o valor de um numero formatado
+ * Regua de numero 
  */
-class NumberLen extends Counter {
+class RulerNumber extends Ruler {
 
 	/**
 	 * Identificador do contador
@@ -32,10 +32,10 @@ class NumberLen extends Counter {
 	}
 
 	/**
-	 *
-	 * @see Counter::count()
+	 * 
+	 * @see Ruler::measure()
 	 */
-	public function count( $value ) {
+	public function measure( $value ) {
 		$value = $this->format->parse($value);
 		if ( is_numeric($value) ) {
 			return $value;

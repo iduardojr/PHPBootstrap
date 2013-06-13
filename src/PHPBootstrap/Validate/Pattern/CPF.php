@@ -1,10 +1,13 @@
 <?php
 namespace PHPBootstrap\Validate\Pattern;
 
+use PHPBootstrap\Validate\AbstractValidate;
+use PHPBootstrap\Validate\Patternable;
+
 /**
  * CPF
  */
-class CPF extends Pattern {
+class CPF extends AbstractValidate implements Patternable {
 
 	/**
 	 * Identificação do validação

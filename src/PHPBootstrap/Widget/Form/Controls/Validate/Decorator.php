@@ -4,9 +4,9 @@ namespace PHPBootstrap\Widget\Form\Controls\Validate;
 use PHPBootstrap\Validate\Validate as Rule;
 
 /**
- * Interface de um decorador de validação
+ * Decorador de validação
  */
-abstract class AbstractRule {
+class Decorator {
 
 	/**
 	 * Regra
@@ -14,6 +14,19 @@ abstract class AbstractRule {
 	 * @var Rule
 	 */
 	protected $rule;
+	
+	/**
+	 * Construtor
+	 * 
+	 * @param Rule $rule
+	 */
+	public function __construct( Rule $rule ) {
+		$parameter = $this->get
+		if ( isset($context) && ! $context instanceof InputContext ) {
+			throw new \InvalidArgumentException('context in rule not is instance of PHPBootstrap\Widget\Form\Controls\Validate\InputContext');
+		}
+		$this->rule = $rule;
+	}
 
 	/**
 	 * Obtem a identificação da regra de validação
@@ -34,12 +47,13 @@ abstract class AbstractRule {
 	}
 
 	/**
-	 * Obtem os paramentos
+	 * Obtem o parametro
 	 *
 	 * @return mixed
-	 * @throws \RuntimeException
 	 */
-	abstract public function getParameter();
+	public function getParameter() {
+		return $this->rule->getContext();
+	}
 
 	/**
 	 * Obtem a mensagem de erro

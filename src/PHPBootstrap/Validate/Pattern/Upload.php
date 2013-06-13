@@ -1,10 +1,13 @@
 <?php
 namespace PHPBootstrap\Validate\Pattern;
 
+use PHPBootstrap\Validate\AbstractValidate;
+use PHPBootstrap\Validate\Patternable;
+
 /**
  * Upload de Arquivo
  */
-class Upload extends Pattern {
+class Upload extends AbstractValidate implements Patternable {
 
 	/**
 	 * Identificação do validação
@@ -34,7 +37,7 @@ class Upload extends Pattern {
 	 * 
 	 * @return string
 	 */
-	public function getParameter() {
+	public function getContext() {
 		return implode('|', array_unique($this->mimeType));
 	}
 

@@ -1,10 +1,13 @@
 <?php
 namespace PHPBootstrap\Validate\Required;
 
+use PHPBootstrap\Validate\AbstractValidate;
+use PHPBootstrap\Validate\Requirable;
+
 /**
  * Identico
  */
-class EqualTo extends Requirable {
+class EqualTo extends AbstractValidate implements Requirable {
 
 	/**
 	 * Identificação do validação
@@ -16,10 +19,10 @@ class EqualTo extends Requirable {
 	/**
 	 * Construtor
 	 * 
-	 * @param ContextEqualTo $context
+	 * @param Context $context
 	 * @param string $message
 	 */
-	public function __construct( ContextEqualTo $context, $message = null ) {
+	public function __construct( Context $context, $message = null ) {
 		$this->context = $context;
 		$this->setMessage($message);
 	}

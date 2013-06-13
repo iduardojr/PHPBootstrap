@@ -1,10 +1,13 @@
 <?php
 namespace PHPBootstrap\Validate\Pattern;
 
+use PHPBootstrap\Validate\AbstractValidate;
+use PHPBootstrap\Validate\Patternable;
+
 /**
  * CNPJ
  */
-class CNPJ extends Pattern {
+class CNPJ extends AbstractValidate implements Patternable {
 
 	/**
 	 * Identificação do validação
