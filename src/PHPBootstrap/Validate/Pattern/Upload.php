@@ -17,19 +17,12 @@ class Upload extends AbstractValidate implements Patternable {
 	const IDENTIFY = 'extension';
 
 	/**
-	 * Mime-type
-	 *
-	 * @var array
-	 */
-	protected $mimeType;
-
-	/**
 	 * Construtor
 	 *
 	 * @param array $mimetype array('mimetype' => 'extensao')
 	 */
 	public function __construct( array $mimetypes ) {
-		$this->mimeType = $mimetypes;
+		$this->context = $mimetypes;
 	}
 
 	/**
@@ -38,7 +31,7 @@ class Upload extends AbstractValidate implements Patternable {
 	 * @return string
 	 */
 	public function getContext() {
-		return implode('|', array_unique($this->mimeType));
+		return implode('|', array_unique($this->context));
 	}
 
 	/**
@@ -49,7 +42,7 @@ class Upload extends AbstractValidate implements Patternable {
 		if ( ! isset($value['type']) || ! isset($value['name']) || ! isset($value['error']) || $value['error'] !== UPLOAD_ERR_OK ) {
 			throw new \InvalidArgumentException('value not is a upload valid');
 		}
-		return isset($this->mimeType[$value['type']]) && preg_match('/\.(' . $this->getPattern() . ')$/', $value['name']) > 0;
+		return isset($this->context[$value['type']]) && preg_match('/\.(' . $this->getContext() . ')$/', $value['name']) > 0;
 	}
 
 	/**
@@ -57,7 +50,7 @@ class Upload extends AbstractValidate implements Patternable {
 	 * 
 	 * @return Upload
 	 */
-	public static function image() {
+	public static function Image() {
 		return new Upload(array( 'image/jpeg' => 'jpe?g', 
 								 'image/pjpeg' => 'jpe?g', 
 								 'image/gif' => 'gif', 

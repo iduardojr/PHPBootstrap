@@ -1,0 +1,9 @@
+<?php
+namespace PHPBootstrap\Validate;
+
+/**
+ * Interface de um validação baseada em mensuração
+ */
+interface Measurable extends Validate {
+}
+?>

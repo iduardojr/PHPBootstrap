@@ -30,13 +30,6 @@ class Pattern extends AbstractValidate implements Patternable {
 	const LettersOnly = '/^[a-zA-Z]+$/';
 
 	/**
-	 * Padrão
-	 *
-	 * @var string
-	 */
-	protected $pattern;
-
-	/**
 	 * Construtor
 	 *
 	 * @param string $pattern
@@ -49,7 +42,7 @@ class Pattern extends AbstractValidate implements Patternable {
 	 * @see AbstractValidate::valid()
 	 */
 	public function valid( $value ) {
-		return preg_match($this->pattern, $value) > 0;
+		return preg_match($this->context, $value) > 0;
 	}
 	
 	/**

@@ -13,7 +13,7 @@ class UploadTest extends ValidateTest {
 	 * @see ValidateTest::provider()
 	 */
 	public function provider() {
-		$w = Upload::image();
+		$w = Upload::Image();
 		$provider[] = array( $w, array( 'type' => 'text/html', 'name' => 'image.jpg', 'error' => 0 ), false );
 		$provider[] = array( $w, array( 'type' => 'image/jpeg', 'name' => 'image.htm', 'error' => 0 ), false );
 		$provider[] = array( $w, array( 'type' => 'image/jpeg', 'name' => 'image.jpg', 'error' => 0 ), true );

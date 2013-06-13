@@ -5,12 +5,11 @@ use PHPBootstrap\Widget\Slide\Slide;
 use PHPBootstrap\Widget\Containable;
 use PHPBootstrap\Widget\Form\Form;
 use PHPBootstrap\Widget\Collapse\Collapsible;
-use PHPBootstrap\Validate\Required\ContextEqualTo;
 use PHPBootstrap\Widget\Form\Controls\Validate\InputContext;
 use PHPBootstrap\Widget\Form\Controls\Decorator\InputPicker;
 use PHPBootstrap\Widget\Form\Controls\Decorator\InputQuery;
 
-class MockEntry implements InputQuery, InputPicker, InputContext, ContextEqualTo {
+class MockEntry implements InputQuery, InputPicker, InputContext {
 	public $value;
 	public $name;
 	public function __construct($value = 'Iduardo Junior', $name = 'entry'){

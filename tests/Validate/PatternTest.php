@@ -1,18 +1,18 @@
 <?php
-use PHPBootstrap\Validate\Pattern\Regex;
+use PHPBootstrap\Validate\Pattern\Pattern;
 
 require_once 'tests\ValidateTest.php';
 
 /**
- * Regex test case.
+ * Pattern test case.
  */
-class RegexTest extends ValidateTest {
+class PatternTest extends ValidateTest {
 	/**
 	 *
 	 * @see ValidateTest::provider()
 	 */
 	public function provider() {
-		$w = new Regex(Regex::PATTERN_PHONE_BR);
+		$w = new Pattern(Pattern::PhoneBR);
 		$provider[] = array( $w, '(62) 8888-333', false );
 		$provider[] = array( $w, '62 8888-3333', false );
 		$provider[] = array( $w, '(62) 8888-3333', true );

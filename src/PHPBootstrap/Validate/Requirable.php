@@ -1,0 +1,9 @@
+<?php
+namespace PHPBootstrap\Validate;
+
+/**
+ * Interface de uma validação baseada em obrigatoriedade
+ */
+interface Requirable extends Validate {
+}
+?>
