@@ -49,7 +49,7 @@ class RendererInputRichTextTest extends RendererTest {
 		$provider[] = array($w, '<textarea id="text" name="text" autocomplete="off" data-control="RichText" data-richtext-type="standard">RichText</textarea>');
 		
 		$w = new RichText('text');
-		$w->setRequired(new Required(), 'Requerido');
+		$w->setRequired(new Required(null, 'Requerido'));
 		$provider[] = array($w, '<textarea id="text" name="text" autocomplete="off" data-validate="{&quot;required&quot;:true,&quot;messages&quot;:{&quot;required&quot;:&quot;Requerido&quot;}}" data-control="RichText" data-richtext-type="standard"></textarea>');
 		
 		return $provider;

@@ -72,7 +72,7 @@ class TgTimePicker extends AbstractTimePicker implements Pluggable {
 	 * @throws \InvalidArgumentException
 	 */
 	public function setDefaultValue( $defaultValue ) {
-		if ( preg_match($this->format->regex(), $defaultValue) <= 0 ) {
+		if ( preg_match('/^' . $this->format->regex() . '$/', $defaultValue) <= 0 ) {
 			$defaultValue = $this->format->format($defaultValue);
 		}
 		$this->defaultValue = $defaultValue;

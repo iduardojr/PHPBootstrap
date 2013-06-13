@@ -17,6 +17,15 @@ class CNPJ extends AbstractValidate implements Patternable {
 	const IDENTIFY = 'cnpj';
 	
 	/**
+	 * Construtor
+	 * 
+	 * @param string $message
+	 */
+	public function __construct( $message = null ) {
+		$this->setMessage($message);
+	}
+	
+	/**
 	 *
 	 * @see Validate::valid()
 	 */

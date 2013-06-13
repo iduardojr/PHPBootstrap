@@ -127,7 +127,7 @@ class RenderKit {
 		$this->renderers['phpbootstrap.widget.form.control.decorator.addon'] = 'PHPBootstrap\Render\Html5\Form\Controls\RendererDecoratorAddOn';
 		$this->renderers['phpbootstrap.widget.form.control.decorator.mask'] = 'PHPBootstrap\Render\Html5\Form\Controls\RendererDecoratorMask';
 		$this->renderers['phpbootstrap.widget.form.control.decorator.maskmoney'] = 'PHPBootstrap\Render\Html5\Form\Controls\RendererDecoratorMaskMoney';
-		$this->renderers['phpbootstrap.widget.form.control.validate'] = 'PHPBootstrap\Render\Html5\Form\Controls\RendererValidate';
+		$this->renderers['phpbootstrap.widget.form.control.decorator.validate'] = 'PHPBootstrap\Render\Html5\Form\Controls\RendererDecoratorValidate';
 		$this->renderers['phpbootstrap.widget.fileupload.toggle'] = 'PHPBootstrap\Render\Html5\FileUpload\RendererTgFileUpload';
 		$this->renderers['phpbootstrap.widget.datepicker'] = 'PHPBootstrap\Render\Html5\Datepicker\RendererDatePicker';
 		$this->renderers['phpbootstrap.widget.datepicker.toggle'] = 'PHPBootstrap\Render\Html5\Datepicker\RendererTgDatePicker';

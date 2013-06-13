@@ -3,10 +3,10 @@ namespace PHPBootstrap\Widget\Form\Controls;
 
 use PHPBootstrap\Common\Enum;
 use PHPBootstrap\Validate\Pattern\Upload;
-use PHPBootstrap\Validate\Length\Length;
-use PHPBootstrap\Validate\Length\Counter\UploadLen;
 use PHPBootstrap\Widget\Form\Form;
 use PHPBootstrap\Widget\Button\Button;
+use PHPBootstrap\Validate\Measurable;
+use PHPBootstrap\Validate\Measure\Ruler\RulerUpload;
 
 /**
  * Campo de upload de arquivo especial
@@ -79,14 +79,13 @@ class XFileBox extends AbstractInputBox {
 	/**
 	 * Atribui validador da quantidade
 	 *
-	 * @param Length $rule
-	 * @param string $message
+	 * @param Measurable $rule
 	 */
-	public function setLength( Length $rule = null, $message = null ) {
+	public function setLength( Measurable $rule = null ) {
 		if ( $rule !== null ) {
-			$rule->setCounter(UploadLen::getInstance());
+			$rule->setCounter(RulerUpload::getInstance());
 		}
-		$this->validator->setLength($rule, $message);
+		$this->validator->setLength($rule);
 	}
 
 	/**

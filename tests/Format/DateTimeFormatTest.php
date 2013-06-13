@@ -128,7 +128,7 @@ class DateTimeFormatTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testRegex( $pattern, $value, $expected ) {
 		$this->object->__construct($pattern);
-		$this->assertEquals($expected, preg_match($this->object->regex(), $value) > 0);
+		$this->assertEquals($expected, preg_match('/^' . $this->object->regex() . '$/', $value) > 0);
 	}
 	
 	public function regex() {

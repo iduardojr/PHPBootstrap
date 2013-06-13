@@ -3,6 +3,7 @@ namespace PHPBootstrap\Validate\Pattern;
 
 use PHPBootstrap\Validate\Patternable;
 use PHPBootstrap\Validate\AbstractValidate;
+
 /**
  * URL
  */
@@ -14,6 +15,15 @@ class Url extends AbstractValidate implements Patternable {
 	 * @var string
 	 */
 	const IDENTIFY = 'url';
+	
+	/**
+	 * Construtor
+	 *
+	 * @param string $message
+	 */
+	public function __construct( $message = null ) {
+		$this->setMessage($message);
+	}
 	
 	/**
 	 *

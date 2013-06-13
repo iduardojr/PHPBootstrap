@@ -47,7 +47,7 @@ class RendererInputHiddenTest extends RendererTest {
 		$provider[] = array($w, '<input type="hidden" id="upload" name="upload" value="IDUARDO" autocomplete="off" data-control="Hidden">');
 		
 		$w = new Hidden('upload');
-		$w->setRequired(new Required(), 'Requerido');
+		$w->setRequired(new Required(null, 'Requerido'));
 		$provider[] = array($w, '<input type="hidden" id="upload" name="upload" autocomplete="off" data-validate="{&quot;required&quot;:true,&quot;messages&quot;:{&quot;required&quot;:&quot;Requerido&quot;}}" data-control="Hidden">');
 		
 		$w = new Hidden('upload');

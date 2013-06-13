@@ -59,7 +59,7 @@ class RendererInputCheckBoxListTest extends RendererTest {
 		
 		$w = new CheckBoxList('gender', true);
 		$w->addOption('M', 'Masculino');
-		$w->setRequired(new Required(), 'Requerido');
+		$w->setRequired(new Required(null, 'Requerido'));
 		$provider[] = array($w, '<div id="gender" data-control="CheckBoxList"><label class="checkbox inline"><input type="checkbox" name="gender[]" value="M" autocomplete="off" data-validate="{&quot;required&quot;:true,&quot;messages&quot;:{&quot;required&quot;:&quot;Requerido&quot;}}">Masculino</label></div>');
 		
 		return $provider;

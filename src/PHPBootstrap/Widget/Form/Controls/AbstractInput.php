@@ -3,9 +3,9 @@ namespace PHPBootstrap\Widget\Form\Controls;
 
 use PHPBootstrap\Validate\Validator;
 use PHPBootstrap\Validate\Required\Required;
-use PHPBootstrap\Validate\Required\Requirable;
-use PHPBootstrap\Widget\Form\Controls\Validate\Validate;
-use PHPBootstrap\Widget\Form\Controls\Validate\InputContext;
+use PHPBootstrap\Validate\Requirable;
+use PHPBootstrap\Widget\Form\Controls\Decorator\Validate;
+use PHPBootstrap\Widget\Form\Controls\Decorator\InputContext;
 use PHPBootstrap\Widget\Form\Inputable;
 use PHPBootstrap\Widget\Form\Form;
 use PHPBootstrap\Widget\AbstractWidget;
@@ -178,8 +178,15 @@ abstract class AbstractInput extends AbstractWidget implements Inputable, InputC
 	 * Atribui campo requerido
 	 *
 	 * @param Required $nule
+	 * @throws \InvalidArgumentException
 	 */
 	public function setRequired( Required $rule = null ) {
+		if ( $rule instanceof Requirable ) {
+			$context = $rule->getContext();
+			if ( isset($context) && ! $context instanceof InputContext ) {
+				throw new \InvalidArgumentException('context in rule not is instance of PHPBootstrap\Widget\Form\Controls\Decorator\InputContext');
+			}
+		}
 		$this->validator->setRequired($rule);
 	}
 

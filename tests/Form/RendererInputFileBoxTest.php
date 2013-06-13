@@ -36,7 +36,7 @@ class RendererInputFileBoxTest extends RendererTest {
 		$provider[] = array($w, '<input type="file" id="upload" name="upload" autocomplete="off" data-control="FileBox">');
 		
 		$w = new FileBox('upload');
-		$w->setRequired(new Required(), 'Requerido');
+		$w->setRequired(new Required(null, 'Requerido'));
 		$provider[] = array($w, '<input type="file" id="upload" name="upload" autocomplete="off" data-validate="{&quot;required&quot;:true,&quot;messages&quot;:{&quot;required&quot;:&quot;Requerido&quot;}}" data-control="FileBox">');
 		
 		return $provider;

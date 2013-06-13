@@ -2,13 +2,13 @@
 namespace PHPBootstrap\Widget\Form\Controls;
 
 use PHPBootstrap\Format\Formatter;
-use PHPBootstrap\Validate\Required\Requirable;
-use PHPBootstrap\Validate\Length\Length;
-use PHPBootstrap\Validate\Pattern\Pattern;
 use PHPBootstrap\Common\ArrayCollection;
 use PHPBootstrap\Widget\Form\TextEditable;
 use PHPBootstrap\Widget\Form\Controls\Decorator\InputQuery;
 use PHPBootstrap\Widget\Form\Controls\Decorator\InputPicker;
+use PHPBootstrap\Validate\Measurable;
+use PHPBootstrap\Validate\Patternable;
+use PHPBootstrap\Validate\Requirable;
 
 /**
  * Campo oculto
@@ -43,15 +43,6 @@ class Hidden extends AbstractInput implements TextEditable, InputQuery, InputPic
 		$this->addFilter('trim');
 	}
 	
-	/**
-	 * Atribui campo requerido
-	 *
-	 * @param Requirable $nule
-	 * @param string $message
-	 */
-	public function setRequired( Requirable $rule = null, $message = null ) {
-		$this->validator->setRequired($rule, $message);
-	}
 
 	/**
 	 * Adiciona um filtro de entrada de texto
@@ -141,10 +132,19 @@ class Hidden extends AbstractInput implements TextEditable, InputQuery, InputPic
 		return $this->value;
 	}
 
+/**
+	 * Atribui campo requerido
+	 *
+	 * @param Requirable $nule
+	 */
+	public function setRequired( Requirable $rule = null ) {
+		$this->validator->setRequired($rule);
+	}
+
 	/**
 	 * Obtem validador do padrão
 	 *
-	 * @return Pattern
+	 * @return Patternable
 	 */
 	public function getPattern() {
 		return $this->validator->getPattern();
@@ -153,17 +153,16 @@ class Hidden extends AbstractInput implements TextEditable, InputQuery, InputPic
 	/**
 	 * Atribui validador do padrao
 	 *
-	 * @param Pattern $rule
-	 * @param string $message
+	 * @param Patternable $rule
 	 */
-	public function setPattern( Pattern $rule = null, $message = null ) {
-		$this->validator->setPattern($rule, $message);
+	public function setPattern( Patternable $rule = null ) {
+		$this->validator->setPattern($rule );
 	}
 
 	/**
 	 * Obtem o validador da quantidade
 	 *
-	 * @return Length
+	 * @return Measurable
 	 */
 	public function getLength() {
 		return $this->validator->getLength();
@@ -172,11 +171,10 @@ class Hidden extends AbstractInput implements TextEditable, InputQuery, InputPic
 	/**
 	 * Atribui validador da quantidade
 	 *
-	 * @param Length $rule
-	 * @param string $message
+	 * @param Measurable $rule
 	 */
-	public function setLength( Length $rule = null, $message = null ) {
-		$this->validator->setLength($rule, $message);
+	public function setLength( Measurable $rule = null ) {
+		$this->validator->setLength($rule);
 	}
 
 	/**

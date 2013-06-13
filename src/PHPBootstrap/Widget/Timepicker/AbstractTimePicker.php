@@ -183,7 +183,7 @@ abstract class AbstractTimePicker extends AbstractRender {
 	 * @throws \InvalidArgumentException
 	 */
 	public function setStartTime( $startTime ) {
-		if ( preg_match($this->format->regex(), $startTime) <= 0 ) {
+		if ( preg_match('/^' . $this->format->regex() . '$/', $startTime) <= 0 ) {
 			$startTime = $this->format->format($startTime);
 		}
 		$this->startTime = $startTime;
@@ -205,7 +205,7 @@ abstract class AbstractTimePicker extends AbstractRender {
 	 * @throws \InvalidArgumentException
 	 */
 	public function setEndTime( $endTime ) {
-		if ( preg_match($this->format->regex(), $endTime) <= 0 ) {
+		if ( preg_match( '/^' . $this->format->regex() . '$/', $endTime) <= 0 ) {
 			$endTime = $this->format->format($endTime);
 		}
 		$this->endTime = $endTime;

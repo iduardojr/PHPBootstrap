@@ -20,9 +20,11 @@ class Upload extends AbstractValidate implements Patternable {
 	 * Construtor
 	 *
 	 * @param array $mimetype array('mimetype' => 'extensao')
+	 * @param string $message
 	 */
-	public function __construct( array $mimetypes ) {
+	public function __construct( array $mimetypes, $message = null ) {
 		$this->context = $mimetypes;
+		$this->setMessage($message);
 	}
 
 	/**
@@ -39,7 +41,7 @@ class Upload extends AbstractValidate implements Patternable {
 	 * @see Validate::valid()
 	 */
 	public function valid( $value ) {
-		if ( ! isset($value['type']) || ! isset($value['name']) || ! isset($value['error']) || $value['error'] !== UPLOAD_ERR_OK ) {
+		if ( ! isset($value['type']) || ! isset($value['name']) ) {
 			throw new \InvalidArgumentException('value not is a upload valid');
 		}
 		return isset($this->context[$value['type']]) && preg_match('/\.(' . $this->getContext() . ')$/', $value['name']) > 0;

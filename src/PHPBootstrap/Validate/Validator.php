@@ -98,18 +98,44 @@ class Validator {
 	/**
 	 * Valida um valor
 	 * 
+	 * @param mixed $value
 	 * @return boolean
 	 */
 	public function valid( $value ) {
 		$this->messages = array();
 		$valid = true;
-		foreach ( $this->getValidate() as $rule ) {
-			if ( ! $rule->valid($value) ) {
+		if ( ! empty($value) ) {
+			$rules = $this->getValidate();
+		} elseif ( $this->required ) {
+			$rules = array($this->required);	
+		}
+		foreach ( $rules as $rule ) {
+			try {
+				$rule->assert($value);
+			} catch ( \Exception $e ) {
 				$this->messages[$rule->getIdentify()] = $rule->getMessage();
 				$valid = false;
 			}
 		}
 		return $valid;
+	}
+	
+	/**
+	 * Afirma se um valor é valido
+	 * 
+	 * @param mixed $value
+	 * @throws \InvalidArgumentException
+	 * @throws \RuntimeException
+	 */
+	public function assert($value) {
+		if ( ! empty($value) ) {
+			$rules = $this->getValidate();
+		} elseif ( $this->required ) {
+			$rules = array($this->required);
+		}
+		foreach ( $rules as $rule ) {
+			$rule->assert($value);
+		}
 	}
 
 	/**

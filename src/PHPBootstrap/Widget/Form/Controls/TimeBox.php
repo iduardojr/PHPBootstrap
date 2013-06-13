@@ -1,15 +1,14 @@
 <?php
 namespace PHPBootstrap\Widget\Form\Controls;
 
-use PHPBootstrap\Format\TimeFormat;
-use PHPBootstrap\Validate\Length\Length;
-use PHPBootstrap\Validate\Length\Range;
-use PHPBootstrap\Validate\Length\Max;
-use PHPBootstrap\Validate\Length\Min;
-use PHPBootstrap\Validate\Length\Counter\DateLen;
-use PHPBootstrap\Validate\Pattern\Regex;
 use PHPBootstrap\Widget\Timepicker\TgTimePicker;
 use PHPBootstrap\Widget\Misc\Icon;
+use PHPBootstrap\Validate\Pattern\Time;
+use PHPBootstrap\Validate\Measurable;
+use PHPBootstrap\Validate\Measure\Min;
+use PHPBootstrap\Validate\Measure\Max;
+use PHPBootstrap\Validate\Measure\Range;
+use PHPBootstrap\Validate\Measure\Ruler\RulerDate;
 
 /**
  * Campo de hora
@@ -23,12 +22,12 @@ class TimeBox extends AbstractTextBoxComponent {
 	 * @param Time $pattern
 	 * @param string $message
 	 */
-	public function __construct( $name, TimeFormat $pattern, $message ) {
-		$this->toggle = new TgTimePicker($pattern);
+	public function __construct( $name, Time $pattern ) {
+		$this->toggle = new TgTimePicker($pattern->getFormat());
 		$this->icon = new Icon('icon-time');
 		parent::__construct($name);
 		$this->toggle->setTarget($this->input);
-		$this->setPattern($pattern, $message);
+		$this->setPattern($pattern);
 	}
 
 	/**
@@ -43,7 +42,7 @@ class TimeBox extends AbstractTextBoxComponent {
 	/**
 	 * Obtem o padrão
 	 *
-	 * @return Pattern
+	 * @return Time
 	 */
 	public function getPattern() {
 		return $this->input->getPattern();
@@ -52,13 +51,12 @@ class TimeBox extends AbstractTextBoxComponent {
 	/**
 	 * Atribui o padrão
 	 *
-	 * @param TimeFormat $format
-	 * @param string $message
+	 * @param Time $rule
 	 */
-	public function setPattern( TimeFormat $format, $message ) {
-		$this->toggle->setFormat($format);
-		$this->input->setPattern(new Regex($format->regex()), $message);
-		$this->input->setMask(str_replace(array( 'h', 'H', 'm', 's' ), '9', $format->pattern()));
+	public function setPattern( Time $rule ) {
+		$this->input->setPattern($rule);
+		$this->toggle->setFormat($rule->getFormat());
+		$this->input->setMask(str_replace(array( 'h', 'H', 'm', 's' ), '9', $rule->getFormat()->pattern()));
 	}
 
 	/**
@@ -73,12 +71,11 @@ class TimeBox extends AbstractTextBoxComponent {
 	/**
 	 * Atribui validador da quantidade
 	 *
-	 * @param Length $rule
-	 * @param string $message
+	 * @param Measurable $rule
 	 */
-	public function setLength( Length $rule = null, $message = null ) {
+	public function setLength( Measurable $rule = null ) {
 		if ( $rule !== null ) {
-			$rule->setCounter(new DateLen($this->toggle->getFormat()));
+			$rule->setRuler(new RulerDate($this->toggle->getFormat()));
 			$value = $rule->getValue();
 			if ( $rule instanceof Min ) {
 				$this->toggle->setStartTime($value);
@@ -90,7 +87,7 @@ class TimeBox extends AbstractTextBoxComponent {
 		} else {
 			$this->toggle->setBetweenTime(null, null);
 		}
-		$this->input->setLength($rule, $message);
+		$this->input->setLength($rule);
 	}
 
 	/**

@@ -45,7 +45,7 @@ class RendererInputCheckBoxTest extends RendererTest {
 		$provider[] = array($w, '<label class="checkbox span3"><input type="checkbox" id="status" name="status" value="1" autocomplete="off" data-control="CheckBox">Status</label>');
 		
 		$w = new CheckBox('status', 'Status');
-		$w->setRequired(new Required(), 'Requerido');
+		$w->setRequired(new Required(null, 'Requerido'));
 		$provider[] = array($w, '<label class="checkbox"><input type="checkbox" id="status" name="status" value="1" autocomplete="off" data-validate="{&quot;required&quot;:true,&quot;messages&quot;:{&quot;required&quot;:&quot;Requerido&quot;}}" data-control="CheckBox">Status</label>');
 		
 	return $provider;

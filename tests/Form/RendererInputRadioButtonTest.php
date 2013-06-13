@@ -41,7 +41,7 @@ class RendererInputRadioButtonTest extends RendererTest {
 		$provider[] = array($w, '<label class="radio inline"><input type="radio" id="status" name="status" value="1" autocomplete="off" data-control="RadioButton">Status</label>');
 		
 		$w = new RadioButton('status', 'Status');
-		$w->setRequired(new Required(), 'Requerido');
+		$w->setRequired(new Required(null, 'Requerido'));
 		$provider[] = array($w, '<label class="radio"><input type="radio" id="status" name="status" value="1" autocomplete="off" data-validate="{&quot;required&quot;:true,&quot;messages&quot;:{&quot;required&quot;:&quot;Requerido&quot;}}" data-control="RadioButton">Status</label>');
 		
 		$w = new RadioButton('status', 'Status');

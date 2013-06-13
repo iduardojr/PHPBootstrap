@@ -63,7 +63,7 @@ class RendererInputRadioButtonListTest extends RendererTest {
 		
 		$w = new RadioButtonList('gender', true);
 		$w->addOption('M', 'Masculino');
-		$w->setRequired(new Required(), 'Requerido');
+		$w->setRequired(new Required(null, 'Requerido'));
 		$provider[] = array($w, '<div id="gender" data-control="RadioButtonList"><label class="radio inline"><input type="radio" name="gender" value="M" autocomplete="off" data-validate="{&quot;required&quot;:true,&quot;messages&quot;:{&quot;required&quot;:&quot;Requerido&quot;}}">Masculino</label></div>');
 		
 		return $provider;

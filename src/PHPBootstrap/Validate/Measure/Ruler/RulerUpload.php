@@ -45,10 +45,13 @@ class RulerUpload extends Ruler {
 	 * @see Ruler::measure()
 	 */
 	public function measure( $value ) {
-		if ( !isset($value['size']) || ! isset($value['error']) || $value['error'] !== UPLOAD_ERR_OK) {
-			throw new \InvalidArgumentException('value not is a upload valid');
+		if ( is_array($value) ) {
+			if ( !isset($value['size']) || ! isset($value['error']) || $value['error'] !== UPLOAD_ERR_OK) {
+				throw new \InvalidArgumentException('value not is a upload valid');
+			}
+			return $value['size'];
 		}
-		return $value['size'];
+		return 0;
 	}
 
 }

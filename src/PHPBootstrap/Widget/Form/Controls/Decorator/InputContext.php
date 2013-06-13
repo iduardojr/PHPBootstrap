@@ -1,5 +1,5 @@
 <?php
-namespace PHPBootstrap\Widget\Form\Controls\Validate;
+namespace PHPBootstrap\Widget\Form\Controls\Decorator;
 
 use PHPBootstrap\Validate\Required\Context;
 

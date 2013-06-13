@@ -3,8 +3,8 @@ namespace PHPBootstrap\Widget\Form\Controls;
 
 use PHPBootstrap\Widget\Form\Form;
 use PHPBootstrap\Validate\Pattern\Upload;
-use PHPBootstrap\Validate\Length\Length;
-use PHPBootstrap\Validate\Length\Counter\UploadLen;
+use PHPBootstrap\Validate\Measurable;
+use PHPBootstrap\Validate\Measure\Ruler\RulerUpload;
 
 /**
  * Campo de upload de arquivo
@@ -39,14 +39,14 @@ class FileBox extends AbstractInput {
 	 *
 	 * @param Upload $rule
 	 */
-	public function setPattern( Upload $rule = null, $message = null ) {
-		$this->validator->setPattern($rule, $message);
+	public function setPattern( Upload $rule = null ) {
+		$this->validator->setPattern($rule);
 	}
 
 	/**
 	 * Obtem o validador da quantidade
 	 *
-	 * @return Length
+	 * @return Measurable
 	 */
 	public function getLength() {
 		return $this->validator->getLength();
@@ -55,14 +55,13 @@ class FileBox extends AbstractInput {
 	/**
 	 * Atribui validador da quantidade
 	 *
-	 * @param Length $rule
-	 * @param string $message
+	 * @param Measurable $rule
 	 */
-	public function setLength( Length $rule = null, $message = null ) {
+	public function setLength( Measurable $rule = null ) {
 		if ( $rule !== null ) {
-			$rule->setCounter(UploadLen::getInstance());
+			$rule->setRuler(RulerUpload::getInstance());
 		}
-		$this->validator->setLength($rule, $message);
+		$this->validator->setLength($rule);
 	}
 	
 	/**

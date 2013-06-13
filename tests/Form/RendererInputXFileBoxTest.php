@@ -41,7 +41,7 @@ class RendererInputXFileBoxTest extends RendererTest {
 		$provider[] = array($w, '<div id="upload" class="input-append" data-control="XFileBox" data-label-add="Procurar" data-label-clear="Remover"><input type="text" class="span4" readonly="readonly" autocomplete="off"><input type="file" name="upload" class="hide" autocomplete="off"><button type="button" class="btn">Procurar</button></div>');
 		
 		$w = new XFileBox('upload');
-		$w->setRequired(new Required(), 'Requerido');
+		$w->setRequired(new Required(null, 'Requerido'));
 		$provider[] = array($w, '<div id="upload" class="input-append" data-control="XFileBox" data-label-add="Procurar" data-label-clear="Remover"><input type="text" readonly="readonly" autocomplete="off"><input type="file" name="upload" class="hide" autocomplete="off" data-validate="{&quot;required&quot;:true,&quot;messages&quot;:{&quot;required&quot;:&quot;Requerido&quot;}}"><button type="button" class="btn">Procurar</button></div>');
 		
 		$w = new XFileBox('upload');

@@ -59,7 +59,7 @@ class RendererInputTextBoxTest extends RendererTest {
 		$provider[] = array($w, '<input type="text" id="number" name="number" placeholder="Number" autocomplete="off" data-control="TextBox">' );
 		
 		$w = new TextBox('number');
-		$w->setRequired(new Required(), 'Requerido');
+		$w->setRequired(new Required(null, 'Requerido'));
 		$provider[] = array($w, '<input type="text" id="number" name="number" autocomplete="off" data-validate="{&quot;required&quot;:true,&quot;messages&quot;:{&quot;required&quot;:&quot;Requerido&quot;}}" data-control="TextBox">' );
 		
 		$w = new TextBox('number');

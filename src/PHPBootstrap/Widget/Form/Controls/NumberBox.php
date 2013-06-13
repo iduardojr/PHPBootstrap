@@ -1,25 +1,23 @@
 <?php
 namespace PHPBootstrap\Widget\Form\Controls;
 
-use PHPBootstrap\Format\NumberFormat;
-use PHPBootstrap\Validate\Required\ContextEqualTo;
-use PHPBootstrap\Validate\Required\Requirable;
-use PHPBootstrap\Validate\Pattern\Pattern;
-use PHPBootstrap\Validate\Pattern\Regex;
-use PHPBootstrap\Validate\Length\Length;
-use PHPBootstrap\Validate\Length\Counter\NumberLen;
 use PHPBootstrap\Widget\AbstractComponent;
 use PHPBootstrap\Widget\Form\TextEditable;
 use PHPBootstrap\Widget\Form\Controls\Decorator\MaskMoney;
 use PHPBootstrap\Widget\Form\Controls\Decorator\InputQuery;
 use PHPBootstrap\Widget\Form\Controls\Decorator\InputInline;
-use PHPBootstrap\Widget\Form\Controls\Validate\InputContext;
+use PHPBootstrap\Widget\Form\Controls\Decorator\InputContext;
 use PHPBootstrap\Widget\Form\Form;
+use PHPBootstrap\Widget\Form\Controls\Decorator\Validate;
+use PHPBootstrap\Validate\Requirable;
+use PHPBootstrap\Validate\Measurable;
+use PHPBootstrap\Validate\Measure\Ruler\RulerNumber;
+use PHPBootstrap\Validate\Pattern\Number;
 
 /**
  * Campo de entrada de numero
  */
-class NumberBox extends AbstractComponent implements TextEditable, InputInline, InputQuery, InputContext, ContextEqualTo {
+class NumberBox extends AbstractComponent implements TextEditable, InputInline, InputQuery, InputContext {
 
 	/**
 	 * Campo
@@ -32,12 +30,11 @@ class NumberBox extends AbstractComponent implements TextEditable, InputInline, 
 	 * Construtor
 	 *
 	 * @param string $name
-	 * @param NumberFormat $pattern
-	 * @param string $message
+	 * @param Number $pattern
 	 */
-	public function __construct( $name, NumberFormat $pattern, $message ) {
+	public function __construct( $name, Number $pattern ) {
 		$this->input = new TextBox($name);
-		$this->setPattern($pattern, $message);
+		$this->setPattern($pattern);
 	}
 
 	/**
@@ -229,28 +226,26 @@ class NumberBox extends AbstractComponent implements TextEditable, InputInline, 
 	 * Atribui campo requerido
 	 *
 	 * @param Requirable $nule
-	 * @param string $message
 	 */
-	public function setRequired( Requirable $rule = null, $message = null ) {
-		$this->input->setRequired($rule, $message);
+	public function setRequired( Requirable $rule = null ) {
+		$this->input->setRequired($rule);
 	}
 
 	/**
 	 * Atribui um padrão
 	 *
-	 * @param NumberFormat $pattern
-	 * @param string $message
+	 * @param Number $rule
 	 */
-	public function setPattern( NumberFormat $pattern, $message ) {
-		$this->input->setMask(new MaskMoney($pattern));
-		$this->input->setPattern(new Regex($pattern->regex()), $message);
-		$this->input->setFormatter($pattern);
+	public function setPattern( Number $rule ) {
+		$this->input->setPattern($rule);
+		$this->input->setFormatter($rule->getFormat());
+		$this->input->setMask(new MaskMoney($rule->getFormat()));
 	}
 
 	/**
 	 * Obtem o padrão
 	 *
-	 * @return Pattern
+	 * @return Number
 	 */
 	public function getPattern() {
 		return $this->input->getPattern();
@@ -259,7 +254,7 @@ class NumberBox extends AbstractComponent implements TextEditable, InputInline, 
 	/**
 	 * Obtem o validador da quantidade
 	 *
-	 * @return Length
+	 * @return Measurable
 	 */
 	public function getLength() {
 		return $this->input->getLength();
@@ -268,12 +263,11 @@ class NumberBox extends AbstractComponent implements TextEditable, InputInline, 
 	/**
 	 * Atribui validador da quantidade
 	 *
-	 * @param Length $rule
-	 * @param string $message
+	 * @param Measurable $rule
 	 */
-	public function setLength( Length $rule = null, $message = null ) {
-		$rule->setCounter(new NumberLen($this->input->getFormatter()));
-		$this->input->setLength($rule, $message);
+	public function setLength( Measurable $rule = null ) {
+		$rule->setCounter(new RulerNumber($this->input->getFormatter()));
+		$this->input->setLength($rule);
 	}
 
 	/**

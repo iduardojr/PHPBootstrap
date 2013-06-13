@@ -14,6 +14,9 @@ use PHPBootstrap\Widget\Button\Button;
 use PHPBootstrap\Format\DateFormat;
 use PHPBootstrap\Format\TimeFormat;
 use PHPBootstrap\Format\ColorFormat;
+use PHPBootstrap\Validate\Pattern\Date;
+use PHPBootstrap\Validate\Pattern\Time;
+use PHPBootstrap\Validate\Pattern\Color;
 ?>
 <fieldset>
 	<legend>Test Widget JavaScript</legend>
@@ -43,7 +46,7 @@ use PHPBootstrap\Format\ColorFormat;
 	<div class="block">
 		<em>Date Box</em>
 		<?php
-		$ui = new DateBox('datebox', new DateFormat('dd/mm/yyyy'), 'data invalida');
+		$ui = new DateBox('datebox', new Date(new DateFormat('dd/mm/yyyy'), 'data invalida'));
 		$ui->setValue('06/10/1985');
 		$ui->render();
 		?>
@@ -66,7 +69,7 @@ use PHPBootstrap\Format\ColorFormat;
 	<div class="block">
 		<em>Time Box</em>
 		<?php
-		$ui = new TimeBox('timebox', new TimeFormat('hh:mm'), 'hora invalida');
+		$ui = new TimeBox('timebox', new Time(new TimeFormat('hh:mm'), 'hora invalida'));
 		$ui->setValue('11:00');
 		$ui->render();
 		?>
@@ -89,7 +92,7 @@ use PHPBootstrap\Format\ColorFormat;
 	<div class="block">
 		<em>Color Box</em>
 		<?php
-		$ui = new ColorBox('colorbox', ColorFormat::HEX, 'Formato invalido');
+		$ui = new ColorBox('colorbox', new Color(ColorFormat::HEX, 'Formato invalido'));
 		$ui->setValue('#ececec');
 		$ui->render();
 		?>

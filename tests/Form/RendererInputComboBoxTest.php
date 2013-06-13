@@ -48,7 +48,7 @@ class RendererInputComboBoxTest extends RendererTest {
 		$provider[] = array($w, '<select id="combo" name="combo" class="span3" autocomplete="off" data-control="ComboBox"></select>');
 		
 		$w = new ComboBox('combo');
-		$w->setRequired(new Required(), 'Requerido');
+		$w->setRequired(new Required(null, 'Requerido'));
 		$provider[] = array($w, '<select id="combo" name="combo" autocomplete="off" data-validate="{&quot;required&quot;:true,&quot;messages&quot;:{&quot;required&quot;:&quot;Requerido&quot;}}" data-control="ComboBox"></select>');
 		
 		return $provider;

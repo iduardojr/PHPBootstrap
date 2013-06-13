@@ -17,32 +17,34 @@ class Pattern extends AbstractValidate implements Patternable {
 	const IDENTIFY = 'pattern';
 
 	// PATTERN
-	const Digits= '/^[0-9]+$/';
-	const Integer = '/^-?([0-9]+(\.0+)?|[0-9]{1,3}(\,[0-9]{3})+)$/';
-	const Number = '/^-?([0-9]+|([1-9][0-9]{0,2}(\,[0-9]{3})+))(\.[0-9]+)?$/';
-	const PhoneBR = '/^\([1-9][0-9]\)\s[1-9][0-9]{3}-[0-9]{4}$/';
-	const ZipCodeBR = '/^[0-9]{2}\.?[0-9]{3}-[0-9]{3}$/';
-	const DateBR = '/^[0-3]?[0-9]\/[0-1]?[0-9]\/[0-9]{4}$/';
-	const Time12H = '/^((0?[1-9]|1[012])(:[0-5]\d){0,2}(\s[AP]M))$/i';
-	const Time24H = '/^([0-1]\d|2[0-3]):([0-5]\d)$/';
-	const Alpha = '/^[[:alpha:]\s_]*$/';
-	const Alnum = '/^[[:alnum:]\s_]*$/';
-	const LettersOnly = '/^[a-zA-Z]+$/';
+	const Digits= '[0-9]+';
+	const Integer = '-?([0-9]+(\.0+)?|[0-9]{1,3}(\,[0-9]{3})+)';
+	const Number = '-?([0-9]+|([1-9][0-9]{0,2}(\,[0-9]{3})+))(\.[0-9]+)?';
+	const PhoneBR = '\([1-9][0-9]\)\s[1-9][0-9]{3}-[0-9]{4}';
+	const ZipCodeBR = '[0-9]{2}\.?[0-9]{3}-[0-9]{3}';
+	const DateBR = '[0-3]?[0-9]\/[0-1]?[0-9]\/[0-9]{4}';
+	const Time12H = '((0?[1-9]|1[012])(:[0-5]\d){0,2}(\s[APap][Mm]))';
+	const Time24H = '([0-1]\d|2[0-3]):([0-5]\d)';
+	const Alpha = '[[:alpha:]\s_]*';
+	const Alnum = '[[:alnum:]\s_]*';
+	const LettersOnly = '[a-zA-Z]+';
 
 	/**
 	 * Construtor
 	 *
 	 * @param string $pattern
+	 * @param string $message
 	 */
-	public function __construct( $pattern ) {
+	public function __construct( $pattern, $message = null ) {
 		$this->context = $pattern;
+		$this->setMessage($message);
 	}
 
 	/**
 	 * @see AbstractValidate::valid()
 	 */
 	public function valid( $value ) {
-		return preg_match($this->context, $value) > 0;
+		return preg_match('/^' . $this->context . '$/', $value) > 0;
 	}
 	
 	/**

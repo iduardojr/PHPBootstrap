@@ -2,6 +2,7 @@
 namespace PHPBootstrap\Mvc\View;
 
 use PHPBootstrap\Mvc\Http\HttpResponse;
+use PHPBootstrap\Common\Mimetype;
 
 /**
  * Visualizador de arquivo
@@ -795,11 +796,11 @@ class FileView implements Viewable {
 	protected $aliasName;
 
 	/**
-	 * mimetype
+	 * Este
 	 * 
 	 * @var string
 	 */
-	protected $mimetype;
+	protected $extension;
 
 	/**
 	 * Forçar download
@@ -821,21 +822,26 @@ class FileView implements Viewable {
 	}
 
 	/**
-	 * Atribui o mimetype a partir da extensao do arquivo
+	 * Obtem a extensão do arquivo
 	 * 
-	 * @param string $extension
+	 * @return string
+	 * @throws \RuntimeException
 	 */
-	public function setMimetype( $extension ) {
-		$this->mimetype = array_search($extension, self::$defaultExtensions);
+	public function getExtension() {
+		if ( ! preg_match('/\.(?P<ext>[a-z][a-z0-9]+)$/i', $this->fileName, $match) ) {
+			return $match['ext'];
+		}
+		throw new \RuntimeException('Filename is invalid');
 	}
 	
 	/**
-	 * Obtem o mimetype
-	 * 
+	 * Obtem a extensão do arquivo
+	 *
 	 * @return string
+	 * @throws \RuntimeException
 	 */
 	public function getMimetype() {
-		return $this->mimetype;
+		return Mimetype::getMimeTypeByExtension($this->getExtension());
 	}
 
 	/**
@@ -858,7 +864,6 @@ class FileView implements Viewable {
 			throw new \InvalidArgumentException('Filename is invalid');
 		}
 		$this->fileName = $fileName;
-		$this->setMimetype($match['ext']);
 		if ( $this->getAliasName() === null ) {
 			$this->aliasName = $match['filename'];
 		}
@@ -873,7 +878,7 @@ class FileView implements Viewable {
 		if ( empty($this->aliasName) ) {
 			return null;
 		}
-		return $this->aliasName . ( $this->mimetype ? '.' . self::$defaultExtensions[$this->mimetype] : '' ) ;
+		return $this->aliasName . $this->getExtension();
 	}
 
 	/**
@@ -916,8 +921,9 @@ class FileView implements Viewable {
 		if ( $this->forceDownload ) {
 			$response->setHeader('Content-Disposition', 'attachment; filename="' . $this->getAliasName() . '"');
 		}
-		if ( $this->mimetype ) {
-			$response->setHeader('Content-Type', self::$defaultExtensions[$this->mimetype]);
+		$mimetype = $this->getMimetype();
+		if ( $mimetype ) {
+			$response->setHeader('Content-Type', $mimetype);
 		}
 	}
 

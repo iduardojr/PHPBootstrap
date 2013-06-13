@@ -2,11 +2,11 @@
 namespace PHPBootstrap\Widget\Form\Controls;
 
 use PHPBootstrap\Widget\Form\Controls\Decorator\InputInline;
-use PHPBootstrap\Validate\Required\ContextEqualTo;
+
 /**
  * Entrada de texto abstrata
  */
-abstract class AbstractInputTextBox extends AbstractInputEntry implements InputInline, ContextEqualTo {
+abstract class AbstractInputTextBox extends AbstractInputEntry implements InputInline {
 
 	/**
 	 * Arredondamento

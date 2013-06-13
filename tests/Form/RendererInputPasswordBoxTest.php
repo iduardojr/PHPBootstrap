@@ -54,7 +54,7 @@ class RendererInputPasswordBoxTest extends RendererTest {
 		$provider[] = array($w, '<input type="password" id="password" name="password" placeholder="Password" autocomplete="off" data-control="PasswordBox">' );
 		
 		$w = new PasswordBox('password');
-		$w->setRequired(new Required(), 'Requerido');
+		$w->setRequired(new Required(null, 'Requerido'));
 		$provider[] = array($w, '<input type="password" id="password" name="password" autocomplete="off" data-validate="{&quot;required&quot;:true,&quot;messages&quot;:{&quot;required&quot;:&quot;Requerido&quot;}}" data-control="PasswordBox">' );
 		
 		return $provider;

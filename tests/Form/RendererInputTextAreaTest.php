@@ -49,7 +49,7 @@ class RendererInputTextAreaTest extends RendererTest {
 		$provider[] = array($w, '<textarea id="text" name="text" autocomplete="off" data-control="TextArea">TextArea</textarea>');
 		
 		$w = new TextArea('text');
-		$w->setRequired(new Required(), 'Requerido');
+		$w->setRequired(new Required(null, 'Requerido'));
 		$provider[] = array($w, '<textarea id="text" name="text" autocomplete="off" data-validate="{&quot;required&quot;:true,&quot;messages&quot;:{&quot;required&quot;:&quot;Requerido&quot;}}" data-control="TextArea"></textarea>');
 		
 		return $provider;

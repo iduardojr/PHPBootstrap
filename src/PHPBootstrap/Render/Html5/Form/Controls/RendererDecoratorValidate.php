@@ -1,14 +1,15 @@
 <?php
 namespace PHPBootstrap\Render\Html5\Form\Controls;
 
-use PHPBootstrap\Widget\Form\Controls\Validate\Validate;
+use PHPBootstrap\Widget\Form\Controls\Decorator\Validate;
 use PHPBootstrap\Render\Html5\RendererDependsResponse;
 use PHPBootstrap\Render\Html5\HtmlNode;
+use PHPBootstrap\Validate\Requirable;
 
 /**
  * Renderizador de um conjunto de validação
  */
-class RendererValidate extends RendererDependsResponse {
+class RendererDecoratorValidate extends RendererDependsResponse {
 
 	/**
 	 *
@@ -18,7 +19,11 @@ class RendererValidate extends RendererDependsResponse {
 		$validate = array();
 		$messages = array();
 		foreach ( $ui->getIterator() as $rule ) {
-			$validate[$rule->getIdentify()] = $rule->getParameter() ? $rule->getParameter() : true;
+			if ( $rule instanceof Requirable && $rule->getContext() ) {
+				$validate[$rule->getIdentify()] = $rule->getContext()->getContextIdentify();
+			} else {
+				$validate[$rule->getIdentify()] = $rule->getContext() === null ? true : $rule->getContext();
+			}
 			if ( $rule->getMessage() ) {
 				$messages[$rule->getIdentify()] = utf8_encode($rule->getMessage());
 			}

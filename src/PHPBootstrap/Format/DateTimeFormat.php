@@ -73,7 +73,7 @@ class DateTimeFormat implements DateFormatter {
 		if ( $value === null || $value === '' ) {
 			return null;
 		}
-		if ( preg_match($this->regex(), $value) <= 0 ) {
+		if ( preg_match('/^' . $this->regex() . '$/', $value) <= 0 ) {
 			throw new \InvalidArgumentException('value not is format: ' . $this->pattern);
 		}
 		$value = $this->formatter($this->toTimestamp($value));
@@ -125,7 +125,7 @@ class DateTimeFormat implements DateFormatter {
 		$parse['.'] = '\.';
 		$parse['/'] = '\/';
 		
-		return '/^' . str_replace(array_keys($parse), $parse, $pattern) . '$/';
+		return str_replace(array_keys($parse), $parse, $pattern);
 	}
 
 	/**

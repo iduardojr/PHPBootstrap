@@ -5,7 +5,7 @@ use PHPBootstrap\Widget\Slide\Slide;
 use PHPBootstrap\Widget\Containable;
 use PHPBootstrap\Widget\Form\Form;
 use PHPBootstrap\Widget\Collapse\Collapsible;
-use PHPBootstrap\Widget\Form\Controls\Validate\InputContext;
+use PHPBootstrap\Widget\Form\Controls\Decorator\InputContext;
 use PHPBootstrap\Widget\Form\Controls\Decorator\InputPicker;
 use PHPBootstrap\Widget\Form\Controls\Decorator\InputQuery;
 

@@ -51,7 +51,7 @@ class NumberFormat implements Formatter, NumberVisitor {
 	 * @see Formatter::regex()
 	 */
 	public function regex() {
-		$pattern = '/^-?(\d+';
+		$pattern = '-?(\d+';
 		if ( $this->thousands ) {
 			$pattern .= '|([1-9]\d{0,2}(\\' . $this->thousands . '\d{3})+)';
 		}
@@ -59,7 +59,6 @@ class NumberFormat implements Formatter, NumberVisitor {
 		if ( $this->precision ) {
 			$pattern .= '(\\' . $this->decimal . '\d{0,' . $this->precision . '})?';
 		}
-		$pattern .= '$/';
 		return $pattern;
 	}
 

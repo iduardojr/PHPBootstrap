@@ -17,6 +17,15 @@ class CPF extends AbstractValidate implements Patternable {
 	const IDENTIFY = 'cpf';
 	
 	/**
+	 * Construtor
+	 *
+	 * @param string $message
+	 */
+	public function __construct( $message = null ) {
+		$this->setMessage($message);
+	}
+	
+	/**
 	 *
 	 * @see Validate::valid()
 	 */

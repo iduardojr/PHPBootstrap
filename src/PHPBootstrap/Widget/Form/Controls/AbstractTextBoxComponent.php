@@ -1,13 +1,12 @@
 <?php
 namespace PHPBootstrap\Widget\Form\Controls;
 
-use PHPBootstrap\Validate\Required\Requirable;
-use PHPBootstrap\Validate\Required\ContextEqualTo;
+use PHPBootstrap\Validate\Requirable;
 use PHPBootstrap\Widget\Button\Button;
 use PHPBootstrap\Widget\AbstractComponent;
 use PHPBootstrap\Widget\Form\Controls\Decorator\InputQuery;
-use PHPBootstrap\Widget\Form\Controls\Validate\Validate;
-use PHPBootstrap\Widget\Form\Controls\Validate\InputContext;
+use PHPBootstrap\Widget\Form\Controls\Decorator\Validate;
+use PHPBootstrap\Widget\Form\Controls\Decorator\InputContext;
 use PHPBootstrap\Widget\Form\Controls\Decorator\Embed;
 use PHPBootstrap\Widget\Form\TextEditable;
 use PHPBootstrap\Widget\Form\Form;
@@ -15,7 +14,7 @@ use PHPBootstrap\Widget\Form\Form;
 /**
  * Campo abstrato de entrada de dados
  */
-abstract class AbstractTextBoxComponent extends AbstractComponent implements TextEditable, InputQuery, InputContext, ContextEqualTo {
+abstract class AbstractTextBoxComponent extends AbstractComponent implements TextEditable, InputQuery, InputContext {
 
 	/**
 	 * Campo
@@ -226,10 +225,9 @@ abstract class AbstractTextBoxComponent extends AbstractComponent implements Tex
 	 * Atribui campo requerido
 	 *
 	 * @param Requirable $rule
-	 * @param string $message
 	 */
-	public function setRequired( Requirable $rule = null, $message = null ) {
-		$this->input->setRequired($rule, $message);
+	public function setRequired( Requirable $rule = null ) {
+		$this->input->setRequired($rule);
 	}
 	
 	/**

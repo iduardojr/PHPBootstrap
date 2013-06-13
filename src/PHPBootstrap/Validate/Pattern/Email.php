@@ -3,6 +3,7 @@ namespace PHPBootstrap\Validate\Pattern;
 
 use PHPBootstrap\Validate\AbstractValidate;
 use PHPBootstrap\Validate\Patternable;
+
 /**
  * E-mail
  */
@@ -14,6 +15,15 @@ class Email extends AbstractValidate implements Patternable {
 	 * @var string
 	 */
 	const IDENTIFY = 'email';
+	
+	/**
+	 * Construtor
+	 *
+	 * @param string $message
+	 */
+	public function __construct( $message = null ) {
+		$this->setMessage($message);
+	}
 	
 	/**
 	 *

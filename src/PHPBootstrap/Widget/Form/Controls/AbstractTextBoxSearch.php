@@ -2,11 +2,11 @@
 namespace PHPBootstrap\Widget\Form\Controls;
 
 use PHPBootstrap\Format\Formatter;
-use PHPBootstrap\Validate\Pattern\Pattern;
-use PHPBootstrap\Validate\Length\Length;
 use PHPBootstrap\Widget\Misc\Icon;
 use PHPBootstrap\Widget\Form\Controls\Decorator\Suggestible;
 use PHPBootstrap\Widget\Action\Action;
+use PHPBootstrap\Validate\Measurable;
+use PHPBootstrap\Validate\Patternable;
 
 /**
  * Componente abstrato de pesquisa
@@ -130,7 +130,7 @@ abstract class AbstractTextBoxSearch extends AbstractTextBoxComponent {
 	/**
 	 * Obtem o validador da quantidade
 	 *
-	 * @return Length
+	 * @return Measurable
 	 */
 	public function getLength() {
 		return $this->input->getLength();
@@ -139,17 +139,16 @@ abstract class AbstractTextBoxSearch extends AbstractTextBoxComponent {
 	/**
 	 * Atribui validador da quantidade
 	 *
-	 * @param Length $rule        	
-	 * @param string $message        	
+	 * @param Measurable $rule        	
 	 */
-	public function setLength( Length $rule = null, $message = null ) {
-		$this->input->setLength($rule, $message);
+	public function setLength( Measurable $rule = null ) {
+		$this->input->setLength($rule);
 	}
 
 	/**
 	 * Obtem o validador de padrão
 	 *
-	 * @return Pattern
+	 * @return Patternable
 	 */
 	public function getPattern() {
 		return $this->input->getPattern();
@@ -158,11 +157,10 @@ abstract class AbstractTextBoxSearch extends AbstractTextBoxComponent {
 	/**
 	 * Atribui validador de padrão
 	 *
-	 * @param Pattern $rule        	
-	 * @param string $message        	
+	 * @param Patternable $rule        	
 	 */
-	public function setPattern( Pattern $rule = null, $message = null ) {
-		$this->input->setPattern($rule, $message);
+	public function setPattern( Patternable $rule = null ) {
+		$this->input->setPattern($rule);
 	}
 }
 ?>

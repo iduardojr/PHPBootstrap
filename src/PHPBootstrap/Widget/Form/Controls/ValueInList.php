@@ -1,7 +1,7 @@
 <?php
 namespace PHPBootstrap\Widget\Form\Controls;
 
-use PHPBootstrap\Widget\Form\Controls\Validate\InputContext;
+use PHPBootstrap\Widget\Form\Controls\Decorator\InputContext;
 
 /**
  * Contexto do valor de um input list

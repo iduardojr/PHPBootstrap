@@ -1,8 +1,8 @@
 <?php
 namespace PHPBootstrap\Widget\Form\Controls;
 
-use PHPBootstrap\Validate\Length\Length;
-use PHPBootstrap\Validate\Length\Counter\Length as CounterLength;
+use PHPBootstrap\Validate\Measurable;
+use PHPBootstrap\Validate\Measure\Ruler\RulerLength;
 
 /**
  * Grupo de caixas de verificação
@@ -15,7 +15,7 @@ class CheckBoxList extends AbstractInputListChecked {
 	/**
 	 * Obtem o validador da quantidade
 	 *
-	 * @return Length
+	 * @return Measurable
 	 */
 	public function getLength() {
 		return $this->validator->getLength();
@@ -24,14 +24,13 @@ class CheckBoxList extends AbstractInputListChecked {
 	/**
 	 * Atribui validador da quantidade
 	 *
-	 * @param Length $rule
-	 * @param string $message
+	 * @param Measurable $rule
 	 */
-	public function setLength( Length $rule = null, $message = null ) {
+	public function setLength( Measurable $rule = null ) {
 		if ( $rule !== null ) {
-			$rule->setCounter(CounterLength::getInstance());
+			$rule->setRuler(RulerLength::getInstance());
 		}
-		$this->validator->setLength($rule, $message);
+		$this->validator->setLength($rule);
 	}
 
 	/**

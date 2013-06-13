@@ -1,15 +1,14 @@
 <?php
 namespace PHPBootstrap\Widget\Form\Controls;
 
-use PHPBootstrap\Format\DateFormat;
-use PHPBootstrap\Validate\Length\Length;
-use PHPBootstrap\Validate\Length\Range;
-use PHPBootstrap\Validate\Length\Max;
-use PHPBootstrap\Validate\Length\Min;
-use PHPBootstrap\Validate\Length\Counter\DateLen;
-use PHPBootstrap\Validate\Pattern\Regex;
 use PHPBootstrap\Widget\Datepicker\TgDatePicker;
 use PHPBootstrap\Widget\Misc\Icon;
+use PHPBootstrap\Validate\Measurable;
+use PHPBootstrap\Validate\Measure\Ruler\RulerDate;
+use PHPBootstrap\Validate\Measure\Min;
+use PHPBootstrap\Validate\Measure\Max;
+use PHPBootstrap\Validate\Measure\Range;
+use PHPBootstrap\Validate\Pattern\Date;
 
 /**
  * Campo de entrada de data
@@ -23,12 +22,12 @@ class DateBox extends AbstractTextBoxComponent {
 	 * @param DateFormat $pattern
 	 * @param string $message
 	 */
-	public function __construct( $name, DateFormat $pattern, $message ) {
-		$this->toggle = new TgDatePicker($pattern);
+	public function __construct( $name, Date $pattern ) {
+		$this->toggle = new TgDatePicker($pattern->getFormat());
 		$this->icon = new Icon('icon-calendar');
 		parent::__construct($name);
 		$this->toggle->setTarget($this->input);
-		$this->setPattern($pattern, $message);
+		$this->setPattern($pattern);
 	}
 	
 	/**
@@ -43,7 +42,7 @@ class DateBox extends AbstractTextBoxComponent {
 	/**
 	 * Obtem o padrão
 	 *
-	 * @return Pattern
+	 * @return Date
 	 */
 	public function getPattern() {
 		return $this->input->getPattern();
@@ -52,13 +51,13 @@ class DateBox extends AbstractTextBoxComponent {
 	/**
 	 * Atribui o padrão
 	 *
-	 * @param DateFormat $pattern
+	 * @param Date $rule
 	 * @param string $message
 	 */
-	public function setPattern( DateFormat $pattern, $message ) {
-		$this->toggle->setFormat($pattern);
-		$this->input->setPattern(new Regex($pattern->regex()), $message);
-		$this->input->setMask(str_replace(array( 'd', 'm', 'y' ), '9', $pattern->pattern()));
+	public function setPattern( Date $rule ) {
+		$this->input->setPattern($rule);
+		$this->toggle->setFormat($rule->getFormat());
+		$this->input->setMask(str_replace(array( 'd', 'm', 'y' ), '9', $rule->getFormat()->pattern()));
 	}
 
 	/**
@@ -74,11 +73,10 @@ class DateBox extends AbstractTextBoxComponent {
 	 * Atribui validador da quantidade
 	 *
 	 * @param Length $rule
-	 * @param string $message
 	 */
-	public function setLength( Length $rule = null, $message = null ) {
+	public function setLength( Measurable $rule = null ) {
 		if ( $rule !== null ) {
-			$rule->setCounter(new DateLen($this->toggle->getFormat()));
+			$rule->setRuler(new RulerDate($this->toggle->getFormat()));
 			$value = $rule->getValue();
 			if ( $rule instanceof Min ) {
 				$this->toggle->setStartDate($value);
@@ -90,7 +88,7 @@ class DateBox extends AbstractTextBoxComponent {
 		} else {
 			$this->toggle->setBetweenDate(null, null);
 		}
-		$this->validator->setLength($rule, $message);
+		$this->validator->setLength($rule);
 	}
 
 	/**
