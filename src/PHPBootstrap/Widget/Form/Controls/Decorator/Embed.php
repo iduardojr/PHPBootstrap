@@ -31,11 +31,26 @@ class Embed extends AbstractWidget implements TextEditable {
 	/**
 	 * Construtor
 	 *
-	 * @param InputInline $input
+	 * @param InputInline|array $elements
+	 * @throws \InvalidArgumentException
 	 */
-	public function __construct( InputInline $input ) {
+	public function __construct( $elements ) {
 		$this->items = new ArrayCollection();
-		$this->setInput($input);
+		if (! is_array($elements) ) {
+			$elements = array($elements);
+		}
+		$notInput = true;
+		foreach( $elements as $element ) {
+			if ( $element instanceof InputInline ) {
+				$this->setInput($element);
+				$notInput = false;
+			} else {
+				$this->append($element);
+			}
+		}
+		if ( $notInput ) {
+			throw new \InvalidArgumentException('not has instance of PHPBootstrap\\Widget\\Form\\Controls\\Decorator\\InputInline');
+		}
 	}
 	
 	/**

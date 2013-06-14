@@ -17,11 +17,11 @@ class View implements Viewable {
 	protected $layout;
 
 	/**
-	 * Template
+	 * Conteudo
 	 *
-	 * @var string
+	 * @var mixed
 	 */
-	protected $template;
+	protected $content;
 
 	/**
 	 * Variaveis
@@ -55,21 +55,31 @@ class View implements Viewable {
 	}
 
 	/**
-	 * Obtem o template
+	 * Obtem o conteudo
 	 *
-	 * @return string
+	 * @return mixed
 	 */
-	public function getTemplate() {
-		return $this->template;
+	public function getContent() {
+		return $this->content;
 	}
 
 	/**
-	 * Atribui o template
+	 * Atribui o conteudo
 	 *
-	 * @param string $template
+	 * @param mixed $content
+	 * @throws \InvalidArgumentException
 	 */
-	public function setTemplate( $template ) {
-		$this->template = $template;
+	public function setContent( $content ) {
+		$contents = ! is_array($content) ? array($content) : $content;
+		foreach ( $contents as $item ) {
+			if ( !( is_scalar($item) || 
+					is_null($item) || 
+					is_callable(array(&$item, '__toString')) ||
+					$item instanceof Widget) ){
+				throw new \InvalidArgumentException('content not is type string or instance of PHPBootstrap\Widget\Widget');	
+			}
+		}
+		$this->content = $content;
 	}
 
 	/**
@@ -110,30 +120,24 @@ class View implements Viewable {
 	 * @return string
 	 */
 	public function render() {
-		$render = '';
-		if ( ! empty($this->template) ) {
-			$render = $this->getFileContents($this->template);
-		} else {
-			ob_start();
-			foreach ( $this->vars as $var => $value ) {
-				if ( ! preg_match('/__\w+__/', $var) ) {
-					if ( $var instanceof Widget ) {
-						$var->render();
-					} else {
-						echo ( string ) $var;
-					}
-				}
+		$contents = ! is_array($this->content) ? array($this->content) : $this->content; 
+		foreach( $contents as $key => $content ) {
+			if ( is_string($content) && $this->fileExist($content) ) {
+				$contents[$key] = $this->getFileContents($this->content);
+			} elseif ( $content instanceof Widget ) {
+				ob_start();
+				$content->render();
+				$contents[$key] = ob_get_contents();
+				ob_end_clean();
 			}
-			$render .= ob_get_contents();
-			ob_end_clean();
-		}
+		}  
 		if ( $this->layout ) {
-			$this->__CONTENT__ = $render;
-			$render = $this->getFileContents($this->layout);
+			$this->__CONTENT__ = implode("\n", $contents);
+			$contents = $this->getFileContents($this->layout);
 		}
-		return $render;
+		return $contents;
 	}
-
+	
 	/**
 	 *
 	 * @see Viewable::__toString()
@@ -155,6 +159,22 @@ class View implements Viewable {
 		$str = ob_get_contents();
 		ob_end_clean();
 		return $str;
+	}
+	
+	/**
+	 * Verifica se um arquivo existe
+	 * 
+	 * @param string $filename
+	 * @return boolean
+	 */
+	public function fileExist( $filename ) {
+		$paths = explode(PATH_SEPARATOR, get_include_path());
+		foreach( $paths as $path ) {
+			if ( file_exists(trim($path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $filename) ) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }
