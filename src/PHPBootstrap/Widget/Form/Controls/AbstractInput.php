@@ -63,7 +63,7 @@ abstract class AbstractInput extends AbstractWidget implements Inputable, InputC
 	 * @param string $name
 	 */
 	public function __construct( $name ) {
-		$this->setValidator(new Validator());
+		$this->setValidator(null);
 		$this->setName($name);
 		$this->setForm(null);
 		$this->setValue(null);
@@ -77,7 +77,10 @@ abstract class AbstractInput extends AbstractWidget implements Inputable, InputC
 	 * 
 	 * @param Validator $validator
 	 */
-	public function setValidator( Validator $validator ) {
+	public function setValidator( Validator $validator = null ) {
+		if ( $validator === null ) {
+			$validator = new Validator();
+		}
 		$this->validator = $validator;
 	}
 

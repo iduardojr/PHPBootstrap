@@ -30,9 +30,11 @@ class Label extends AbstractWidget {
 	 * Construtor
 	 *
 	 * @param string $text
+	 * @param Inputable $target
 	 */
-	public function __construct( $text ) {
+	public function __construct( $text, Inputable $target = null ) {
 		$this->setText($text);
+		$this->setTarget($target);
 	}
 
 	/**
@@ -67,7 +69,7 @@ class Label extends AbstractWidget {
 	 *
 	 * @param Inputable $target
 	 */
-	public function setTarget( Inputable $target ) {
+	public function setTarget( Inputable $target = null ) {
 		$this->target = $target;
 	}
 

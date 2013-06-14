@@ -8,6 +8,7 @@ use PHPBootstrap\Widget\Button\Btn;
 use PHPBootstrap\Widget\AbstractContainer;
 use PHPBootstrap\Common\ArrayCollection;
 use PHPBootstrap\Common\ArrayIterator;
+use PHPBootstrap\Widget\Button\Button;
 
 /**
  * Formulario
@@ -358,6 +359,21 @@ class Form extends AbstractContainer {
 	}
 
 	/**
+	 * Obtem um botão a partir do nome
+
+	 * @param string $name
+	 * @return Button
+	 */
+	public function getButtonByName( $name ) {
+		foreach ( $this->buttons as $button ) {
+			if ( $button->getName() == $name ) {
+				return $button;
+			}
+		}
+		return null;
+	}
+
+	/**
 	 * Remove um botão do formulario
 	 *
 	 * @param Btn $button
@@ -374,6 +390,17 @@ class Form extends AbstractContainer {
 	 */
 	public function getButtons() {
 		return $this->buttons->getIterator();
+	}
+	
+	/**
+	 * @see AbstractContainer::getByName()
+	 */
+	public function getByName( $name ) {
+		$widget = parent::getByName($name);
+		if ( $widget === null ) {
+			$widget = $this->getButtonByName($name);
+		}
+		return $widget;
 	}
 
 	/**
@@ -423,7 +450,7 @@ class Form extends AbstractContainer {
 		}
 		return true;
 	}
-
+	
 	/**
 	 * Processa um elemento antes de inserir
 	 *
