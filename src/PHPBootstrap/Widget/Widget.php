@@ -4,7 +4,7 @@ namespace PHPBootstrap\Widget;
 /**
  * Interface Widget
  */
-interface Widget extends Containable {
+interface Widget extends Containable, Renderable {
 
 	/**
 	 * Obtem nome
@@ -34,11 +34,6 @@ interface Widget extends Containable {
 	 * @return Containable
 	 */
 	public function getParent();
-
-	/**
-	 * Renderiza o widget
-	 */
-	public function render();
 
 }
 ?>

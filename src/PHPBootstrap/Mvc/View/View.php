@@ -2,7 +2,7 @@
 namespace PHPBootstrap\Mvc\View;
 
 use PHPBootstrap\Mvc\Http\HttpResponse;
-use PHPBootstrap\Widget\Widget;
+use PHPBootstrap\Widget\Renderable;
 
 /**
  * Visão
@@ -75,8 +75,8 @@ class View implements Viewable {
 			if ( !( is_scalar($item) || 
 					is_null($item) || 
 					is_callable(array(&$item, '__toString')) ||
-					$item instanceof Widget) ){
-				throw new \InvalidArgumentException('content not is type string or instance of PHPBootstrap\Widget\Widget');	
+					$item instanceof Renderable) ){
+				throw new \InvalidArgumentException('content must be a string or object implementing __toString() or instance of PHPBootstrap\Widget\Renderable');	
 			}
 		}
 		$this->content = $content;
@@ -124,7 +124,7 @@ class View implements Viewable {
 		foreach( $contents as $key => $content ) {
 			if ( is_string($content) && $this->fileExist($content) ) {
 				$contents[$key] = $this->getFileContents($this->content);
-			} elseif ( $content instanceof Widget ) {
+			} elseif ( $content instanceof Renderable ) {
 				ob_start();
 				$content->render();
 				$contents[$key] = ob_get_contents();

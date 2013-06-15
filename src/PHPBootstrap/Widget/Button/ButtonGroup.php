@@ -8,7 +8,7 @@ use PHPBootstrap\Widget\Form\Controls\Decorator\Embeddable;
 /**
  * Grupo de botoes
  */
-class ButtonGroup extends AbstractWidget implements Btn, Embeddable {
+class ButtonGroup extends AbstractWidget implements Btn, BtnChain, Embeddable {
 
 	// ID Renderizador
 	const RendererType = 'phpbootstrap.widget.button.group';
@@ -96,6 +96,19 @@ class ButtonGroup extends AbstractWidget implements Btn, Embeddable {
 	public function getButtons() {
 		return $this->items->getElements();
 	}
+	
+	/**
+	 * @see BtnChain::getButtonByName()
+	 */
+	public function getButtonByName( $name ) {
+		foreach ($this->items as $button ) {
+			if ( $button->getName() == $name ) {
+				return $button;
+			}
+		}	
+		return null;
+	}
+
 
 }
 ?>

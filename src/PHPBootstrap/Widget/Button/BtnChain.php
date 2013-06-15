@@ -1,0 +1,19 @@
+<?php
+namespace PHPBootstrap\Widget\Button;
+
+use PHPBootstrap\Widget\Widget;
+
+/**
+ * Coleção de botões
+ */
+interface BtnChain extends Widget {
+
+	/**
+	 * Obtem um botão a partir do nome
+	 *
+	 * @param string $name
+	 * @return Button
+	 */
+	public function getButtonByName( $name );
+}
+?>

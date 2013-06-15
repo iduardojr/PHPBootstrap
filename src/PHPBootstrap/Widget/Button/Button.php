@@ -70,9 +70,7 @@ class Button extends Anchor implements Btn, Embeddable {
 		} else {
 			$this->setLabel($label);
 		}
-		if ( $toggle ) {
-			$this->setToggle($toggle);
-		}
+		$this->setToggle($toggle);
 		$this->setStyle($style);
 	}
 

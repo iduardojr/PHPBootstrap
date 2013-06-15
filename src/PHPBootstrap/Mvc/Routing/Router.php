@@ -183,7 +183,12 @@ class Router implements Routable, ActionRouter {
 		$defaults = $this->getDefaults();
 		$resource = $this->getResource();
 		$className = $action->getClassName();
-		if ( preg_match('/^' . preg_quote($this->formattedController($defaults['controller'])) . '$/', $className) ) {
+		if ( preg_match('/\:controller[^[:alpha:]]?/', $resource) ) {
+			$pattern = $defaults['__NAMESPACE__'];
+		} else {
+			$pattern = $this->formattedController($defaults['controller']);
+		}
+		if ( preg_match('/^' . preg_quote($pattern) . '/', $className) ) {
 			$params = $action->getParameters();
 			$params['controller'] = $this->unformattedController($className);
 			$params['action'] = $action->getMethodName() ? $this->unformattedAction($action->getMethodName()) : null;
@@ -432,6 +437,6 @@ class Router implements Routable, ActionRouter {
 		}
 		return array_merge($defaults, $params);
 	}
-
+	
 }
 ?>

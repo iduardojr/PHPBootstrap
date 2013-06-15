@@ -2,13 +2,13 @@
 namespace PHPBootstrap\Widget\Form;
 
 use PHPBootstrap\Common\Enum;
-
 use PHPBootstrap\Widget\Widget;
 use PHPBootstrap\Widget\Button\Btn;
 use PHPBootstrap\Widget\AbstractContainer;
 use PHPBootstrap\Common\ArrayCollection;
 use PHPBootstrap\Common\ArrayIterator;
 use PHPBootstrap\Widget\Button\Button;
+use PHPBootstrap\Widget\Button\BtnChain;
 
 /**
  * Formulario
@@ -320,7 +320,6 @@ class Form extends AbstractContainer {
 			$response = true;
 			$this->messages = array();
 			foreach ( $this->controls as $control ) {
-				( $control instanceof Inputable );
 				if ( ! $control->valid() ) {
 					$response = false;
 					$this->messages[$control->getName()] = $control->getFailMessages();
@@ -360,14 +359,20 @@ class Form extends AbstractContainer {
 
 	/**
 	 * Obtem um botão a partir do nome
-
+     *
 	 * @param string $name
 	 * @return Button
 	 */
 	public function getButtonByName( $name ) {
 		foreach ( $this->buttons as $button ) {
-			if ( $button->getName() == $name ) {
+			if ( $button instanceof Button && $button->getName() == $name ) {
 				return $button;
+			}
+			if ( $button instanceof BtnChain ) {
+				$button = $button->getButtonByName($name);
+				if ( $button ) {
+					return $button;
+				}
 			}
 		}
 		return null;

@@ -349,7 +349,7 @@ class HttpResponse extends HttpMessage {
 	 * @param string $body
 	 */
 	public function setBody( $body ) {
-		if ( null !== $body && ! is_string($body) && ! is_numeric($body) && ! is_callable(array( $body, '__toString' )) ) {
+		if ( null !== $body && ! is_scalar($body) && ! is_callable(array( $body, '__toString' )) ) {
 			throw new \UnexpectedValueException('The Response content must be a string or object implementing __toString(), "' . gettype($body) . '" given.');
 		}
 		if ( $body instanceof Viewable ) {

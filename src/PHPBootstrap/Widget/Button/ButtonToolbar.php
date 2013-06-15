@@ -2,13 +2,12 @@
 namespace PHPBootstrap\Widget\Button;
 
 use PHPBootstrap\Common\ArrayCollection;
-
 use PHPBootstrap\Widget\AbstractWidget;
 
 /**
  * Barra de Botões
  */
-class ButtonToolbar extends AbstractWidget implements Btn {
+class ButtonToolbar extends AbstractWidget implements Btn, BtnChain {
 
 	// ID Renderizador
 	const RendererType = 'phpbootstrap.widget.button.toolbar';
@@ -63,6 +62,20 @@ class ButtonToolbar extends AbstractWidget implements Btn {
 	public function getButtonGroups() {
 		return $this->items->getElements();
 	}
+	
+	/**
+	 * @see BtnChain::getButtonByName()
+	 */
+	public function getButtonByName( $name ) {
+		foreach( $this->items as $item ) {
+			$button = $item->getButtonByName($name);
+			if ( $button ) {
+				return $button;
+			}
+		}
+		return null;
+	}
+
 
 }
 ?>

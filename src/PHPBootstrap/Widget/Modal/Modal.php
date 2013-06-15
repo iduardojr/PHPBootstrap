@@ -6,11 +6,13 @@ use PHPBootstrap\Common\ArrayCollection;
 use PHPBootstrap\Widget\AbstractWidget;
 use PHPBootstrap\Widget\Button\Btn;
 use PHPBootstrap\Widget\Misc\Title;
+use PHPBootstrap\Widget\Button\Button;
+use PHPBootstrap\Widget\Button\BtnChain;
 
 /**
  * Janela Modal
  */
-class Modal extends AbstractWidget {
+class Modal extends AbstractWidget implements BtnChain {
 
 	// ID Renderizador
 	const RendererType = 'phpbootstrap.widget.modal';
@@ -124,6 +126,27 @@ class Modal extends AbstractWidget {
 		$item->setParent($this);
 		$this->buttons->append($item);
 		return true;
+	}
+	
+	/**
+	 * Obtem um botão a partir do nome
+	 *
+	 * @param string $name
+	 * @return Button
+	 */
+	public function getButtonByName( $name ) {
+		foreach ( $this->buttons as $button ) {
+			if ( $button instanceof Button && $button->getName() == $name ) {
+				return $button;
+			}
+			if ( $button instanceof BtnChain ) {
+				$button = $button->getButtonByName($name);
+				if ( $button ) {
+					return $button;
+				}
+			}
+		}
+		return null;
 	}
 	
 	/**
