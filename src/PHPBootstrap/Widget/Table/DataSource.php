@@ -40,18 +40,18 @@ interface DataSource {
 	public function getData( $index );
 
 	/**
-	 * Obtem indice de ordenação
+	 * Obtem o campo a ser ordenado
 	 *
 	 * @return string
 	 */
-	public function getOrderKey();
+	public function getSort();
 
 	/**
-	 * Obtem sequencia de ordenação
+	 * Obtem ordem
 	 *
 	 * @return string
 	 */
-	public function getOrderBy();
+	public function getOrder();
 
 	/**
 	 * Obtem quantidade de registros a retornar

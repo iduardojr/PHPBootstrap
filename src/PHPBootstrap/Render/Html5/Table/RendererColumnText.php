@@ -18,14 +18,14 @@ class RendererColumnText extends RendererColumn {
 	protected function head( ColumnText $ui, HtmlNode $th ) {
 		$ds = $ui->getTable()->getDataSource();
 		$node = new HtmlNode('span');
-		$node->setAttribute('data-order', $ui->getName());
+		$node->setAttribute('data-sort', $ui->getName());
 		if ( $ui->getAlign() ) {
 			$th->addClass($ui->getAlign());
 		}
 		$node->appendNode($ui->getLabel());
 		
-		if ( $ui->getName() == $ds->getOrderKey() ) {
-			$node->appendNode('<i class="ui-icon-carat-1-' . ( $ds->getOrderBy() == DataSource::Desc ? 'n' : 's' ) . '"></i>');
+		if ( $ui->getName() == $ds->getSort() ) {
+			$node->appendNode('<i class="ui-icon-carat-1-' . ( $ds->getOrder() == DataSource::Desc ? 'n' : 's' ) . '"></i>');
 		}
 		if ( $ui->getToggle() ) {
 			$node->setTagName('a');
