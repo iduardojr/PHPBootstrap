@@ -12,7 +12,7 @@ class Elastic extends Sliding {
 	 * @param integer $range
 	 */
 	public function __construct( $range ) {
-		$this->range =  (int) ( $range > 1 ? $range : 1 ) * 2 + 1;
+		$this->range =  (int) ( $range > 1 ? $range : 1 ) * 2 - 1;
 	}
 	
 }
