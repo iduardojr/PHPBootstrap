@@ -2,7 +2,6 @@
 namespace PHPBootstrap\Render\Html5\Pagination;
 
 use PHPBootstrap\Widget\Pagination\Paginator;
-
 use PHPBootstrap\Widget\Pagination\Pager;
 use PHPBootstrap\Render\Html5\HtmlNode;
 
@@ -10,7 +9,6 @@ use PHPBootstrap\Render\Html5\HtmlNode;
  * Renderiza paginador
  */
 class RendererPager extends RendererPaginator {
-
 
 	/**
 	 * 
@@ -23,13 +21,13 @@ class RendererPager extends RendererPaginator {
 	
 	/**
 	 * 
-	 * @see RendererPaginator::renderPagesOfBorder()
+	 * @see RendererPaginator::decorate()
 	 */
-	protected function renderPagesOfBorder( Pager $ui, HtmlNode $li, $page ) {
+	protected function decorate( Pager $ui, HtmlNode $li, $page ) {
 		if ( $ui->getAligned() ) {
-			if ( $page == Paginator::PageFirst || ( $page == Paginator::PagePrev && $ui->getLabelPageFirst() == '' ) ) {
+			if ( $page == Paginator::PageFirst || ( $page == Paginator::PagePrev && $ui->getLabelFirst() == '' ) ) {
 				$li->addClass('previous');
-			} elseif ( $page == Paginator::PageLast || ( $page == Paginator::PageNext && $ui->getLabelPageLast() == '' ) ) {
+			} elseif ( $page == Paginator::PageLast || ( $page == Paginator::PageNext && $ui->getLabelLast() == '' ) ) {
 				$li->addClass('next');
 			}
 		}

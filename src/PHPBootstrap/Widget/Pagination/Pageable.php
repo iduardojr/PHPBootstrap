@@ -1,0 +1,19 @@
+<?php
+namespace PHPBootstrap\Widget\Pagination;
+
+use PHPBootstrap\Widget\Widget;
+
+/**
+ * Componente de paginação
+ */
+interface Pageable extends Widget {
+
+	/**
+	 * Obtem paginador
+	 * 
+	 * @return Paginator
+	 */
+	public function getPaginator();
+	
+}
+?>

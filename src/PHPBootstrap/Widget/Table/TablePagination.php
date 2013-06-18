@@ -3,23 +3,24 @@ namespace PHPBootstrap\Widget\Table;
 
 use PHPBootstrap\Widget\Action\TgLink;
 use PHPBootstrap\Widget\AbstractWidget;
+use PHPBootstrap\Widget\Pagination\Pageable;
 use PHPBootstrap\Widget\Pagination\Paginator;
-use PHPBootstrap\Widget\Pagination\AbstractPaginator;
+use PHPBootstrap\Widget\Pagination\AbstractPagination;
 
 /**
  * Paginação da tabela
  */
-class TablePagination extends AbstractWidget implements Paginator {
+class TablePagination extends AbstractWidget implements Pageable {
 
 	// ID Renderizador
 	const RendererType = 'phpbootstrap.widget.table.pagination';
 
 	/**
-	 * Paginador
+	 * Paginação
 	 *
-	 * @var AbstractPaginator
+	 * @var AbstractPagination
 	 */
-	protected $paginator;
+	protected $pagination;
 
 	/**
 	 * Limites
@@ -38,28 +39,37 @@ class TablePagination extends AbstractWidget implements Paginator {
 	/**
 	 * Construtor
 	 *
-	 * @param AbstractPaginator $paginator
+	 * @param AbstractPagination $pagination
 	 */
-	public function __construct( AbstractPaginator $paginator ) {
-		$this->setPaginator($paginator);
+	public function __construct( AbstractPagination $pagination ) {
+		$this->setPagination($pagination);
 	}
 
 	/**
 	 * Atribui paginador
 	 *
-	 * @param AbstractPaginator $paginator
+	 * @param AbstractPagination $pagination
 	 */
-	public function setPaginator( AbstractPaginator $paginator ) {
-		$this->paginator = $paginator;
+	public function setPagination( AbstractPagination $pagination ) {
+		$this->pagination = $pagination;
 	}
 
 	/**
 	 * Obtem paginação
 	 *
-	 * @return AbstractPaginator
+	 * @return AbstractPagination
+	 */
+	public function getPagination() {
+		return $this->pagination;
+	}
+	
+	/**
+	 * Obtem o paginador
+	 *
+	 * @return Paginator
 	 */
 	public function getPaginator() {
-		return $this->paginator;
+		return $this->getPagination()->getPaginator();
 	}
 
 	/**
@@ -101,30 +111,6 @@ class TablePagination extends AbstractWidget implements Paginator {
 	public function setNotLimits() {
 		$this->toggleLimits = null;
 		$this->limits = array();
-	}
-
-	/**
-	 *
-	 * @see Paginator::setTotalRecords()
-	 */
-	public function setTotalRecords( $totalRecords ) {
-		$this->paginator->setTotalRecords($totalRecords);
-	}
-
-	/**
-	 *
-	 * @see Paginator::setRecordsPerPage()
-	 */
-	public function setRecordsPerPage( $recordsPerPage ) {
-		$this->paginator->setRecordsPerPage($recordsPerPage);
-	}
-
-	/**
-	 *
-	 * @see Paginator::setCurrentPage()
-	 */
-	public function setCurrentPage( $page ) {
-		$this->paginator->setCurrentPage($page);
 	}
 
 }

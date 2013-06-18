@@ -50,11 +50,11 @@ class RendererColumnActionTest extends RendererTest {
 		$w->setTable(new Table('dt', new MockDS(10, 5, 1)));
 		$w->setStyle(Button::Danger);
 		$w->setSize(Button::Mini);
-		$provider[] = array($w, '<td class="no-border"><a href="#" class="btn btn-danger btn-mini" data-column-action="edit">Edit</a></td>', new Context(new HtmlNode('td')));
+		$provider[] = array($w, '<td class="no-border"><a href="#" class="btn btn-mini btn-danger" data-column-action="edit">Edit</a></td>', new Context(new HtmlNode('td')));
 		
 		$w = new ColumnAction('edit', 'Edit');
 		$w->setTable(new Table('dt', new MockDS(10, 5, 1)));
-		$w->setContextEnabled( function ( array $data ) { return ! $data['status']; });
+		$w->setContext( function ( Button $button, array $data ) { $button->setDisabled( $data['status']); });
 		$provider[] = array($w, '<td class="no-border"><a href="#" class="disabled" data-column-action="edit">Edit</a></td>', new Context(new HtmlNode('td')));
 		
 		$w = new ColumnAction('edit', 'Edit');

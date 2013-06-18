@@ -31,12 +31,12 @@ class RendererPagerBar extends RendererPaginator {
 	
 	/**
 	 * 
-	 * @see RendererPaginator::renderPagesOfMiddle()
+	 * @see RendererPaginator::renderScrolling()
 	 */
-	protected function renderPagesOfMiddle( PagerBar $ui, HtmlNode $node ) {
-		$node->appendNode('<li><input type="text" class="span1 current" value="' . $ui->getCurrentPage() . '"></li>');
+	protected function renderScrolling( PagerBar $ui, HtmlNode $node, $bound ) {
+		$node->appendNode('<li><input type="text" class="span1 current" value="' . $ui->getPaginator()->getPage() . '"></li>');
 		$node->appendNode('<li> / </li>');
-		$node->appendNode('<li><input type="text" class="span1 total" disabled="disabled" value="' . $ui->getTotalPages() . '"></li>');
+		$node->appendNode('<li><input type="text" class="span1 total" disabled="disabled" value="' . $bound[1] . '"></li>');
 	}
 }
 ?>

@@ -24,6 +24,7 @@ class RendererButton extends RendererWidget {
 	 */
 	protected function _render( Button $ui, HtmlNode $node ) {
 		$node->setAttribute('type', 'button');
+		$node->setAttribute('href', '#');
 		$node->addClass('btn');
 		
 		if ( $ui->getBlock() ) {
@@ -62,10 +63,13 @@ class RendererButton extends RendererWidget {
 		if ( $node->getTagName() == 'a') {
 			$node->setAttribute('type', null);
 			$node->setAttribute('disabled', null);
-		} elseif ( $node->hasClass('dropdown') || $node->hasClass('dropup')) {
-			$node->addClass('btn-group');
-			$node->removeClass('dropdown');
-		} 
+		} else {
+			$node->setAttribute('href', null);
+			if ( $node->hasClass('dropdown') || $node->hasClass('dropup')) {
+				$node->addClass('btn-group');
+				$node->removeClass('dropdown');
+			}
+		}
 	}
 }
 ?>

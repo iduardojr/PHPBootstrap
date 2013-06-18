@@ -58,24 +58,25 @@ class MockDS implements DataSource {
 	public $limit;
 	public $offset;
 	public $count;
-	public $orderKey;
-	public $orderBy;
-	public function __construct( $total, $limit, $offset, $orderKey = 'name', $orderBy = self::Desc ) {
+	public $sort;
+	public $order;
+	public function __construct( $total, $limit, $offset, $sort = 'name', $order = self::Desc ) {
 		$this->total = $total;
 		$this->limit = $limit;
 		$this->offset = $this->count = $offset;
-		$this->orderKey = $orderKey;
-		$this->orderBy = $orderBy;
+		$this->sort = $sort;
+		$this->order = $order;
 	}
 	public function getIdentify() { return 'id'; }
 	public function getTotal() { return $this->total; }
-	public function getOrderKey() { return $this->orderKey; }
-	public function getOrderBy() { return $this->orderBy; }
+	public function getSort() { return $this->sort; }
+	public function getOrder() { return $this->order; }
 	public function getLimit() { return $this->limit; }
 	public function fetch() { return array('id' => $this->count, 'name' => 'Iduardo Donizet Gomes Junior', 'birthday' => '1985-10-06', 'status' => (bool) ( $this->count % 2 )); }
 	public function getOffset() { return $this->offset; }
 	public function next() { $this->count++; return $this->count <= min($this->offset + $this->limit, $this->total); }
-	public function getData( $index ) { $data = $this->fetch(); return isset($data[$index]) ? $data[$index] : null;	}
+	public function __get( $name ) { $data = $this->fetch(); return isset($data[$name]) ? $data[$name] : null;	}
+	public function reset() {}
 }
 class MockTab implements Tabbable {
 	public function getIdentify() { return 'tabbable';}

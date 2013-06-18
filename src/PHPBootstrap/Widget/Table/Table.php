@@ -2,14 +2,11 @@
 namespace PHPBootstrap\Widget\Table;
 
 use PHPBootstrap\Common\ArrayIterator;
-
 use PHPBootstrap\Common\ArrayCollection;
-
 use PHPBootstrap\Common\Enum;
-
 use PHPBootstrap\Widget\Widget;
 use PHPBootstrap\Widget\AbstractWidget;
-use PHPBootstrap\Widget\Pagination\Paginator;
+use PHPBootstrap\Widget\Pagination\Pageable;
 
 /**
  * Tabela
@@ -67,11 +64,11 @@ class Table extends AbstractWidget {
 	protected $alertNoRecords;
 
 	/**
-	 * Paginador
+	 * Paginação
 	 *
-	 * @var Paginator
+	 * @var Pageable
 	 */
-	protected $paginator;
+	protected $pagination;
 
 	/**
 	 * Rodape
@@ -233,21 +230,21 @@ class Table extends AbstractWidget {
 	}
 
 	/**
-	 * Obtem Paginador
+	 * Obtem Paginação
 	 *
-	 * @return Paginator
+	 * @return Pageable
 	 */
-	public function getPaginator() {
-		return $this->paginator;
+	public function getPagination() {
+		return $this->pagination;
 	}
 
 	/**
-	 * Atribui Paginador
+	 * Atribui Paginação
 	 *
-	 * @param Paginator $paginator
+	 * @param Pageable $pagination
 	 */
-	public function setPaginator( Paginator $paginator = null ) {
-		$this->paginator = $paginator;
+	public function setPagination( Pageable $pagination = null ) {
+		$this->pagination = $pagination;
 	}
 
 	/**
@@ -267,6 +264,6 @@ class Table extends AbstractWidget {
 	public function setAlertNoRecords( $alertNoRecords ) {
 		$this->alertNoRecords = $alertNoRecords;
 	}
-
+	
 }
 ?>

@@ -5,7 +5,7 @@ namespace PHPBootstrap\Widget\Table;
  * Fonte de Dados
  */
 interface DataSource {
-
+	
 	// Ordenações
 	const Asc = 'asc';
 	const Desc = 'desc';
@@ -20,24 +20,16 @@ interface DataSource {
 	/**
 	 * Obtem o rowset
 	 *
-	 * @return array
+	 * @return mixed
 	 */
 	public function fetch();
-	
+
 	/**
 	 * Verifica e avança para o proximo rowset 
 	 * 
 	 * @return boolean
 	 */
 	public function next();
-
-	/**
-	 * Obtem o dado a partir de seu index
-	 * 
-	 * @param string $index
-	 * @return string
-	 */
-	public function getData( $index );
 
 	/**
 	 * Obtem o campo a ser ordenado
@@ -59,7 +51,7 @@ interface DataSource {
 	 * @return integer
 	 */
 	public function getLimit();
-	
+
 	/**
 	 * Obtem o indice do primeiro registro
 	 *
@@ -68,11 +60,23 @@ interface DataSource {
 	public function getOffset();
 
 	/**
-	 * Obtem total de registros
+	 * Obtem o total de registros
 	 *
 	 * @return integer
 	 */
 	public function getTotal();
-
+	
+	/**
+	 * Restabelece o conjunto de dados
+	 */
+	public function reset();
+	
+	/**
+	 * Obtem o valor da linha corrente
+	 *
+	 * @param string $name
+	 * @return mixed
+	 */
+	public function __get( $name );
 }
 ?>

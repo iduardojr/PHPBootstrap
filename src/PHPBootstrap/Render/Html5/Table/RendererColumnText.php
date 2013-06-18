@@ -5,6 +5,7 @@ use PHPBootstrap\Render\Context;
 use PHPBootstrap\Render\Html5\HtmlNode;
 use PHPBootstrap\Widget\Table\ColumnText;
 use PHPBootstrap\Widget\Table\DataSource;
+use PHPBootstrap\Widget\Widget;
 
 /**
  * Renderizador de uma coluna de texto
@@ -47,11 +48,15 @@ class RendererColumnText extends RendererColumn {
 		if ( $ui->getAlign() ) {
 			$node->addClass($ui->getAlign());
 		}
-		$value = $ds->getData($ui->getName());
+		$value = $ds->{$ui->getName()};
 		if ( $ui->getFilter() ) {
 			$value = call_user_func($ui->getFilter(), $value, $ds->fetch());
 		}
-		$node->appendNode($value);
+		if ( $value instanceof Widget ) {
+			$value = $this->toRender($value, new Context($node));
+		} else {
+			$node->appendNode($value);
+		}
 		
 		$td->appendNode($node);
 	}

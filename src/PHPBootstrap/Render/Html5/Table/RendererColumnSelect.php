@@ -46,7 +46,7 @@ class RendererColumnSelect extends RendererColumn {
 			$node->setAttribute('disabled', 'disabled');
 		}
 		
-		$node->setAttribute('value', $ds->getData($ds->getIdentify()));
+		$node->setAttribute('value', $ds->{$ds->getIdentify()});
 		
 		$td->appendNode($node);
 	}

@@ -1,10 +1,7 @@
 <?php
 namespace PHPBootstrap\Render\Html5\Table;
 
-use PHPBootstrap\Widget\Pagination\AbstractPaginator;
-
 use PHPBootstrap\Render\Context;
-
 use PHPBootstrap\Render\Html5\HtmlNode;
 use PHPBootstrap\Widget\Table\TablePagination;
 use PHPBootstrap\Render\Html5\RendererWidget;
@@ -26,19 +23,19 @@ class RendererTablePagination extends RendererWidget {
 	 * @see RendererWidget::_render()
 	 */
 	protected function _render( TablePagination $ui, HtmlNode $node ) {
-		$node->addClass('table-pagination');
+		$node->addClass('table-pagination form-actions');
 		
-		$paginator = $ui->getPaginator();
-		$range = $this->getRangeRecords($paginator);
+		$range = $ui->getPaginator()->getRange();
+		$total = $ui->getPaginator()->getTotal();
 		
 		$label = new HtmlNode('div');
 		$label->addClass('label');
 		
-		$label->appendNode('<span class="first">' . $range->start . '</span>');
+		$label->appendNode('<span class="first">' . $range[0] . '</span>');
 		$label->appendNode(' - ');
-		$label->appendNode('<span class="last">' . $range->end . '</span>');
+		$label->appendNode('<span class="last">' . $range[1] . '</span>');
 		$label->appendNode(' de ');
-		$label->appendNode('<span class="total">' . $paginator->getTotalRecords() . '</span>');
+		$label->appendNode('<span class="total">' . $total . '</span>');
 		
 		$node->appendNode($label);
 		$node->appendNode('<div class="loading"></div>');
@@ -53,7 +50,7 @@ class RendererTablePagination extends RendererWidget {
 				$anchor = new HtmlNode('a');
 				$anchor->setAttribute('href', '#');
 				$anchor->addClass('badge');
-				if ( $ui->getPaginator()->getRecordsPerPage() == $limit) {
+				if ( $ui->getPaginator()->getLimit() == $limit) {
 					$anchor->addClass('badge-important');
 				}
 				$anchor->appendNode($limit);
@@ -67,38 +64,9 @@ class RendererTablePagination extends RendererWidget {
 			$node->appendNode($div);
 		}
 		
-		$this->toRender($ui->getPaginator(), new Context($node));
+		$this->toRender($ui->getPagination(), new Context($node));
 		
 	}
 	
-	/**
-	 * Obtem intervalo de registros
-	 * 
-	 * @param AbstractPaginator $pager
-	 * @return \stdClass
-	 */
-	private function getRangeRecords( AbstractPaginator $pager ) {
-		$range = new \stdClass();
-		$range->start = $pager->getTotalRecords() ? 1 : 0;
-		$range->end = $pager->getTotalRecords();
-	
-		if ( $pager->getRecordsPerPage() < $pager->getTotalRecords() ) {
-	
-			$range->start = ( $pager->getCurrentPage() - 1 ) * $pager->getRecordsPerPage() + 1;
-			$range->end = $range->start +  $pager->getRecordsPerPage() - 1;
-	
-			if ( $range->start < 1 ) {
-				$range->start = 1;
-				$range->end = $pager->getRecordsPerPage();
-			}
-	
-			if ( $range->end > $pager->getTotalRecords() ) {
-				$range->end = $pager->getTotalRecords();
-			}
-		}
-	
-		return $range;
-	}
-
 }
 ?>

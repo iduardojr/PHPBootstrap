@@ -104,19 +104,15 @@ class RendererTable extends RendererWidget {
 				
 			}
 			
-			$paginator = $ui->getPaginator();
+			$pagination = $ui->getPagination();
 			
-			if ( $paginator ) {
-				
-				$paginator->setTotalRecords($ds->getTotal());
-				$paginator->setRecordsPerPage($ds->getLimit());
-				$paginator->setCurrentPage(ceil( min( ( $ds->getOffset() + 1 ), $ds->getTotal() ) / max( $ds->getLimit(), 1 ) ));
+			if ( $pagination ) {
 				
 				$cell = new HtmlNode('td');
 				if ( $count > 1 ) {
 					$cell->setAttribute('colspan', $count);
 				}
-				$this->toRender($paginator, new Context($cell));
+				$this->toRender($pagination, new Context($cell));
 				
 				$tr = new HtmlNode('tr');
 				$tr->addClass('table-paginator');

@@ -1,7 +1,6 @@
 <?php
 use PHPBootstrap\Widget\Action\Action;
 use PHPBootstrap\Widget\Action\TgLink;
-use PHPBootstrap\Render\Context;
 use PHPBootstrap\Widget\Pagination\Pager;
 use PHPBootstrap\Widget\Misc\Badge;
 use PHPBootstrap\Widget\Table\ColumnAction;
@@ -9,6 +8,8 @@ use PHPBootstrap\Widget\Table\ColumnText;
 use PHPBootstrap\Widget\Table\ColumnSelect;
 use PHPBootstrap\Widget\Table\Table;
 use PHPBootstrap\Render\Html5\Table\RendererTable;
+use PHPBootstrap\Widget\Pagination\Paginator;
+use PHPBootstrap\Widget\Pagination\Scrolling\All;
 require_once 'tests\RendererTest.php';
 
 /**
@@ -48,7 +49,7 @@ class RendererTableTest extends RendererTest {
 		$w->addColumn(new ColumnAction('edit', 'Edit', new TgLink(new Action('Test'))));
 		$thead = '<thead><tr>';
 		$thead .= '<th style="width: 20px"><input type="checkbox" data-toggle="table-select"></th>';
-		$thead .= '<th><span data-order="id">#</span></th>';
+		$thead .= '<th><span data-sort="id">#</span></th>';
 		$thead .= '<th class="no-border"></th>';
 		$thead .= '</tr></thead>';
 		$provider[8] = array($w, '<table id="table" class="table">' . $thead . $tbody . $tfoot . '</table>');
@@ -74,7 +75,7 @@ class RendererTableTest extends RendererTest {
 		$w->addColumn(new ColumnSelect('id'));
 		$w->addColumn(new ColumnText('id', '#'));
 		$w->addColumn(new ColumnAction('edit', 'Edit', new TgLink(new Action('Test'))));
-		$w->setPaginator(new Pager(new TgLink(new Action('Test')), null));
+		$w->setPagination(new Pager(new TgLink(new Action('Test')), new Paginator(0, 5), new All()));
 		$tfoot = '<tfoot><tr class="table-paginator"><td colspan="3"><ul class="pager"><li class="active"><a href="#">01</a></li></ul></td></tr></tfoot>';
 		$provider[11] = array($w, '<table id="table" class="table">' . $thead . $tbody . $tfoot . '</table>');
 		
@@ -82,7 +83,7 @@ class RendererTableTest extends RendererTest {
 		$w->addColumn(new ColumnSelect('id'));
 		$w->addColumn(new ColumnText('id', '#'));
 		$w->addColumn(new ColumnAction('edit', 'Edit', new TgLink(new Action('Test'))));
-		$w->setPaginator(new Pager(new TgLink(new Action('Test')), null));
+		$w->setPagination(new Pager(new TgLink(new Action('Test')), new Paginator(15, 5, 2), new All()));
 		$tbody = '<tbody>';
 		for ( $i = 6; $i <= 10; $i++ ) {
 			$tbody .= '<tr>';
@@ -117,34 +118,6 @@ class RendererTableTest extends RendererTest {
 		$tbody .= '</tbody>';
 		$provider[13] = array($w, '<table id="table" class="table">' . $thead . $tbody . $tfoot . '</table>');
 		
-		return $provider;
-	}
-	
-	/**
-	 * @dataProvider providerPage
-	 */
-	public function testCurrentPage( $limit, $offset, $page ) {
-		$w = new Table('table', new MockDS(26, $limit, $offset));
-		$w->setPaginator(new Pager(new TgLink(new Action('Test'))));
-		$w->addColumn(new ColumnText('id', 'Testes'));
-		$this->renderer->render($w, new Context());	
-		$this->assertEquals($page, $w->getPaginator()->getCurrentPage());
-	}
-	
-	public function providerPage() {
-		$provider[] = array(1, 0, 1);
-		$provider[] = array(2, 0, 1);
-		$provider[] = array(5, 0, 1);
-		$provider[] = array(5, 4, 1);
-		$provider[] = array(5, 5, 2);
-		$provider[] = array(5, 9, 2);
-		$provider[] = array(5, 10, 3);
-		$provider[] = array(5, 14, 3);
-		$provider[] = array(5, 15, 4);
-		$provider[] = array(5, 19, 4);
-		$provider[] = array(5, 20, 5);
-		$provider[] = array(5, 21, 5);
-		$provider[] = array(5, 25, 6);
 		return $provider;
 	}
 

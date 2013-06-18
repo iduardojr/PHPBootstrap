@@ -2,11 +2,12 @@
 namespace PHPBootstrap\Widget\Pagination;
 
 use PHPBootstrap\Widget\Action\TgLink;
+use PHPBootstrap\Widget\Pagination\Scrolling\Scrollable;
 
 /**
  * Paginador
  */
-class Pager extends AbstractPaginator {
+class Pager extends AbstractPagination {
 
 	// ID Renderizador
 	const RendererType = 'phpbootstrap.widget.pagination.pager';
@@ -19,44 +20,15 @@ class Pager extends AbstractPaginator {
 	protected $aligned;
 
 	/**
-	 * Limite de paginas
-	 *
-	 * @var integer
-	 */
-	protected $limitPages;
-
-	/**
 	 * Construtor
 	 *
 	 * @param TgLink $toggle
-	 * @param integer $limitPages
+	 * @param Paginator $paginator
+	 * @param Scrollable $scroll
 	 */
-	public function __construct( TgLink $toggle, $limitPages = 0 ) {
-		parent::__construct($toggle);
+	public function __construct( TgLink $toggle, Paginator $paginator, Scrollable $scroll = null ) {
+		parent::__construct($toggle, $paginator, $scroll);
 		$this->setAligned(true);
-		$this->setLimitPages($limitPages);
-	}
-
-	/**
-	 * Obtem limite de paginas
-	 *
-	 * @return integer
-	 */
-	public function getLimitPages() {
-		return $this->limitPages === null ? $this->getTotalPages() : $this->limitPages;
-	}
-
-	/**
-	 * Atribui limite de laginas
-	 *
-	 * @param integer|null $limitPages
-	 */
-	public function setLimitPages( $limitPages ) {
-		if ( isset($limitPages) ) {
-			$this->limitPages = ( int ) $limitPages < 0 ? 0 : $limitPages;
-		} else {
-			$this->limitPages = null;
-		}
 	}
 
 	/**

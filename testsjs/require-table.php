@@ -9,11 +9,12 @@ use PHPBootstrap\Widget\Table\ColumnSelect;
 use PHPBootstrap\Widget\Table\Table;
 use PHPBootstrap\Widget\Action\TgAjax;
 use PHPBootstrap\Widget\Action\Action;
+use PHPBootstrap\Widget\Pagination\Paginator;
 require_once 'tests/mocks.php';
 
 $datasource = new MockDS(45, 10, 0);
 $table = new Table('table', $datasource);
-$paginator = new TablePagination(new PagerBar(new TgAjax(new Action('Table', 'page'), $table)));
+$paginator = new TablePagination(new PagerBar(new TgAjax(new Action('Table', 'page'), $table), new Paginator(45, 10)));
 
 $table->setStyle(Table::Striped);
 $table->setContextRow(function ( $data ) { 
@@ -79,7 +80,7 @@ $column->setTooltip(new Tooltip('Exclude'));
 $table->addColumn($column);
 
 $paginator->setLimits(new TgAjax(new Action('Table', 'limit'), $table), 10, 15, 20, 25);
-$table->setPaginator($paginator);
+$table->setPagination($paginator);
 
 if ( isset($_GET['method']) ){
 	switch ( $_GET['method'] ){
@@ -87,11 +88,11 @@ if ( isset($_GET['method']) ){
 		case 'name':
 		case 'birthday':
 		case 'status':
-			if ( $datasource->orderKey == $_GET['method'] ) {
-				$datasource->orderBy = $datasource->orderBy == MockDS::Asc ? MockDS::Desc : MockDS::Asc;
+			if ( $datasource->sort == $_GET['method'] ) {
+				$datasource->order = $datasource->order == MockDS::Asc ? MockDS::Desc : MockDS::Asc;
 			} else {
-				$datasource->orderBy = MockDS::Desc;
-				$datasource->orderKey = $_GET['method'];
+				$datasource->order = MockDS::Desc;
+				$datasource->sort = $_GET['method'];
 			}
 			break;
 

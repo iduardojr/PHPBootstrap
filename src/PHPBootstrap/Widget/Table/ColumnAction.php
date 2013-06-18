@@ -44,11 +44,11 @@ class ColumnAction extends Column {
 	protected $tooltip;
 	
 	/**
-	 * Contexto de Habilitação
+	 * Contexto
 	 *
 	 * @var \Closure
 	 */
-	protected $contextEnabled;
+	protected $context;
 
 	/**
 	 * Construtor
@@ -165,22 +165,22 @@ class ColumnAction extends Column {
 	}
 
 	/**
-	 * Atribui contexto de habilitação
+	 * Atribui um contexto
 	 *
 	 * @param \Closure $handler
 	 * @throws \InvalidArgumentException
 	 */
-	public function setContextEnabled( \Closure $handler = null ) {
-		$this->contextEnabled = $handler;
+	public function setContext( \Closure $handler = null ) {
+		$this->context = $handler;
 	}
 
 	/**
-	 * Obtem contexto de habilitação
+	 * Obtem o contexto
 	 *
 	 * @return \Closure
 	 */
-	public function getContextEnabled() {
-		return $this->contextEnabled;
+	public function getContext() {
+		return $this->context;
 	}
 	
 	/**

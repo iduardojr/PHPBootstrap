@@ -33,7 +33,6 @@ class RendererPagination extends RendererPaginator {
 		
 		$ul = new HtmlNode('ul');
 		parent::_render($ui, $ul);
-		$ul->setAttribute('class', null);
 		$node->appendNode($ul);
 	}
 

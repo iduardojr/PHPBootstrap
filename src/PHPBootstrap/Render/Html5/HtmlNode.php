@@ -99,6 +99,9 @@ class HtmlNode implements Response {
 	public function removeClass( $class ) {
 		if ( $this->hasAttribute('class') ) {
 			unset($this->attributes['class'][$class]);
+			if ( empty($this->attributes['class']) ) {
+				unset($this->attributes['class']);
+			}
 		}
 		return $this;
 	}
@@ -134,6 +137,9 @@ class HtmlNode implements Response {
 	public function removeStyle( $name ) {
 		if ( $this->hasAttribute('style') ) {
 			unset($this->attributes['style'][$name]);
+			if ( empty($this->attributes['style']) ) {
+				unset($this->attributes['style']);
+			}
 		}
 		return $this;
 	}

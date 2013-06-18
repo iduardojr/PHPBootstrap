@@ -27,39 +27,40 @@ class RendererColumnAction extends RendererColumn {
 	protected function body( ColumnAction $ui, HtmlNode $td ) {
 		$ds = $ui->getTable()->getDataSource();
 		
-		$node = new HtmlNode('a');
-		$node->setAttribute('href', '#');
+		$button = new Button($ui->getLabel());
+		$button->setIcon($ui->getIcon());
+		$button->setStyle($ui->getStyle());
+		$button->setSize($ui->getSize());
+		$button->setTooltip($ui->getTooltip());
+		if ( $ui->getToggle() ) {
+			$ui->getToggle()->setParameter('key', $ds->{$ds->getIdentify()} );
+		}
+		$button->setToggle($ui->getToggle());
 		
-		if ( $ui->getStyle() != Button::Link ) {
-			$node->addClass('btn');
-			$node->addClass($ui->getStyle());
-			if ( $ui->getSize() ) {
-				$node->addClass($ui->getSize());
+		if ( $ui->getContext() ) {
+			call_user_func($ui->getContext(), $button, $ds->fetch());
+		}
+		
+		$context = new Context();
+		$this->toRender($button, $context);
+		$node = $context->getResponse();
+		if ( $node->getTagName() == 'button' ) {
+			$node->setAttribute('type', null);
+			$node->setAttribute('disabled', null);
+			$attr = $node->getAllAttributes();
+			$node->setTagName('a'); 
+			$node->setAttribute('href', '#');
+			foreach ( $attr as $name => $value ) {
+				$node->setAttribute($name, null);
+				$node->setAttribute($name, $value);
 			}
 		}
-		
-		if ( $ui->getContextEnabled() && !call_user_func($ui->getContextEnabled(), $ds->fetch()) ) {
-			$node->addClass('disabled');
-		}
-
-		if ( $ui->getIcon() ) {
-			$this->toRender($ui->getIcon(), new Context($node));
+		if ( $ui->getStyle() === Button::Link ) {
+			$node->removeClass('btn');
+			$node->removeClass($ui->getStyle());
+			$node->removeClass($ui->getSize());
 		}
 		
-		if ( $ui->getLabel() ) {
-			$node->appendNode($ui->getLabel());
-		}
-		
-		if ( $ui->getTooltip() ) {
-			$this->toRender($ui->getTooltip(), new Context($node));
-		}
-		
-		if ( $ui->getToggle() ) {
-			$toggle = clone $ui->getToggle();
-			$toggle->setParameter('key', $ds->getData($ds->getIdentify()) );
-			$this->toRender($toggle, new Context($node));
-		}
-	
 		$node->setAttribute('data-column-action', $ui->getName());
 				
 		$td->addClass('no-border');
