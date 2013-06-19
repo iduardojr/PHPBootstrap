@@ -52,8 +52,8 @@ class RendererTable extends RendererWidget {
 			$ds = $ui->getDataSource();
 			$tbody = new HtmlNode('tbody');
 			
+			$ds->reset();
 			if ( $ds->getTotal() ) {
-				
 				while ( $ds->next() ) {
 					$tr = new HtmlNode('tr');
 					if ( $ui->getContextRow() ) {

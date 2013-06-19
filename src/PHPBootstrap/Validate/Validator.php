@@ -104,6 +104,7 @@ class Validator {
 	public function valid( $value ) {
 		$this->messages = array();
 		$valid = true;
+		$rules = array();
 		if ( ! empty($value) ) {
 			$rules = $this->getValidate();
 		} elseif ( $this->required ) {

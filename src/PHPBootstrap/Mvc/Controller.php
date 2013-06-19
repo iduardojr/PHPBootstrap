@@ -136,11 +136,11 @@ abstract class Controller {
 	}
 
 	/**
-	 * Obtem o nome completo da classe
+	 * Obtem o nome da classe
 	 *
 	 * @return string
 	 */
-	public static function getClassName() {
+	public static function getClass() {
 		return get_called_class();
 	}
 

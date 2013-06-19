@@ -8,7 +8,6 @@
 		
 		_create: function () {
 			this.element.validate({
-				errorClass: 'error',
 				showErrors: $.proxy( function() { 
 					var validator = this.element.validate(); 
 					this.error(validator.errorList, validator.successList); 
@@ -118,8 +117,11 @@
 			return data;
 		}, 
 		
-		valid: function() {
-			return this.element.valid();
+		valid: function( element ) {
+			if ( element == undefined ) {
+				return this.element.valid();
+			}
+			return element.valid();
 		},
 		
 		error: function ( errors, valids ) {
@@ -136,7 +138,7 @@
 	 * ======================= */
 	$.plugin('form', Form, { 
 		ajax: false,
-		format: 'html'
+		format: 'html',
 	});
 	
    /* FORM DATA-API
@@ -182,7 +184,7 @@
 				return this.validate().form();
 			} else {
 				var valid = true;
-				var validator = $('form[name=' + $(this[0]).attr('form') + ']').validate();
+				var validator = $('form[name=' + $(this[0]).attr('form') + ']').form().validate();
 				this.each(function() {
 					valid &= validator.element(this);
 				});

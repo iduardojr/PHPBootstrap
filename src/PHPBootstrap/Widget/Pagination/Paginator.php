@@ -125,7 +125,7 @@ class Paginator {
 	 * @return integer
 	 */
 	public function getPages() {
-		return max( ceil($this->total / $this->limit), 1);
+		return max( ceil($this->getTotal() / $this->getLimit()), 1);
 	}
 	
 	/**
@@ -134,7 +134,7 @@ class Paginator {
 	 * @return integer
 	 */
 	public function getOffset() {
-		return ( $this->page - 1 ) * $this->limit;
+		return ( $this->getPage() - 1 ) * $this->getLimit();
 	}
 	
 	/**

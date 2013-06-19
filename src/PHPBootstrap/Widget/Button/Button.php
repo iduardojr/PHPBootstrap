@@ -60,15 +60,20 @@ class Button extends Anchor implements Btn, Embeddable {
 	/**
 	 * Construtor
 	 *
-	 * @param string|Icon $label
+	 * @param string|Icon|array $labels
 	 * @param Togglable $toggle
 	 * @param ButtonStyle $style
 	 */
-	public function __construct( $label, Togglable $toggle = null, $style = null) {
-		if ( $label instanceof Icon ) {
-			$this->setIcon($label);
-		} else {
-			$this->setLabel($label);
+	public function __construct( $labels, Togglable $toggle = null, $style = null) {
+		if ( ! is_array($labels) ) {
+			$labels = array($labels);
+		}
+		foreach( $labels as $label ) {
+			if ( $label instanceof Icon ) {
+				$this->setIcon($label);
+			} else {
+				$this->setLabel($label);
+			}
 		}
 		$this->setToggle($toggle);
 		$this->setStyle($style);

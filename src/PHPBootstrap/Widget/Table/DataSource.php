@@ -20,7 +20,7 @@ interface DataSource {
 	/**
 	 * Obtem o rowset
 	 *
-	 * @return mixed
+	 * @return array|object
 	 */
 	public function fetch();
 
@@ -32,14 +32,14 @@ interface DataSource {
 	public function next();
 
 	/**
-	 * Obtem o campo a ser ordenado
+	 * Obtem o campo ordenado dos registros
 	 *
 	 * @return string
 	 */
 	public function getSort();
 
 	/**
-	 * Obtem ordem
+	 * Obtem ordenação dos registros
 	 *
 	 * @return string
 	 */
@@ -75,7 +75,7 @@ interface DataSource {
 	 * Obtem o valor da linha corrente
 	 *
 	 * @param string $name
-	 * @return mixed
+	 * @return scalar|Widget
 	 */
 	public function __get( $name );
 }

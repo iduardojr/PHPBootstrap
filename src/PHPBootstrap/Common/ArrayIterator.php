@@ -22,6 +22,7 @@ class ArrayIterator implements \Iterator {
 	
 	/**
 	 * Primeiro elemento
+	 * 
 	 * @var boolean
 	 */
 	protected $first;

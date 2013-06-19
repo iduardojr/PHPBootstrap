@@ -267,6 +267,7 @@ class Form extends AbstractContainer {
 		foreach ( $this->controls as $control ) {
 			$data[$control->getName()] = $control->getValue();
 		}
+		return $data;
 	}
 
 	/**
