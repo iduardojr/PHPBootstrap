@@ -54,19 +54,45 @@ class ColumnAction extends Column {
 	 * Construtor
 	 *
 	 * @param string $name
-	 * @param string|Icon $label
+	 * @param string|Icon|Tooltip|array $labels
 	 * @param Parameterizable $toggle
+	 * @param string|array
 	 */
-	public function __construct( $name, $label, Parameterizable $toggle = null ) {
-		if ( $label instanceof Icon ) {
-			$this->setIcon($label);
+	public function __construct( $name, $labels, Parameterizable $toggle = null, $styles = null ) {
+		if ( ! is_array($labels) ) {
+			$labels = array($labels);
+		}
+		foreach( $labels as $label ) {
+			if ( $label instanceof Icon ) {
+				$this->setIcon($label);
+			} elseif ( $label instanceof Tooltip ) {
+				$this->setTooltip($label);
+			} else {
+				$this->setLabel($label);
+			}
+		}
+		if ( ! $this->getLabel() && $this->getIcon() ) {
 			$this->setSpan(20);
-		} else {
-			$this->setLabel($label);
+		}
+		
+		$this->setStyle(Button::Link);
+		if ( $styles !== null ) {
+			if ( !is_array($styles) && $styles != null ) {
+				$styles = array($styles);
+			}
+			foreach( $styles as $style ) {
+				try {
+					$this->setStyle($style);
+					continue;
+				} catch ( \Exception $e ) {}
+				try {
+					$this->setSize($style);
+					continue;
+				} catch ( \Exception $e ) {}
+			}
 		}
 		$this->setName($name);
 		$this->setToggle($toggle);
-		$this->setStyle(Button::Link);
 	}
 	
 

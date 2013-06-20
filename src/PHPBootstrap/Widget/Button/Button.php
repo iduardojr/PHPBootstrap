@@ -6,6 +6,7 @@ use PHPBootstrap\Widget\Misc\Anchor;
 use PHPBootstrap\Widget\Misc\Icon;
 use PHPBootstrap\Widget\Toggle\Togglable;
 use PHPBootstrap\Widget\Form\Controls\Decorator\Embeddable;
+use PHPBootstrap\Widget\Tooltip\Tooltip;
 
 /**
  * Botão
@@ -60,23 +61,39 @@ class Button extends Anchor implements Btn, Embeddable {
 	/**
 	 * Construtor
 	 *
-	 * @param string|Icon|array $labels
+	 * @param string|Icon|Tooltip|array $labels
 	 * @param Togglable $toggle
-	 * @param ButtonStyle $style
+	 * @param string|array $styles
 	 */
-	public function __construct( $labels, Togglable $toggle = null, $style = null) {
+	public function __construct( $labels, Togglable $toggle = null, $styles = null) {
 		if ( ! is_array($labels) ) {
 			$labels = array($labels);
 		}
 		foreach( $labels as $label ) {
 			if ( $label instanceof Icon ) {
 				$this->setIcon($label);
+			} elseif ( $label instanceof Tooltip ) {
+				$this->setTooltip($label);
 			} else {
 				$this->setLabel($label);
 			}
 		}
+		if ( $styles !== null ) {
+			if ( !is_array($styles) && $styles != null ) {
+				$styles = array($styles);
+			}
+			foreach( $styles as $style ) {
+				try {
+					$this->setStyle($style);
+					continue;
+				} catch ( \Exception $e ) {}
+				try {
+					$this->setSize($style);
+					continue;
+				} catch ( \Exception $e ) {}
+			}
+		}
 		$this->setToggle($toggle);
-		$this->setStyle($style);
 	}
 
 	/**

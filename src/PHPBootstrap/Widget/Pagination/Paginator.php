@@ -79,9 +79,14 @@ class Paginator {
 	 * @param integer $limit
 	 */
 	public function setLimit( $limit ) {
-		$offset = $this->getOffset();
-		$this->limit = ( int ) $limit > 1 ? $limit : 1;
-		$this->setPage(ceil($offset / $this->limit));
+		if ( $limit > 0 ) {
+			$offset = $this->getOffset();
+			$this->setPage(ceil($offset / $limit));
+		} else {
+			$limit = 0;
+			$this->setPage(1);
+		}
+		$this->limit = ( int ) $limit;
 	}
 	
 	/**
@@ -125,7 +130,7 @@ class Paginator {
 	 * @return integer
 	 */
 	public function getPages() {
-		return max( ceil($this->getTotal() / $this->getLimit()), 1);
+		return max( $this->getLimit() > 0 ? ceil($this->getTotal() / $this->getLimit()) : 0, 1); 
 	}
 	
 	/**
@@ -144,11 +149,14 @@ class Paginator {
 	 */
 	public function getRange() {
 		if ( $this->getTotal() > 0 ) {
-			$offset = $this->getOffset() + 1;
-			$limit = $this->getOffset() + $this->getLimit();
-			$limit = $limit > $this->getTotal() ? $this->getTotal() : $limit;  
-	
-			return array( $offset, $limit );
+			if ( $this->getLimit() > 0 ) {
+				$offset = $this->getOffset() + 1;
+				$limit = $this->getOffset() + $this->getLimit();
+				$limit = $limit > $this->getTotal() ? $this->getTotal() : $limit;
+				
+				return array( $offset, $limit );
+			}
+			return array(1, $this->getTotal());
 		}
 		return array(0, 0);
 	}
