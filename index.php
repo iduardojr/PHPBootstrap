@@ -149,20 +149,23 @@ if ( isset($_GET['class']) ) {
 	<link rel="stylesheet" href="vendor/bootstrap-timepicker/bootstrap-timepicker-0.2.3.css" type="text/css" media="all" />
 	<link rel="stylesheet" href="vendor/bootstrap-colorpicker/bootstrap-colorpicker.css" type="text/css" media="all" />
 	<link rel="stylesheet" href="src/resources/phpbootstrap-min.css" type="text/css" media="all" />
+	
 	<style>
 		body { padding: 50px; font-size: 12px;  }
 		.block { margin-bottom: 15px; clear: both; }
 		.block em { font-size: 15px; display:block; margin-bottom: 5px; }
 		#box-person { background: #fff; width: 250px; position: fixed; right: 50px; }
 	</style>
+	<script type="text/javascript" src="vendor/fckeditor/fckeditor.js"></script>
 	<script type="text/javascript" src="vendor/jquery-1.8.2.js"></script>
+	<script type="text/javascript" src="vendor/jquery.ui-1.9.2.sortable.min.js"></script>
+	<script type="text/javascript" src="vendor/jquery.cookie-1.3.1.js"></script>
 	<script type="text/javascript" src="vendor/jquery.form-3.20.js"></script>
 	<script type="text/javascript" src="vendor/jquery.validate-1.10.0.js"></script>
 	<script type="text/javascript" src="vendor/jquery.validate-1.10.0.add.methods.js"></script>
 	<script type="text/javascript" src="vendor/jquery.maskmoney-1.3.js"></script>
 	<script type="text/javascript" src="vendor/jquery.maskedinput-1.3.js"></script>
 	<script type="text/javascript" src="vendor/jquery.fckeditor-1.32.js"></script>
-	<script type="text/javascript" src="vendor/fckeditor/fckeditor.js"></script>
 </head>
 <body>
 	<?php require_once('testsjs/' . $_GET['w'] . '.php'); ?>
@@ -171,6 +174,6 @@ if ( isset($_GET['class']) ) {
 	<script type="text/javascript" src="vendor/bootstrap-datepicker/locales/bootstrap-datepicker.pt-BR.js"></script>
 	<script type="text/javascript" src="vendor/bootstrap-timepicker/bootstrap-timepicker-0.2.3.js"></script>
 	<script type="text/javascript" src="vendor/bootstrap-colorpicker/bootstrap-colorpicker.js"></script>
-	<script type="text/javascript" src="src/resources/phpbootstrap.js"></script>
+	<script type="text/javascript" src="src/resources/phpbootstrap-min.js"></script>
 </body>
 </html>

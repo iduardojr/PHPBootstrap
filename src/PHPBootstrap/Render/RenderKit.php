@@ -49,9 +49,8 @@ class RenderKit {
 		$this->renderers['phpbootstrap.widget.misc.paragraph'] = 'PHPBootstrap\Render\Html5\Misc\RendererParagraph';
 		$this->renderers['phpbootstrap.widget.misc.title'] = 'PHPBootstrap\Render\Html5\Misc\RendererTitle';
 		$this->renderers['phpbootstrap.widget.misc.well'] = 'PHPBootstrap\Render\Html5\Misc\RendererWell';
-		$this->renderers['phpbootstrap.widget.toggle.action'] = 'PHPBootstrap\Render\Html5\Toggle\RendererTgAction';
-		$this->renderers['phpbootstrap.widget.toggle.ajax'] = 'PHPBootstrap\Render\Html5\Toggle\RendererTgAjax';
-		$this->renderers['phpbootstrap.widget.toggle.windows'] = 'PHPBootstrap\Render\Html5\Toggle\RendererTgWindows';
+		$this->renderers['phpbootstrap.widget.tree'] = 'PHPBootstrap\Render\Html5\Tree\RendererTree';
+		$this->renderers['phpbootstrap.widget.tree.node'] = 'PHPBootstrap\Render\Html5\Tree\RendererTreeNode';
 		$this->renderers['phpbootstrap.widget.thumbnail'] = 'PHPBootstrap\Render\Html5\Thumbnail\RendererThumbnail';
 		$this->renderers['phpbootstrap.widget.thumbnail.list'] = 'PHPBootstrap\Render\Html5\Thumbnail\RendererThumbnailList';
 		$this->renderers['phpbootstrap.widget.media'] = 'PHPBootstrap\Render\Html5\Media\RendererMedia';
