@@ -5,8 +5,8 @@
 		list-style: none;
 		font-size: 14px;
 	}
-	li {  margin: 0; padding: 3px 0 3px 20px; position: relative; background: url(images/tree-line.gif) repeat-y; 
-		> span { cursor: pointer; margin-left: 3px; 
+	li {  margin: 0; padding: 3px 0 3px 20px; position: relative; background: url(images/tree-line.gif) repeat-y;
+		> .tree-node { cursor: pointer; margin-left: 3px; 
 			.btn { opacity: 0.3; filter: alpha(opacity=30); margin-left: 3px; line-height: 16px; display:none; 
 				&:hover { opacity: 1; filter: alpha(opacity=100); }
 			}
@@ -22,8 +22,8 @@
 		&:last-child { background-position: 0 -37px; background-repeat: no-repeat; }
 	}
 	&.filetree li {
-		> .hitarea + span { padding-left: 20px; background: url(images/file.gif) 0 0 no-repeat; }
-		&.expandable > .hitarea + span { background-image: url(images/folder-closed.gif); }
-		&.collapsable > .hitarea + span { background-image: url(images/folder.gif); }
+		> .hitarea + .tree-node { padding-left: 20px; background: url(images/file.gif) 0 0 no-repeat; }
+		&.expandable > .hitarea + .tree-node { background-image: url(images/folder-closed.gif); }
+		&.collapsable > .hitarea + .tree-node { background-image: url(images/folder.gif); }
 	}
 }

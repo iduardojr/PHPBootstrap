@@ -1968,14 +1968,16 @@
 		},
 
 		expand: function ( node ) {
-			node.removeClass('expandable');
-			node.addClass('collapsable');
-			this._trigger('expand', {'node': node, 'ui': this});
-			this.persist();
+			if ( $('ul > li', node).size() > 0 ) {
+				node.removeClass('expandable');
+				node.addClass('collapsable');
+				this._trigger('expand', {'node': node, 'ui': this});
+				this.persist();
+			}
 		},
 
 		collapse: function( node ) {
-			if ($('ul > li', node).size() > 0 ) {
+			if ( $('ul > li', node).size() > 0 ) {
 				node.removeClass('collapsable');
 				node.addClass('expandable');
 				this._trigger('collapse', {'node': node, 'ui': this});
@@ -1997,6 +1999,8 @@
 				$.cookie(this.options.persist, data, this.options.cookie);
 			}
 		}
+		
+
 	};
 	
 	/* TREE PLUGIN DEFINITION
@@ -2012,9 +2016,18 @@
 		$('body').on('click.tree.data-api', '[data-toggle=tree]', function ( e ) {
 			var $this = $(e.currentTarget),
 				node = $this.data('target') ? $($this.data('target')) : $this.parents('li:first');
-				tree = node.parents('.tree');
+				tree = node.closest('.tree');
 				tree.tree('toggle', node);
 	    });
+		
+		$('body').on('click.tree.data-api', '[data-tree]', function ( e ) {
+			var $this = $(e.currentTarget),
+				tree = $($this.data('target'));
+				$('li', tree).each(function (i, node) {
+					tree.tree($this.data('tree'), $(node));
+				});
+	    });
+		
 	});
 	
 }(jQuery));

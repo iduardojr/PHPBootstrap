@@ -50,6 +50,7 @@ class RenderKit {
 		$this->renderers['phpbootstrap.widget.misc.title'] = 'PHPBootstrap\Render\Html5\Misc\RendererTitle';
 		$this->renderers['phpbootstrap.widget.misc.well'] = 'PHPBootstrap\Render\Html5\Misc\RendererWell';
 		$this->renderers['phpbootstrap.widget.tree'] = 'PHPBootstrap\Render\Html5\Tree\RendererTree';
+		$this->renderers['phpbootstrap.widget.tree.toggle'] = 'PHPBootstrap\Render\Html5\Tree\RendererTgTree';
 		$this->renderers['phpbootstrap.widget.tree.node'] = 'PHPBootstrap\Render\Html5\Tree\RendererTreeNode';
 		$this->renderers['phpbootstrap.widget.thumbnail'] = 'PHPBootstrap\Render\Html5\Thumbnail\RendererThumbnail';
 		$this->renderers['phpbootstrap.widget.thumbnail.list'] = 'PHPBootstrap\Render\Html5\Thumbnail\RendererThumbnailList';
@@ -180,9 +181,9 @@ class RenderKit {
 		$renderer = $this->renderers[$ui->getRendererType()];
 		if ( is_string($renderer) ) {
 			$renderer = new $renderer;
-			$renderer->setRenderKit($this);
 			$this->renderers[$ui->getRendererType()] = $renderer;
 		}
+		$renderer->setRenderKit($this);
 		return $renderer;
 	}
 	
@@ -194,7 +195,7 @@ class RenderKit {
 	 * @throws \InvalidArgumentException
 	 */
 	public function addRenderer( $type, $renderer ) {
-		if ( !is_subclass_of($renderer, Renderer ) ) {
+		if ( !is_subclass_of($renderer, 'PHPBootstrap\Render\Renderer' ) ) {
 			throw new \InvalidArgumentException('$renderer no is instance of PHPBootstrap\Render\Renderer');
 		}
 		$this->renderers[$type] = $renderer;

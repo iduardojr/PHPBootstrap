@@ -715,25 +715,25 @@ a.disabled:hover {
   position: relative;
   background: url(images/tree-line.gif) repeat-y;
 }
-.tree li > span {
+.tree li > .tree-node {
   cursor: pointer;
   margin-left: 3px;
 }
-.tree li > span .btn {
+.tree li > .tree-node .btn {
   opacity: 0.3;
   filter: alpha(opacity=30);
   margin-left: 3px;
   line-height: 16px;
   display: none;
 }
-.tree li > span .btn:hover {
+.tree li > .tree-node .btn:hover {
   opacity: 1;
   filter: alpha(opacity=100);
 }
-.tree li > span:hover .btn {
+.tree li > .tree-node:hover .btn {
   display: inline-block;
 }
-.tree li > span .btn-link {
+.tree li > .tree-node .btn-link {
   padding: 0;
 }
 .tree li .hitarea {
@@ -759,13 +759,13 @@ a.disabled:hover {
   background-position: 0 -37px;
   background-repeat: no-repeat;
 }
-.tree.filetree li > .hitarea + span {
+.tree.filetree li > .hitarea + .tree-node {
   padding-left: 20px;
   background: url(images/file.gif) 0 0 no-repeat;
 }
-.tree.filetree li.expandable > .hitarea + span {
+.tree.filetree li.expandable > .hitarea + .tree-node {
   background-image: url(images/folder-closed.gif);
 }
-.tree.filetree li.collapsable > .hitarea + span {
+.tree.filetree li.collapsable > .hitarea + .tree-node {
   background-image: url(images/folder.gif);
 }

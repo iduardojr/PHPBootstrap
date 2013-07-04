@@ -33,11 +33,13 @@ class RendererTable extends RendererWidget {
 			$node->appendNode('<caption>' . $ui->getCaption() . '</caption>');
 		}
 		
+		$thead = new HtmlNode('thead');
+		$tbody = new HtmlNode('tbody');
+		$tfoot = new HtmlNode('tfoot');
+		
 		if ( $ui->getColumns() ) {
 			
 			$count = 0;
-			
-			$thead = new HtmlNode('thead');
 			$tr = new HtmlNode('tr');
 			
 			foreach ( $ui->getColumns() as $column ) {
@@ -50,8 +52,7 @@ class RendererTable extends RendererWidget {
 			$node->appendNode($thead);
 			
 			$ds = $ui->getDataSource();
-			$tbody = new HtmlNode('tbody');
-			
+					
 			$ds->reset();
 			if ( $ds->getTotal() ) {
 				while ( $ds->next() ) {
@@ -69,9 +70,9 @@ class RendererTable extends RendererWidget {
 					}
 					$tbody->appendNode($tr);
 				}
+				$node->appendNode($tbody);
 				
 			} elseif ( $ui->getAlertNoRecords() ) {
-				
 				$cell = new HtmlNode('td');
 				if ( $count > 1 ) {
 					$cell->setAttribute('colspan', $count);
@@ -80,16 +81,10 @@ class RendererTable extends RendererWidget {
 				
 				$tr = new HtmlNode('tr');
 				$tr->appendNode($cell);
-				$tbody->appendNode($tr);
-				
+				$tfoot->appendNode($tr);
 			}
 			
-			$node->appendNode($tbody);
-			
-			$tfoot = new HtmlNode('tfoot');
-
 			if ( $ui->getFooter() ) {
-				
 				$cell = new HtmlNode('td');
 				if ( $count > 1 ) {
 					$cell->setAttribute('colspan', $count);
@@ -101,7 +96,6 @@ class RendererTable extends RendererWidget {
 				$tr->appendNode($cell);
 				
 				$tfoot->appendNode($tr);
-				
 			}
 			
 			$pagination = $ui->getPagination();
@@ -125,7 +119,6 @@ class RendererTable extends RendererWidget {
 			if ( $tfoot->getAllNodes() ) {
 				$node->appendNode($tfoot);
 			}
-			
 		}
 		
 	}

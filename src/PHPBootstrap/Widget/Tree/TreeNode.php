@@ -16,11 +16,11 @@ class TreeNode extends AbstractRender implements TreeElement {
 	const RendererType = 'phpbootstrap.widget.tree.node';
 	
 	/**
-	 * Nome
+	 * Valor
 	 * 
-	 * @var string
+	 * @var mixed
 	 */
-	protected $name;
+	protected $value;
 	
 	/**
 	 * Rotulo
@@ -67,15 +67,14 @@ class TreeNode extends AbstractRender implements TreeElement {
 	/**
 	 * Construtor
 	 *
-	 * @param string $name
 	 * @param string|Widget $label
 	 * @param Button|array $buttons
+	 * @param mixed $value
 	 * @param boolean|null $leaf
 	 */
-	public function __construct( $name, $label, $buttons = null, $leaf = null ) {
+	public function __construct( $label, $buttons = null, $value = null, $leaf = null) {
 		$this->nodes = new ArrayCollection();
 		$this->buttons = new ArrayCollection();
-		$this->setName($name);
 		$this->setLabel($label);
 		if ( $buttons !== null ) {
 			if ( !is_array($buttons) ) {
@@ -86,24 +85,28 @@ class TreeNode extends AbstractRender implements TreeElement {
 			}
 		}
 		$this->setLeaf($leaf);
+		$this->setValue($value);
 	}
 	
 	/**
-	 * Obtem o nome 
+	 * Obtem o valor 
 	 * 
-	 * @return string
+	 * @return scalar|array
 	 */
-	public function getName() {
-		return $this->name;
+	public function getValue() {
+		return $this->value;
 	}
 
 	/**
-	 * Atribui o nome
+	 * Atribui o valor
 	 * 
-	 * @param string $name
+	 * @param scalar|array $value
 	 */
-	public function setName( $name ) {
-		$this->name = $name;
+	public function setValue( $value ) {
+		if ( ! ( $value === null || is_scalar($value) || is_array($value) ) ) {
+			throw new \InvalidArgumentException('value not is scalar or array');
+		}
+		$this->value = $value;
 	}
 
 	/**
@@ -190,7 +193,7 @@ class TreeNode extends AbstractRender implements TreeElement {
 	 * Remove um nó
 	 *
 	 * @param TreeNode $node
-	 * @throws \RuntimeException
+	 * @throws \BadMethodCallException
 	 */
 	public function removeNode( TreeNode $node ) {
 		if ( $this->leaf === true ) {

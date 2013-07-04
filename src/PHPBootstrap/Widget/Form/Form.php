@@ -92,11 +92,11 @@ class Form extends AbstractContainer {
 	protected $autoRegister;
 
 	/**
-	 * Comportamentos
+	 * Eventos
 	 * 
 	 * @var ArrayCollection
 	 */
-	protected $behaviors;
+	protected $listeners;
 	
 	/**
 	 * Construtor 
@@ -110,7 +110,7 @@ class Form extends AbstractContainer {
 		parent::__construct();
 		$this->controls = new ArrayCollection();
 		$this->buttons = new ArrayCollection();
-		$this->behaviors = new ArrayCollection();
+		$this->listeners = new ArrayCollection();
 		$this->setName($name);
 		$this->setMethod($method);
 		$this->setEncoding(null);
@@ -419,7 +419,7 @@ class Form extends AbstractContainer {
 	 * @throws \UnexpectedValueException
 	 */
 	public function attach( $event, \Closure $handler ) {
-		$this->behaviors->set(Enum::ensure($event, array(Form::Validate, Form::ChangeValue)), $handler);
+		$this->listeners->set(Enum::ensure($event, array(Form::Validate, Form::ChangeValue)), $handler);
 	}
 
 	/**
@@ -432,7 +432,7 @@ class Form extends AbstractContainer {
 	 * @throws \UnexpectedValueException
 	 */
 	public function detach( $event ) {
-		return $this->behaviors->removeKey(Enum::ensure($event, array(Form::Validate, Form::ChangeValue)));
+		return $this->listeners->removeKey(Enum::ensure($event, array(Form::Validate, Form::ChangeValue)));
 	}
 
 	/**
@@ -448,8 +448,8 @@ class Form extends AbstractContainer {
 	 */
 	protected function trigger( $event, array $data = array() ) {
 		$event = Enum::ensure($event, array(Form::Validate, Form::ChangeValue));
-		if ( $this->behaviors && $this->behaviors->containsKey($event) ) {
-			$handler = $this->behaviors->get($event);
+		if ( $this->listeners && $this->listeners->containsKey($event) ) {
+			$handler = $this->listeners->get($event);
 			if ( call_user_func($handler, $this, $data) === false ) {
 				return false;
 			}

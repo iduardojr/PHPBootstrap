@@ -3,7 +3,7 @@ namespace PHPBootstrap\Widget\Tree;
 
 use PHPBootstrap\Widget\AbstractWidget;
 use PHPBootstrap\Common\ArrayCollection;
-use PHPBootstrap\Common\Enum;
+use PHPBootstrap\Common\ArrayIterator;
 
 /**
  * Arvore
@@ -13,6 +13,7 @@ class Tree extends AbstractWidget implements TreeElement {
 	// ID Renderizador
 	const RendererType = 'phpbootstrap.widget.tree';
 	
+	// Estilo
 	const Filetree = 'filetree';
 	
 	/**
@@ -88,5 +89,39 @@ class Tree extends AbstractWidget implements TreeElement {
 		return $this->nodes->getElements();
 	}
 	
+	/**
+	 * Obtem um nó a partir do valor
+	 *
+	 * @param mixed $value
+	 */
+	public function getNode( $value ) {
+		foreach ( $this->getNodes() as $node ) {
+			$find = $this->findNode($node, $value);
+			if ( $find ) {
+				return $find;
+			}
+		} 
+		return null;
+	}
+	
+	/**
+	 * Busca um nó
+	 *
+	 * @param TreeNode $node
+	 * @param mixed $value
+	 * @return TreeNode
+	 */
+	private function findNode( TreeNode $node, $value ){
+		if ( $node->getValue() === $value ) {
+			return $node;
+		}
+		foreach( $node->getNodes() as $node ) {
+			$find = $this->findNode($node, $value);
+			if ( $find ) {
+				return $find;
+			}
+		}
+		return null;
+	}
 }
 ?>

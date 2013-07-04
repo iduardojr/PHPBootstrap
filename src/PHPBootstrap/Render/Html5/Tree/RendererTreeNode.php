@@ -19,13 +19,14 @@ class RendererTreeNode extends RendererDependsResponse {
 	protected function _render( TreeNode $ui, HtmlNode $node ) {
 		$li = new HtmlNode('li');
 
-		$li->setAttribute('id', $ui->getName());
-		
 		$hitarea = new HtmlNode('i');
 		$hitarea->addClass('hitarea');
 		$li->appendNode($hitarea);
 		
 		$span = new HtmlNode('span');
+		$span->addClass('tree-node');
+		
+		$span->setAttribute('data-value', is_array($ui->getValue()) ? str_replace('"', "&quot;", json_encode($this->encode($ui->getValue()))) : $ui->getValue());
 		if ( $ui->getLabel() instanceof Widget ) {
 			$this->toRender($ui->getLabel(), new Context($span));
 		} else {
@@ -34,7 +35,7 @@ class RendererTreeNode extends RendererDependsResponse {
 		$li->appendNode($span);
 		
 		foreach( $ui->getButtons() as $button ) {
-			$this->toRender($button, new Context($li));
+			$this->toRender($button, new Context($span));
 		}
 		
 		if ( ! $ui->isLeaf() ) {
@@ -48,6 +49,22 @@ class RendererTreeNode extends RendererDependsResponse {
 		}
 		
 		$node->appendNode($li);
+	}
+	
+	/**
+	 * Codifica os valores
+	 *
+	 * @param mixed $data
+	 */
+	private function encode( $data ) {
+		if ( is_scalar($data) ) {
+			return utf8_encode($data);
+		} elseif ( is_array($data)) {
+			foreach( $data as $key => $value ) {
+				$data[$key] = $this->encode($value);
+			}
+		}
+		return $data;
 	}
 }
 ?>
