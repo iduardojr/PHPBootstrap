@@ -65,16 +65,25 @@ class TreeNode extends AbstractRender implements TreeElement {
 	protected $opened;
 	
 	/**
+	 * Identificação
+	 * 
+	 * @var mixed
+	 */
+	protected $identify;
+	
+	/**
 	 * Construtor
 	 *
+	 * @param string $identify
 	 * @param string|Widget $label
-	 * @param Button|array $buttons
 	 * @param mixed $value
+	 * @param Button|array $buttons
 	 * @param boolean|null $leaf
 	 */
-	public function __construct( $label, $buttons = null, $value = null, $leaf = null) {
+	public function __construct( $identify, $label, $value = null, $buttons = null, $leaf = null) {
 		$this->nodes = new ArrayCollection();
 		$this->buttons = new ArrayCollection();
+		$this->setIdentify($identify);
 		$this->setLabel($label);
 		if ( $buttons !== null ) {
 			if ( !is_array($buttons) ) {
@@ -86,6 +95,23 @@ class TreeNode extends AbstractRender implements TreeElement {
 		}
 		$this->setLeaf($leaf);
 		$this->setValue($value);
+	}
+	
+	/**
+	 * Atribui uma identificação
+	 *
+	 * @param string $identify
+	 */
+	public function setIdentify( $identify ) {
+		$this->identify = $identify;
+	}
+	
+	/**
+	 * 
+	 * @see TreeElement::getIdentify()
+	 */
+	public function getIdentify() {
+		return $this->identify;
 	}
 	
 	/**

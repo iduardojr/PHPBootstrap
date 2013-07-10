@@ -11,7 +11,7 @@
 					if ( ! $.cookie.json ) {
 						data = JSON.parse(data);
 					}
-					$.each( data, function(node, value) {
+					$.each( data, function( node, value ) {
 						node = $('li[id="' + node + '"]', that.element);
 						if ( node.is('.expandable,.collapsable') ) {
 							value ? that.expand(node) : that.collapse(node);
@@ -61,7 +61,6 @@
 				$.cookie(this.options.persist, data, this.options.cookie);
 			}
 		}
-		
 
 	};
 	

@@ -2,7 +2,6 @@
 namespace PHPBootstrap\Widget\Misc;
 
 use PHPBootstrap\Common\ArrayCollection;
-
 use PHPBootstrap\Widget\Action\TgLink;
 use PHPBootstrap\Widget\AbstractWidget;
 
@@ -10,7 +9,6 @@ use PHPBootstrap\Widget\AbstractWidget;
  * Migalhas de pão
  */
 class Breadcrumb extends AbstractWidget {
-
 	// ID Renderizador
 	const RendererType = 'phpbootstrap.widget.misc.breadcrumb';
 
@@ -29,15 +27,24 @@ class Breadcrumb extends AbstractWidget {
 	protected $divider;
 
 	/**
+	 * Ativo
+	 * 
+	 * @var boolean
+	 */
+	protected $active;
+
+	/**
 	 * Construtor
 	 *
 	 * @param string $name
 	 * @param string $divider
+	 * @param boolean $active
 	 */
-	public function __construct( $name, $divider = '/' ) {
+	public function __construct( $name, $divider = '/', $active = true ) {
 		$this->items = new ArrayCollection();
 		$this->setName($name);
 		$this->setDivider($divider);
+		$this->setActive($active);
 	}
 
 	/**
@@ -48,7 +55,7 @@ class Breadcrumb extends AbstractWidget {
 	 */
 	public function addItem( $text, TgLink $toggle = null ) {
 		if ( $toggle ) {
-			$this->items->set($text, array( 'text' => $text, 'toggle' => $toggle ));
+			$this->items->set($text, array('text' => $text, 'toggle' => $toggle ));
 		} else {
 			$this->items->set($text, $text);
 		}
@@ -90,5 +97,22 @@ class Breadcrumb extends AbstractWidget {
 		$this->divider = $divider;
 	}
 
+	/**
+	 * Atribui ativo
+	 *
+	 * @param boolean $active
+	 */
+	public function setActive( $active ) {
+		$this->active = ( bool ) $active;
+	}
+
+	/**
+	 * Obtem ativo
+	 * 
+	 * @return boolean
+	 */
+	public function getActive() {
+		return $this->active;
+	}
 }
 ?>

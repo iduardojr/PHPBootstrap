@@ -1,59 +1,66 @@
 <?php
 namespace PHPBootstrap\Widget\Form\Controls;
 
+use PHPBootstrap\Widget\Modal\Modal;
 use PHPBootstrap\Format\Formatter;
 use PHPBootstrap\Widget\Misc\Icon;
+use PHPBootstrap\Widget\Form\Controls\Decorator\TgSearch;
 use PHPBootstrap\Widget\Form\Controls\Decorator\Suggestible;
 use PHPBootstrap\Widget\Action\Action;
 use PHPBootstrap\Validate\Measurable;
 use PHPBootstrap\Validate\Patternable;
 
 /**
- * Componente abstrato de pesquisa
+ * Caixa de pesquisa
  */
-abstract class AbstractTextBoxSearch extends AbstractTextBoxComponent {
-
+class SearchBox extends AbstractTextBoxComponent {
+	
 	/**
 	 * Construtor
-	 *
-	 * @param string $name  
+	 * 
+	 * 
+	 * @param string $name
+	 * @param Action $action
+	 * @param Modal $output
 	 */
-	public function __construct( $name ) {
+	public function __construct( $name, Action $action, Modal $output = null ) {
+		$this->toggle = new TgSearch($action, null, $output);
 		$this->icon = new Icon('icon-search');
 		parent::__construct($name);
+		$this->setEnableQuery(true);
 	}
-
+	
 	/**
 	 * Habilita o campo de busca
 	 *
-	 * @param boolean $enableQuery        	
+	 * @param boolean $enableQuery
 	 */
 	public function setEnableQuery( $enableQuery ) {
-		$this->toggle->setInputQuery($enableQuery ? $this->input : null);
+		$this->toggle->setQuery($enableQuery ? $this->input : null);
 		if ( !$this->getDisabled() ) {
 			$this->input->setDisabled(!$enableQuery);
 		}
 	}
-
+	
 	/**
 	 * Obtem a habilitação do campo de busca
 	 *
 	 * @return boolean
 	 */
 	public function getEnableQuery() {
-		return $this->toggle->getInputQuery() == $this->input;
+		return $this->toggle->getQuery() == $this->input;
 	}
-
+	
 	/**
 	 * Atribui campo desabilitado
 	 *
-	 * @param boolean $disabled        	
+	 * @param boolean $disabled
 	 */
 	public function setDisabled( $disabled ) {
 		$this->input->setDisabled($disabled && $this->getEnableQuery());
 		$this->button->setDisabled($disabled);
 	}
-
+	
 	/**
 	 * Obtem ação
 	 *
@@ -62,26 +69,26 @@ abstract class AbstractTextBoxSearch extends AbstractTextBoxComponent {
 	public function getAction() {
 		return $this->toggle->getAction();
 	}
-
+	
 	/**
 	 * Atribui ação
 	 *
-	 * @param Action $action        	
+	 * @param Action $action
 	 */
 	public function setAction( Action $action ) {
 		$this->toggle->setAction($action);
 	}
-
+	
 	/**
 	 * Atribui a mascara de entrada
 	 *
-	 * @param string|Maskable $mask        	
+	 * @param string|Maskable $mask
 	 * @throws \InvalidArgumentException
 	 */
 	public function setMask( $mask ) {
 		$this->input->setMask($mask);
 	}
-
+	
 	/**
 	 * Obtem a mascara de entrada
 	 *
@@ -90,16 +97,16 @@ abstract class AbstractTextBoxSearch extends AbstractTextBoxComponent {
 	public function getMask() {
 		return $this->input->getMask();
 	}
-
+	
 	/**
 	 * Atribui sugestão
 	 *
-	 * @param Suggestible $suggestion        	
+	 * @param Suggestible $suggestion
 	 */
 	public function setSuggestion( Suggestible $suggestion = null ) {
 		$this->input->setSuggestion($suggestion);
 	}
-
+	
 	/**
 	 * Obtem sugestão
 	 *
@@ -108,16 +115,16 @@ abstract class AbstractTextBoxSearch extends AbstractTextBoxComponent {
 	public function getSuggestion() {
 		return $this->input->getSuggestion();
 	}
-
+	
 	/**
 	 * Atribui um formatador
 	 *
-	 * @param Formatter $formatter        	
+	 * @param Formatter $formatter
 	 */
 	public function setFormatter( Formatter $formatter = null ) {
 		$this->input->setFormatter($formatter);
 	}
-
+	
 	/**
 	 * Obtem o formatador
 	 *
@@ -126,7 +133,7 @@ abstract class AbstractTextBoxSearch extends AbstractTextBoxComponent {
 	public function getFormatter() {
 		return $this->input->getFormatter();
 	}
-
+	
 	/**
 	 * Obtem o validador da quantidade
 	 *
@@ -135,16 +142,16 @@ abstract class AbstractTextBoxSearch extends AbstractTextBoxComponent {
 	public function getLength() {
 		return $this->input->getLength();
 	}
-
+	
 	/**
 	 * Atribui validador da quantidade
 	 *
-	 * @param Measurable $rule        	
+	 * @param Measurable $rule
 	 */
 	public function setLength( Measurable $rule = null ) {
 		$this->input->setLength($rule);
 	}
-
+	
 	/**
 	 * Obtem o validador de padrão
 	 *
@@ -153,11 +160,11 @@ abstract class AbstractTextBoxSearch extends AbstractTextBoxComponent {
 	public function getPattern() {
 		return $this->input->getPattern();
 	}
-
+	
 	/**
 	 * Atribui validador de padrão
 	 *
-	 * @param Patternable $rule        	
+	 * @param Patternable $rule
 	 */
 	public function setPattern( Patternable $rule = null ) {
 		$this->input->setPattern($rule);

@@ -1,114 +1,83 @@
 (function($) {
 	
-	/* SEEK CLASS DEFINITION
-	 * ===================== */
-	Seek = {
+	/* SEARCH CLASS DEFINITION
+	 * ========================= */
+	Search = {
 			
 		request: null,
+		query: null,
+		output: null,
+		
+		_create: function() {
+			this.output = this.options.output ? $('.modal-body', this.options.output) : null;
+		},
 		
 		abort: function(){
 			if ( this.request ) {
 				this.request.abort();
 				this.request = null;
-				this._trigger('loaded', this);
+				this._trigger('loaded', { ui: this, response: {} });
 			}
 		},
 		
-		search: function() {
+		lookup: function() {
 			this.abort();
-			if ( this.options.query.length > 0 && this.options.remote ) {
-				this._trigger('loading', this);
-				this.request = $.getJSON( this.options.remote, {'query': this.options.query }, $.proxy( function( result ) {
-					this.request = null;
-					this._trigger('process', { ui: this, data: result });
-					this._trigger('loaded', { ui: this, data: result });
-				}, this));
-			}
-		}
-		
-	};
-	
-	/* RESEARCH CLASS DEFINITION
-	 * ========================= */
-	Research = {
-		
-		search: function() {
-			this.abort();
+			this.query = this.options.query ? $(this.options.query).filter(':not([readonly])').val() : '';
 			if ( this.options.remote ) {
 				this._trigger('loading', this);
-				this.request = $.get( this.options.remote, {'query': this.options.query }, $.proxy( function( result ) {
+				this.request = $.get( this.options.remote, { 'query': this.query }, $.proxy( function( result ) {
 					this.request = null;
-					$('.modal-body', this.options.target).empty();
-					$('.modal-body', this.options.target).append(result);
-					this.options.target.modal('show')
-	       	   		  		  		   .one('hide', $.proxy(function () { this.element.focus(); }, this));
-					this._trigger('loaded', { ui: this, data: result });
+					this._trigger('process', { ui: this, response: result });
+					this._trigger('loaded', { ui: this, response: result });
 				}, this));
 			}
 		}
 		
 	};
 	
-	/* OUTPUT, INPUT PLUGINS DEFINITION
+	/* SEARCH PLUGINS DEFINITION
 	 * ======================= */
-	$.plugin('xseek', Seek, {
-		process: function ( e, response ) {
-			$.each( response.data, function( key, value ) {
-				var el = $('#' + key );
-				var event = $.Event('update');
-				el.trigger(event, value);
-				if ( ! event.isDefaultPrevented() ) {
-					if ( el.is(':input') ) {
-						el.val(value);
-					} else {
-						el.html(value);
+	$.plugin('search', Search, {
+		loading: function ( e, ui ) {
+			$(ui.options.query).addClass('loading');
+		},
+		loaded: function( e, data ) {
+			$(data.ui.options.query).removeClass('loading');
+		}, 
+		process: function ( e, data ) {
+			if ( data.ui.output ) {
+				data.ui.output.empty();
+				data.ui.output.append(data.response);
+				data.ui.output.closest('.modal')
+						 	  .modal('show')
+       	   		  		 	  .one('hide', $.proxy( function () { data.ui.element.focus(); }, this ));
+			} else {
+				$.each( data.response.data, function( key, value ) {
+					var el = $('#' + key );
+					var event = $.Event('update');
+					el.trigger(event, value);
+					if ( ! event.isDefaultPrevented() ) {
+						if ( el.is(':input') ) {
+							el.val(value);
+						} else {
+							el.html(value);
+						};
 					};
-				};
-			});
+				});
+			}
 		}
 	});
-	$.plugin('xresearch', Research, Seek, {});
 	
    /* DATA-API
 	* ============== */
 	$(function () {
 		
-		$('body').on('click.search.data-api', '[data-toggle=seek]', function( e ) {
-			var $this = $(e.currentTarget),
-				input = $($this.data('input-query'));
-			
-			if ( ! $this.data('xseek') ) {
-				$this.xseek({ remote: $this.data('remote'),
-							  loading: function (e, ui ) {
-								  input.addClass('loading');
-							  },
-							  loaded: function(e, ui) {
-								  input.removeClass('loading');
-							  }});
-			}
-			$this.xseek('option', 'query', input.field('value'));
-			$this.xseek('search');
-			return false;
-		});
-		
-		$('body').on('click.search.data-api', '[data-toggle=research]', function( e ) {
-			var $this = $(e.currentTarget),
-				input = $($this.data('input-query'));
-			
-			if ( ! $this.data('xresearch') ) {
-				$this.xresearch({ 
-					remote: $this.data('remote'),
-					target: $($this.data('target')),
-					loading: function (e, ui ) {
-						input.addClass('loading');
-					},
-					loaded: function(e, ui) {
-						input.removeClass('loading');
-					}
-				});
-			}
-			$this.xresearch('option', 'query', input.is('[readonly]') ? '' : input.field('value'));
-			$this.xresearch('search');
+		$('body').on('click.search.data-api', '[data-toggle=search]', function( e ) {
+			var $this = $(e.currentTarget);
+			if ( ! $this.data('search') ) {
+				$this.search($this.data());
+			};
+			$this.search('lookup');
 			return false;
 		});
 		

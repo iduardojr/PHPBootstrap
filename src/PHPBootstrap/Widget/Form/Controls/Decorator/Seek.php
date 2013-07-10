@@ -1,0 +1,50 @@
+<?php
+namespace PHPBootstrap\Widget\Form\Controls\Decorator;
+
+use PHPBootstrap\Widget\Action\Action;
+use PHPBootstrap\Widget\AbstractRender;
+
+/**
+ * Busca
+ */
+class Seek extends AbstractRender implements Suggestible {
+
+	// ID Renderizador
+	const RendererType = 'phpbootstrap.widget.form.control.decorator.seek';
+	
+	/**
+	 * Ação
+	 *
+	 * @var Action
+	 */
+	protected $action;
+	
+	/**
+	 * Construtor
+	 *
+	 * @param Action $action
+	 */
+	public function __construct( Action $action ) {
+		$this->setAction($action);
+	}
+	
+	/**
+	 * Obtem ação
+	 *
+	 * @return Action
+	 */
+	public function getAction() {
+		return $this->action;
+	}
+	
+	/**
+	 * Atribui ação
+	 *
+	 * @param Action $action
+	 */
+	public function setAction( Action $action ) {
+		$this->action = $action;
+	}
+
+}
+?>

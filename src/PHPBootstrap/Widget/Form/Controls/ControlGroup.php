@@ -2,7 +2,6 @@
 namespace PHPBootstrap\Widget\Form\Controls;
 
 use PHPBootstrap\Common\Enum;
-use PHPBootstrap\Widget\Form\Inputable;
 use PHPBootstrap\Widget\AbstractContainer;
 
 /**
@@ -44,14 +43,14 @@ class ControlGroup extends AbstractContainer {
 	 * Construtor 
 	 * 
 	 * @param Label $label
-	 * @param Inputable|array $inputs
+	 * @param Widget|array $inputs
 	 * @param Help $help
 	 */
 	public function __construct( Label $label = null, $inputs = null, Help $help = null ) {
 		parent::__construct();
 		$this->setLabel($label);
 		$this->setHelp($help);
-		if ( $inputs ) {
+		if ( $inputs !== null ) {
 			if ( ! is_array($inputs) ) {
 				$inputs = array($inputs);
 			}
@@ -59,63 +58,6 @@ class ControlGroup extends AbstractContainer {
 				$this->append($input);
 			}
 		}
-	}
-	
-	/**
-	 * Adiciona um input no fim
-	 *
-	 * @param Inputable $input
-	 * @return boolean
-	 * @throws \InvalidArgumentException
-	 */
-	public function append( Inputable $input ) {
-		return parent::append($input);
-	}
-	
-	/**
-	 * Adiciona um input no inicio
-	 *
-	 * @param Inputable $input
-	 * @return boolean
-	 * @throws \InvalidArgumentException
-	 */
-	public function prepend( Inputable $input ) {
-		return parent::prepend($input);
-	}
-	
-	/**
-	 * Insere um input apos o outro
-	 *
-	 * @param Inputable $target
-	 * @param Inputable $input
-	 * @return boolean
-	 * @throws \InvalidArgumentException
-	 */
-	public function after( Inputable $target, Inputable $input ) {
-		return parent::after($target, $input);
-	}
-	
-	/**
-	 * Insere um input antes de outro
-	 *
-	 * @param Inputable $target
-	 * @param Inputable $widget
-	 * @return boolean
-	 * @throws \InvalidArgumentException
-	 */
-	public function before( Inputable $target, Inputable $input ) {
-		return parent::before($target, $input);
-	}
-	
-	/**
-	 * Substitui um input por outro
-	 *
-	 * @param Inputable $target
-	 * @param Inputable $input
-	 * @throws \InvalidArgumentException
-	 */
-	public function replace( Inputable $target, Inputable $input ) {
-		return parent::replace($target, $input);
 	}
 	
 	/**

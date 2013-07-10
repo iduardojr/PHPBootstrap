@@ -13,7 +13,8 @@ class RendererTgTree extends RendererDependsResponse {
 	 */
 	protected function _render( TgTree $ui, HtmlNode $node ) {
 		$node->setAttribute('data-tree', $ui->getToggle());
-		$node->setAttribute('data-target', '#' . $ui->getTarget()->getName());
+		$node->setAttribute('data-target', '#' . $ui->getTarget()->getIdentify());
 	}
+
 }
 ?>

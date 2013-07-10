@@ -43,6 +43,13 @@ class Tree extends AbstractWidget implements TreeElement {
 	}
 	
 	/**
+	 * @see TreeElement::getIdentify()
+	 */
+	public function getIdentify() {
+		return $this->getName();
+	}
+	
+	/**
 	 * Obtem estilo
 	 * 
 	 * @return string

@@ -121,8 +121,8 @@ class RenderKit {
 		$this->renderers['phpbootstrap.widget.form.control.input.xcombobox'] = 'PHPBootstrap\Render\Html5\Form\Controls\RendererInputXComboBox';
 		$this->renderers['phpbootstrap.widget.form.control.decorator.typehead'] = 'PHPBootstrap\Render\Html5\Form\Controls\RendererDecoratorTypeHead';
 		$this->renderers['phpbootstrap.widget.form.control.decorator.suggest'] = 'PHPBootstrap\Render\Html5\Form\Controls\RendererDecoratorSuggest';
-		$this->renderers['phpbootstrap.widget.form.control.decorator.seek'] = 'PHPBootstrap\Render\Html5\Form\Controls\RendererDecoratorTgSeek';
-		$this->renderers['phpbootstrap.widget.form.control.decorator.research'] = 'PHPBootstrap\Render\Html5\Form\Controls\RendererDecoratorTgResearch';
+		$this->renderers['phpbootstrap.widget.form.control.decorator.seek'] = 'PHPBootstrap\Render\Html5\Form\Controls\RendererDecoratorSeek';
+		$this->renderers['phpbootstrap.widget.form.control.decorator.search'] = 'PHPBootstrap\Render\Html5\Form\Controls\RendererDecoratorTgSearch';
 		$this->renderers['phpbootstrap.widget.form.control.decorator.embed'] = 'PHPBootstrap\Render\Html5\Form\Controls\RendererDecoratorEmbed';
 		$this->renderers['phpbootstrap.widget.form.control.decorator.addon'] = 'PHPBootstrap\Render\Html5\Form\Controls\RendererDecoratorAddOn';
 		$this->renderers['phpbootstrap.widget.form.control.decorator.mask'] = 'PHPBootstrap\Render\Html5\Form\Controls\RendererDecoratorMask';

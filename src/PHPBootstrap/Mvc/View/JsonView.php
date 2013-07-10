@@ -1,8 +1,9 @@
 <?php
-namespace src\PHPBootstrap\Mvc\View;
+namespace PHPBootstrap\Mvc\View;
 
 use PHPBootstrap\Mvc\Http\HttpResponse;
 use PHPBootstrap\Mvc\View\Viewable;
+use PHPBootstrap\Widget\Renderable;
 
 /**
  * Visualização de um json
@@ -81,11 +82,16 @@ class JsonView implements Viewable {
 	 */
 	private function encode( array $data ) {
 		foreach ( $data as $key => $value ) {
-			if ( is_string($value) ) {
-				$data[$key] = utf8_encode($data);
+			if ( is_scalar($value) || is_callable(array(&$value, '__toString')) ) {
+				$data[$key] = utf8_encode($value);
 			} elseif ( is_array($value)) {
 				$data[$key] = $this->encode($value);
-			}
+			} elseif ( $value instanceof  Renderable ) {
+				ob_start();
+				$value->render();
+				$data[$key] = utf8_encode(ob_get_contents());
+				ob_end_clean();
+			} 
 		}
 		return $data;
 	}}

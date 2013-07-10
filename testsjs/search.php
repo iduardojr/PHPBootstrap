@@ -1,12 +1,12 @@
 <?php 
 use PHPBootstrap\Widget\Misc\Title;
 use PHPBootstrap\Widget\Modal\Modal;
-use PHPBootstrap\Widget\Form\Controls\ResearchBox;
+use PHPBootstrap\Widget\Form\Controls\SearchBox;
 use PHPBootstrap\Widget\Form\Controls\CheckBox;
-use PHPBootstrap\Widget\Form\Controls\SeekBox;
 use PHPBootstrap\Widget\Form\Controls\TextBox;
 use PHPBootstrap\Widget\Form\Controls\Label;
 use PHPBootstrap\Widget\Action\Action;
+use PHPBootstrap\Widget\Form\Controls\Decorator\Seek;
 ?>
 <fieldset>
 	<div id="box-person" class="well">
@@ -32,7 +32,8 @@ use PHPBootstrap\Widget\Action\Action;
 	<div class="block">
 		<em>Seek</em>
 		<?php
-		$ui = new SeekBox('seek', new Action('Seek'));
+		$ui = new TextBox('seek'); 
+		$ui->setSuggestion(new Seek(new Action('Seek')));
 		$ui->render();
 		?>
 	</div>
@@ -43,7 +44,7 @@ use PHPBootstrap\Widget\Action\Action;
 		$modal->setHide(true);
 		$modal->render();
 		
-		$ui = new ResearchBox('research', new Action('Research'), $modal);
+		$ui = new SearchBox('research', new Action('Search'), $modal);
 		$ui->render();
 		?>
 	</div>

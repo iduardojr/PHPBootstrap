@@ -1,5 +1,39 @@
 (function($) {
 	
+	/* TYPEAHEAD CLASS DEFINITION
+	 * ===================== */
+	$.fn.typeahead.Constructor.prototype.select = function () {
+        var val = this.$menu.find('.active').data('value');
+        this.$element.val(this.updater(val))
+        			 .change();
+        return this.hide();
+    };
+    
+    $.fn.typeahead.Constructor.prototype.render = function ( items ) {
+		var that = this;
+
+		items = $(items).map(function (i, item) {
+			i = $(that.options.item).data('value', item);
+			i.find('a').html(that.highlighter(item));
+        	return i[0];
+		});
+
+		items.first().addClass('active');
+		this.$menu.html(items);
+		return this;
+    };
+
+    $.fn.typeahead.Constructor.prototype.lookup = function ( event ) {
+        var items;
+        this.query = this.$element.val();
+
+        if ( this.query.length < this.options.minLength ) {
+        	return this.shown ? this.hide() : this;
+        }
+        items = $.isFunction(this.source) ? this.source(this.query, $.proxy(this.process, this)) : this.source;
+        return items ? this.process(items) : this;
+   };
+	
 	/* SUGGEST CLASS DEFINITION
 	 * ====================== */
 	var Suggest = function (element, options) {
@@ -100,7 +134,43 @@
 		}
 	});
 	
-	/* SUGGEST PLUGINS DEFINITION
+	/* SEEK CLASS DEFINITION
+	 * ===================== */
+	Seek = {
+			
+		request: null,
+		query: null,
+		
+		_create: function() {
+			this.element.on('blur', $.proxy(this.lookup, this));
+			this.element.on('focus', $.proxy(this.abort, this));
+		},
+		
+		abort: function(){
+			if ( this.request ) {
+				this.request.abort();
+				this.request = null;
+				this._trigger('loaded', { ui: this, data: {} });
+			}
+		},
+		
+		lookup: function() {
+			this.query = this.element.val();
+			this.abort();
+			if ( this.query.length > 0 && this.options.remote ) {
+				this._trigger('loading', this);
+				this.request = $.getJSON( this.options.remote, {'query': this.query }, $.proxy( function( result ) {
+					this.request = null;
+					this._trigger('process', { ui: this, data: result });
+					this._trigger('loaded', { ui: this, data: result });
+				}, this));
+			}
+		}
+		
+	};
+	
+	
+	/* SUGGEST, SEEK PLUGINS DEFINITION
 	 * ======================= */
 	
 	$.fn.suggest = function ( option ) {
@@ -140,9 +210,40 @@
 	});
 	$.fn.suggest.Constructor = Suggest;
 	
-   /* SUGGEST DATA-API
+	
+	$.plugin('seek', Seek, {
+		loading: function ( e, ui ) {
+			ui.element.addClass('loading');
+		},
+	    loaded: function( e, data ) {
+			data.ui.element.removeClass('loading');
+		},
+		process: function ( e, response ) {
+			$.each( response.data, function( key, value ) {
+				var el = $('#' + key );
+				var event = $.Event('update');
+				el.trigger(event, value);
+				if ( ! event.isDefaultPrevented() ) {
+					if ( el.is(':input') ) {
+						el.val(value);
+					} else {
+						el.html(value);
+					};
+				};
+			});
+		}
+	});
+	
+   /* SUGGEST, SEEK DATA-API
 	* ============== */
 	$(function () {
+		
+		$('body').on('focus.seek.data-api', '[data-provide=seek]', function( e ) {
+			var $this = $(e.currentTarget);
+			if ($this.data('seek')) return;
+		    e.preventDefault();
+		    $this.seek($this.data());
+		});
 		
 		$('body').on('focus.suggest.data-api', '[data-provide=suggest]', function ( e ) {
 			var $this = $(e.currentTarget);

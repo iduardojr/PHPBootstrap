@@ -19,8 +19,10 @@ class RendererTreeNode extends RendererDependsResponse {
 	protected function _render( TreeNode $ui, HtmlNode $node ) {
 		$li = new HtmlNode('li');
 
+		$li->setAttribute('id', $ui->getIdentify());
 		$hitarea = new HtmlNode('i');
 		$hitarea->addClass('hitarea');
+		$hitarea->setAttribute('data-toggle', 'tree');
 		$li->appendNode($hitarea);
 		
 		$span = new HtmlNode('span');
@@ -38,15 +40,14 @@ class RendererTreeNode extends RendererDependsResponse {
 			$this->toRender($button, new Context($span));
 		}
 		
+		$ul = new HtmlNode('ul');
 		if ( ! $ui->isLeaf() ) {
 			$li->addClass($ui->getOpened() ? 'collapsable' : 'expandable');
-			$hitarea->setAttribute('data-toggle', 'tree');
-			$ul = new HtmlNode('ul');
 			foreach( $ui->getNodes() as $item ) {
 				$this->toRender($item, new Context($ul));
 			}
-			$li->appendNode($ul);
 		}
+		$li->appendNode($ul);
 		
 		$node->appendNode($li);
 	}

@@ -39,7 +39,9 @@ class RendererBreadcrumb extends RendererWidget {
 			$li->appendNode($item);
 			$iterator->next();
 			if ( ! $iterator->valid() ) {
-				$li->addClass('active');
+				if ( $ui->getActive() ) {
+					$li->addClass('active');
+				}
 			} else {
 				$li->appendNode(' <span class="divider">' . $ui->getDivider() . '</span>');
 			}

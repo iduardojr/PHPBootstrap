@@ -9,7 +9,7 @@ use PHPBootstrap\Widget\Layout\Box;
 use PHPBootstrap\Common\ClassLoader;
 use PHPBootstrap\Widget\Action\Action;
 use PHPBootstrap\Widget\Action\QueryString;
-use PHPBootstrap\Widget\Form\Controls\ResearchBox;
+use PHPBootstrap\Widget\Form\Controls\SearchBox;
 use PHPBootstrap\Widget\Action\TgAjax;
 use PHPBootstrap\Widget\Misc\Alert;
 
@@ -81,10 +81,10 @@ if ( isset($_GET['class']) ) {
 			echo json_encode(array('id' => '00' . $key, 'name' => 'Iduardo Donizet Gomes Junior', 'birthday' => '06/10/1985', 'status' => $key % 2 ));
 			exit;
 			
-		case 'Research':
+		case 'Search':
 			$box = new Box();
 			
-			$input = new ResearchBox('query', new Action('Research'), new Modal('output', new Title('')));
+			$input = new SearchBox('query', new Action('Search'), new Modal('output', new Title('')));
 			$input->setValue(isset($_GET['query']) ? $_GET['query'] : null);
 			$box->append($input);
 			
@@ -148,7 +148,7 @@ if ( isset($_GET['class']) ) {
 	<link rel="stylesheet" href="vendor/bootstrap-datepicker/bootstrap-datepicker.css" type="text/css" media="all" />
 	<link rel="stylesheet" href="vendor/bootstrap-timepicker/bootstrap-timepicker-0.2.3.css" type="text/css" media="all" />
 	<link rel="stylesheet" href="vendor/bootstrap-colorpicker/bootstrap-colorpicker.css" type="text/css" media="all" />
-	<link rel="stylesheet" href="src/resources/phpbootstrap-min.css" type="text/css" media="all" />
+	<link rel="stylesheet" href="src/resources/phpbootstrap.css" type="text/css" media="all" />
 	
 	<style>
 		body { padding: 50px; font-size: 12px;  }
@@ -174,6 +174,18 @@ if ( isset($_GET['class']) ) {
 	<script type="text/javascript" src="vendor/bootstrap-datepicker/locales/bootstrap-datepicker.pt-BR.js"></script>
 	<script type="text/javascript" src="vendor/bootstrap-timepicker/bootstrap-timepicker-0.2.3.js"></script>
 	<script type="text/javascript" src="vendor/bootstrap-colorpicker/bootstrap-colorpicker.js"></script>
-	<script type="text/javascript" src="src/resources/phpbootstrap-min.js"></script>
+	<script type="text/javascript" src="src/resources/js/phpbootstrap-core.js"></script>
+	<script type="text/javascript" src="src/resources/js/phpbootstrap-action.js"></script>
+	<script type="text/javascript" src="src/resources/js/phpbootstrap-field.js"></script>
+	<script type="text/javascript" src="src/resources/js/phpbootstrap-fileupload.js"></script>
+	<script type="text/javascript" src="src/resources/js/phpbootstrap-form.js"></script>
+	<script type="text/javascript" src="src/resources/js/phpbootstrap-modal.js"></script>
+	<script type="text/javascript" src="src/resources/js/phpbootstrap-pagination.js"></script>
+	<script type="text/javascript" src="src/resources/js/phpbootstrap-picker.js"></script>
+	<script type="text/javascript" src="src/resources/js/phpbootstrap-search.js"></script>
+	<script type="text/javascript" src="src/resources/js/phpbootstrap-suggestible.js"></script>
+	<script type="text/javascript" src="src/resources/js/phpbootstrap-table.js"></script>
+	<script type="text/javascript" src="src/resources/js/phpbootstrap-tooltip.js"></script>
+	<script type="text/javascript" src="src/resources/js/phpbootstrap-tree.js"></script>
 </body>
 </html>

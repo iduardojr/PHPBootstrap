@@ -38,7 +38,7 @@ class TgTree extends AbstractRender implements Pluggable {
 	 * @param Tree $target
 	 * @param string $toggle
 	 */
-	public function __construct( Tree $target, $toggle = null ) {
+	public function __construct( TreeElement $target, $toggle = null ) {
 		$this->setTarget($target);
 		$this->setToggle($toggle);
 	}

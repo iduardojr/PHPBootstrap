@@ -9,6 +9,13 @@ use PHPBootstrap\Render\Render;
 interface TreeElement extends Render {
 	
 	/**
+	 * Obtem a identificação do elemento
+	 * 
+	 * @return string
+	 */
+	public function getIdentify();
+	
+	/**
 	 * Adiciona um nó
 	 *
 	 * @param TreeNode $node
