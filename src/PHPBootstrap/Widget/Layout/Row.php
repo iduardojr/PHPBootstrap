@@ -22,10 +22,19 @@ class Row extends AbstractContainer {
 	 * Construtor
 	 * 
 	 * @param boolean $fluid
+	 * @param Widget|array $contents
 	 */
-	public function __construct( $fluid = false ) {
+	public function __construct( $fluid = false, $contents = null ) {
 		parent::__construct();
 		$this->setFluid($fluid);
+		if ( $contents !== null ) {
+			if ( !is_array($contents) ){
+				$contents = array($contents);
+			}
+			foreach( $contents as $content ) {
+				$this->append($content);
+			}
+		}
 	}
 	
 	/**

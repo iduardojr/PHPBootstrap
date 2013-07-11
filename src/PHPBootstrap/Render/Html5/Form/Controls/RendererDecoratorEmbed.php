@@ -29,6 +29,7 @@ class RendererDecoratorEmbed extends RendererWidget {
 		if ( $ui->isAppend() ) {
 			$node->addClass('input-append');
 		}
+		
 		foreach ( $ui->getItems() as $item ) {
 			$this->toRender($item, new Context($node));
 		}

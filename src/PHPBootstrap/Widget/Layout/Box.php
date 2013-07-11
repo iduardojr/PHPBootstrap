@@ -29,10 +29,23 @@ class Box extends AbstractContainer {
 	 * Construtor
 	 *
 	 * @param integer $span
+	 * @param Widget|array $contents
 	 */
-	public function __construct( $span = 0 ) {
+	public function __construct( $span = 0, $contents = null ) {
 		parent::__construct();
-		$this->setSpan($span);
+		if ( ! is_array($span) ) {
+			$span = array('span' => $span);
+		}
+		$this->setSpan(isset($span['span']) ? $span['span'] : 0);
+		$this->setOffset(isset($span['offset']) ? $span['offset'] : 0);
+		if ( $contents !== null ) {
+			if ( !is_array($contents) ){
+				$contents = array($contents);
+			}
+			foreach( $contents as $content ) {
+				$this->append($content);
+			}
+		}
 	}
 
 	/**

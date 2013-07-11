@@ -23,11 +23,20 @@ class Container extends AbstractContainer {
 	 * 
 	 * @param string $name
 	 * @param boolean $fluid
+	 * @param Widget|array $contents
 	 */
-	public function __construct( $name, $fluid = false ) {
+	public function __construct( $name, $fluid = false, $contents = null ) {
 		parent::__construct();
 		$this->setName($name);
 		$this->setFluid($fluid);
+		if ( $contents !== null ) {
+			if ( !is_array($contents) ){
+				$contents = array($contents);
+			}
+			foreach( $contents as $content ) {
+				$this->append($content);
+			}
+		}
 	}
 
 	/**
