@@ -16,14 +16,23 @@ class JsonView implements Viewable {
 	 * @var array
 	 */
 	protected $values;
-
+	
+	/**
+	 * Codificar em UTF-8
+	 * 
+	 * @var boolean
+	 */
+	protected $utf8;
+	
 	/**
 	 * Construtor
 	 * 
 	 * @param array $values
+	 * @param boolean $utf8
 	 */
-	public function __construct( array $values = array() ) {
+	public function __construct( array $values = array(), $utf8 = true ) {
 		$this->values = $values;
+		$this->utf8 = $utf8;
 	}
 
 	/**
@@ -83,13 +92,13 @@ class JsonView implements Viewable {
 	private function encode( array $data ) {
 		foreach ( $data as $key => $value ) {
 			if ( is_scalar($value) || is_callable(array(&$value, '__toString')) ) {
-				$data[$key] = utf8_encode($value);
+				$data[$key] = ( string ) $this->utf8 ? utf8_encode($value) : $value;
 			} elseif ( is_array($value)) {
 				$data[$key] = $this->encode($value);
-			} elseif ( $value instanceof  Renderable ) {
+			} elseif ( $value instanceof Renderable ) {
 				ob_start();
 				$value->render();
-				$data[$key] = utf8_encode(ob_get_contents());
+				$data[$key] = $this->utf8 ? utf8_encode(ob_get_contents()) : ob_get_contents();
 				ob_end_clean();
 			} 
 		}

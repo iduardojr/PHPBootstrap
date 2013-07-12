@@ -155,15 +155,17 @@
 		},
 		
 		lookup: function() {
-			this.query = this.element.val();
-			this.abort();
-			if ( this.query.length > 0 && this.options.remote ) {
-				this._trigger('loading', this);
-				this.request = $.getJSON( this.options.remote, {'query': this.query }, $.proxy( function( result ) {
-					this.request = null;
-					this._trigger('process', { ui: this, data: result });
-					this._trigger('loaded', { ui: this, data: result });
-				}, this));
+			if ( this.query != this.element.val() ) {
+				this.query = this.element.val();
+				this.abort();
+				if ( this.options.remote ) {
+					this._trigger('loading', this);
+					this.request = $.getJSON( this.options.remote, {'query': this.query }, $.proxy( function( result ) {
+						this.request = null;
+						this._trigger('process', { ui: this, data: result });
+						this._trigger('loaded', { ui: this, data: result });
+					}, this));
+				}
 			}
 		}
 		

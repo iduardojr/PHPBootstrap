@@ -10,8 +10,8 @@ use PHPBootstrap\Common\ClassLoader;
 use PHPBootstrap\Widget\Action\Action;
 use PHPBootstrap\Widget\Action\QueryString;
 use PHPBootstrap\Widget\Form\Controls\SearchBox;
-use PHPBootstrap\Widget\Action\TgAjax;
 use PHPBootstrap\Widget\Misc\Alert;
+use PHPBootstrap\Widget\Action\TgStorage;
 
 require_once('src/PHPBootstrap/Common/ClassLoader.php');
 ClassLoader::setIncludePaths(array('D:/Trabalhos/WampServer/www/PHPBootstrap/src/', 
@@ -111,8 +111,7 @@ if ( isset($_GET['class']) ) {
 			});
 			$table->addColumn($column);
 			
-			$action = new TgAjax(new Action('Seek'), 'box-person');
-			$action->setResponse(TgAjax::Json);
+			$action = new TgStorage(array('id' => '001', 'name' => 'Iduardo Donizet Gomes Junior', 'birthday' => '06/10/1985', 'status' => true ));
 			$column = new ColumnAction('choise', new Icon('icon-ok'), $action);
 			$table->addColumn($column);
 			$box->append($table);

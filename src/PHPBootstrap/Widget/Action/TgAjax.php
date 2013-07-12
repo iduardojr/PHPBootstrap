@@ -61,7 +61,7 @@ class TgAjax extends TgLink {
 	 */
 	public function setTarget( $target ) {
 		if ( ! ( is_string($target) || !empty($target) || $target instanceof Widget ) ) {
-			throw new \InvalidArgumentException('target not is type string or instance of PHPBootstrap/Widget/');
+			throw new \InvalidArgumentException('target not is type string or instance of PHPBootstrap/Widget/Widget');
 		}
 		$this->target = $target;
 	}

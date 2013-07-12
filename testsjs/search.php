@@ -54,7 +54,7 @@ use PHPBootstrap\Widget\Form\Controls\Decorator\Seek;
 			$($(this).attr('href')).field('disabled', $(this).data('params'));
 			return false;
 		});
-		$('body').on('loadedaction', '[data-column-action="choise"]', function(){
+		$('body').on('afteraction', '[data-column-action="choise"]', function(){
 			$(this).closest('.modal').modal('hide');
 		});
 	});

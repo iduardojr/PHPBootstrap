@@ -24,6 +24,7 @@ class RenderKit {
 	 * Construtor
 	 */
 	protected function __construct() {
+		$this->renderers['phpbootstrap.widget.action.storage'] = 'PHPBootstrap\Render\Html5\Action\RendererTgStorage';
 		$this->renderers['phpbootstrap.widget.action.link'] = 'PHPBootstrap\Render\Html5\Action\RendererTgLink';
 		$this->renderers['phpbootstrap.widget.action.ajax'] = 'PHPBootstrap\Render\Html5\Action\RendererTgAjax';
 		$this->renderers['phpbootstrap.widget.action.windows'] = 'PHPBootstrap\Render\Html5\Action\RendererTgWindows';

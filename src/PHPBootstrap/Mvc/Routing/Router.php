@@ -381,7 +381,7 @@ class Router implements Routable, ActionRouter {
 		$formatted = preg_replace($search, $replace, $action);
 		$formatted = ucwords($formatted);
 		$formatted = str_replace(' ', '', $formatted);
-		$formatted = lcfirst($action) . 'Action';
+		$formatted = lcfirst($formatted) . 'Action';
 		return $formatted;
 	}
 

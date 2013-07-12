@@ -131,8 +131,9 @@ class View implements Viewable {
 				ob_end_clean();
 			}
 		}  
+		$contents = implode("\n", $contents);
 		if ( $this->layout ) {
-			$this->__CONTENT__ = implode("\n", $contents);
+			$this->__CONTENT__ = $contents;
 			$contents = $this->getFileContents($this->layout);
 		}
 		return $contents;
