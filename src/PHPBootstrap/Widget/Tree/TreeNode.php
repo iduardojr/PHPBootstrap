@@ -16,13 +16,6 @@ class TreeNode extends AbstractRender implements TreeElement {
 	const RendererType = 'phpbootstrap.widget.tree.node';
 	
 	/**
-	 * Valor
-	 * 
-	 * @var mixed
-	 */
-	protected $value;
-	
-	/**
 	 * Rotulo
 	 * 
 	 * @var string|Widget
@@ -76,11 +69,10 @@ class TreeNode extends AbstractRender implements TreeElement {
 	 *
 	 * @param string $identify
 	 * @param string|Widget $label
-	 * @param mixed $value
 	 * @param Button|array $buttons
 	 * @param boolean|null $leaf
 	 */
-	public function __construct( $identify, $label, $value = null, $buttons = null, $leaf = null) {
+	public function __construct( $identify, $label, $buttons = null, $leaf = null) {
 		$this->nodes = new ArrayCollection();
 		$this->buttons = new ArrayCollection();
 		$this->setIdentify($identify);
@@ -94,7 +86,6 @@ class TreeNode extends AbstractRender implements TreeElement {
 			}
 		}
 		$this->setLeaf($leaf);
-		$this->setValue($value);
 	}
 	
 	/**
@@ -114,27 +105,6 @@ class TreeNode extends AbstractRender implements TreeElement {
 		return $this->identify;
 	}
 	
-	/**
-	 * Obtem o valor 
-	 * 
-	 * @return scalar|array
-	 */
-	public function getValue() {
-		return $this->value;
-	}
-
-	/**
-	 * Atribui o valor
-	 * 
-	 * @param scalar|array $value
-	 */
-	public function setValue( $value ) {
-		if ( ! ( $value === null || is_scalar($value) || is_array($value) ) ) {
-			throw new \InvalidArgumentException('value not is scalar or array');
-		}
-		$this->value = $value;
-	}
-
 	/**
 	 * Obtem o rotulo
 	 * 

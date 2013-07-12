@@ -28,7 +28,6 @@ class RendererTreeNode extends RendererDependsResponse {
 		$span = new HtmlNode('span');
 		$span->addClass('tree-node');
 		
-		$span->setAttribute('data-value', is_array($ui->getValue()) ? str_replace('"', "&quot;", json_encode($this->encode($ui->getValue()))) : $ui->getValue());
 		if ( $ui->getLabel() instanceof Widget ) {
 			$this->toRender($ui->getLabel(), new Context($span));
 		} else {
@@ -50,22 +49,6 @@ class RendererTreeNode extends RendererDependsResponse {
 		$li->appendNode($ul);
 		
 		$node->appendNode($li);
-	}
-	
-	/**
-	 * Codifica os valores
-	 *
-	 * @param mixed $data
-	 */
-	private function encode( $data ) {
-		if ( is_scalar($data) ) {
-			return utf8_encode($data);
-		} elseif ( is_array($data)) {
-			foreach( $data as $key => $value ) {
-				$data[$key] = $this->encode($value);
-			}
-		}
-		return $data;
 	}
 }
 ?>
