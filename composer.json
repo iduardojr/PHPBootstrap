@@ -5,8 +5,8 @@
 		"php": ">=5.3.2"
 	},
 	"autoload": {
-		"psr-0": {
-			"PHPBootstrap\\" : "src"
+		"psr-4": {
+			"PHPBootstrap\\" : "src/"
 		}
 	}
 }
