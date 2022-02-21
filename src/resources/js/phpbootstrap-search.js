@@ -24,7 +24,7 @@
 		
 		lookup: function() {
 			var query = this.options.query ? $(this.options.query).filter(':not([readonly])').val() : '';
-			if ( this.query != query || this.response == null ) {
+			//if ( this.query != query || this.response == null ) {
 				this.abort();
 				this.query = query;
 				if ( this.options.remote ) {
@@ -36,9 +36,9 @@
 						this._trigger('loaded', this);
 					}, this));
 				}
-			} else {
-				this._trigger('process', this);
-			}
+			//} else {
+			//	this._trigger('process', this);
+			//}
 		}
 	};
 	

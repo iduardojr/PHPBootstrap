@@ -1,10 +1,9 @@
 <?php
 namespace PHPBootstrap\Mvc\Routing;
 
-use PHPBootstrap\Mvc\Http\HttpResponse;
-use PHPBootstrap\Mvc\Http\HttpRequest;
 use PHPBootstrap\Mvc\Controller;
-use PHPBootstrap\Mvc\Routing\Dispatchable;
+use PHPBootstrap\Mvc\Http\HttpRequest;
+use PHPBootstrap\Mvc\Http\HttpResponse;
 
 /**
  * Despachador
@@ -19,7 +18,7 @@ class Dispatcher implements Dispatchable {
 	protected $controller;
 
 	/**
-	 * Acão
+	 * Acï¿½o
 	 *
 	 * @var string
 	 */
@@ -80,7 +79,7 @@ class Dispatcher implements Dispatchable {
 	}
 	
 	/**
-	 * Obtem a ação
+	 * Obtem a aï¿½ï¿½o
 	 *
 	 * @return string
 	 */
@@ -89,9 +88,9 @@ class Dispatcher implements Dispatchable {
 	}
 
 	/**
-	 * Obtem exceção
+	 * Obtem exceï¿½ï¿½o
 	 * 
-	 * @return Exception
+	 * @return \Exception
 	 */
 	public function getException() {
 		return $this->exception;

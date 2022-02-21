@@ -4,6 +4,7 @@ namespace PHPBootstrap\Render\Html5\Form\Controls;
 use PHPBootstrap\Render\Html5\HtmlNode;
 use PHPBootstrap\Render\Html5\RendererWidget;
 use PHPBootstrap\Widget\Form\Controls\Output;
+use PHPBootstrap\Widget\Widget;
 
 /**
  * Renderizador de saida de dados
@@ -22,6 +23,7 @@ class RendererOutput extends RendererWidget {
 	 * @see RendererWidget::_render()
 	 */
 	protected function _render( Output $ui, HtmlNode $node ) {
+	    $node->addClass('output');
 		if ( $ui->getSpan() ) {
 			$node->addClass('span' . $ui->getSpan());
 		}
@@ -29,6 +31,6 @@ class RendererOutput extends RendererWidget {
 			$node->appendNode($ui->getValue());
 		}
 	}
-
+	
 }
 ?>

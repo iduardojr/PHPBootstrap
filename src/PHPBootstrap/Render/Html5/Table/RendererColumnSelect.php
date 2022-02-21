@@ -42,11 +42,11 @@ class RendererColumnSelect extends RendererColumn {
 			$node->setAttribute('form', $ui->getForm()->getName());
 		}
 		
-		if ( $ui->getContextEnabled() && !call_user_func($ui->getContextEnabled(), $ds->fetch()) ) {
+		if ( $ui->getContextEnabled() && !call_user_func($ui->getContextEnabled(), $ds->fetch(), $ds->getIdentify()) ) {
 			$node->setAttribute('disabled', 'disabled');
 		}
 		
-		$node->setAttribute('value', $ds->{$ds->getIdentify()});
+		$node->setAttribute('value', $ds->getIdentify());
 		
 		$td->appendNode($node);
 	}

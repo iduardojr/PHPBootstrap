@@ -9,7 +9,7 @@ use PHPBootstrap\Mvc\Session\Session;
 class SessionStorage implements Storage {
 
 	/**
-	 * Sessão
+	 * Sessï¿½o
 	 * 
 	 * @var Session
 	 */
@@ -29,7 +29,7 @@ class SessionStorage implements Storage {
 	 * @see Storage::read()
 	 */
 	public function read() {
-		$this->session->data;
+		return $this->session->data;
 	}
 
 	/**
@@ -37,7 +37,7 @@ class SessionStorage implements Storage {
 	 * @see Storage::write()
 	 */
 	public function write( $data ) {
-		return $this->session->data = $data;
+		$this->session->data = $data;
 	}
 
 	/**

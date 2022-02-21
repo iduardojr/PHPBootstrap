@@ -18,7 +18,7 @@ class Form extends AbstractContainer {
 	// ID Renderizador
 	const RendererType = 'phpbootstrap.widget.form';
 	
-	// Codificação
+	// Codificaï¿½ï¿½o
 	const MultiPart = 'multipart/form-data';
 	const URLEncoded = 'application/x-www-form-urlencoded';
 	
@@ -64,21 +64,21 @@ class Form extends AbstractContainer {
 	protected $method;
 
 	/**
-	 * Codificação
+	 * Codificaï¿½ï¿½o
 	 *
 	 * @var FormEncoding
 	 */
 	protected $encoding;
 
 	/**
-	 * Messages de erro da validação
+	 * Messages de erro da validaï¿½ï¿½o
 	 *
 	 * @var array
 	 */
 	protected $messages;
 
 	/**
-	 * Validação do formulario
+	 * Validaï¿½ï¿½o do formulario
 	 *
 	 * @var boolean
 	 */
@@ -159,7 +159,7 @@ class Form extends AbstractContainer {
 	}
 
 	/**
-	 * Obtem a codificação
+	 * Obtem a codificaï¿½ï¿½o
 	 *
 	 * @return string
 	 */
@@ -168,7 +168,7 @@ class Form extends AbstractContainer {
 	}
 
 	/**
-	 * Atribui a codificação:
+	 * Atribui a codificaï¿½ï¿½o:
 	 * - Form.MultiPart
 	 * - Form.URLEncoded
 	 *
@@ -240,9 +240,24 @@ class Form extends AbstractContainer {
 	public function getControls() {
 		return $this->controls->getIterator();
 	}
+	
+	/**
+	 * Obtem um input registrado
+	 * 
+	 * @param string $name
+	 * @return Inputable
+	 */
+	public function getControl( $name ) {
+		foreach ( $this->controls as $control ) {
+			if ( $control->getName() == $name ) {
+				return $control;
+			}
+		}
+		return null;
+	}
 
 	/**
-	 * Obtem os dados não filtrados
+	 * Obtem os dados nï¿½o filtrados
 	 *
 	 * @return array
 	 */
@@ -292,7 +307,7 @@ class Form extends AbstractContainer {
 	public function bind( array $submittedData ) {
 		$this->valid = null;
 		foreach ( $this->controls as $control ) {
-			$value = isset($submittedData[$control->getName()]) ? $submittedData[$control->getName()] : null;
+			$value =  isset($submittedData[$control->getName()]) ? $submittedData[$control->getName()] : null;
 			if ( $control instanceof TextEditable ) {
 				$control->setText($value);
 			} else {
@@ -303,7 +318,7 @@ class Form extends AbstractContainer {
 	}
 
 	/**
-	 * Prepara o formulario e seus controles para a renderização
+	 * Prepara o formulario e seus controles para a renderizaÃ§Ã£o
 	 */
 	public function prepare() {
 		foreach ( $this->controls as $control ) {
@@ -312,7 +327,7 @@ class Form extends AbstractContainer {
 	}
 
 	/**
-	 * Valida o formulário
+	 * Valida o formulï¿½rio
 	 *
 	 * @return boolean
 	 */
@@ -345,7 +360,7 @@ class Form extends AbstractContainer {
 	}
 
 	/**
-	 * Adiciona um botão ao formalario
+	 * Adiciona um botï¿½o ao formalario
 	 *
 	 * @param Btn $button
 	 * @return boolean
@@ -359,7 +374,7 @@ class Form extends AbstractContainer {
 	}
 
 	/**
-	 * Obtem um botão a partir do nome
+	 * Obtem um botï¿½o a partir do nome
      *
 	 * @param string $name
 	 * @return Button
@@ -380,7 +395,7 @@ class Form extends AbstractContainer {
 	}
 
 	/**
-	 * Remove um botão do formulario
+	 * Remove um botï¿½o do formulario
 	 *
 	 * @param Btn $button
 	 * @return boolean
@@ -436,7 +451,7 @@ class Form extends AbstractContainer {
 	}
 
 	/**
-	 * Dispara um evento e retorna se deve seguir ou não com o padrão do evento: 
+	 * Dispara um evento e retorna se deve seguir ou nï¿½o com o padrï¿½o do evento: 
 	 * - Form.Validate
 	 * - Form.ChangeValue
 	 *

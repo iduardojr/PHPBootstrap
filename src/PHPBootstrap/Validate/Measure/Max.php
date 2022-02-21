@@ -9,7 +9,7 @@ use PHPBootstrap\Validate\Measure\Ruler\Ruler;
 class Max extends AbstractMeasure {
 
 	/**
-	 * Identificação da validação
+	 * Identificaï¿½ï¿½o da validaï¿½ï¿½o
 	 *
 	 * @var string
 	 */
@@ -50,7 +50,7 @@ class Max extends AbstractMeasure {
 	 * @see Validate::getDefaultMessage()
 	 */
 	protected function getDefaultMessage() {
-		return parent::getDefaultMessage() . 'max ' . $this->max;
+		return parent::getDefaultMessage() . 'max ' . $this->context;
 	}
 
 }

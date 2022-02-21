@@ -5,7 +5,7 @@ use PHPBootstrap\Widget\Action\Action;
 use PHPBootstrap\Widget\AbstractRender;
 
 /**
- * Auto Sugestão
+ * Auto Sugestï¿½o
  */
 class Suggest extends AbstractRender implements Suggestible {
 	
@@ -13,7 +13,7 @@ class Suggest extends AbstractRender implements Suggestible {
 	const RendererType = 'phpbootstrap.widget.form.control.decorator.suggest';
 	
 	/**
-	 * Ação
+	 * Aï¿½ï¿½o
 	 *
 	 * @var Action
 	 */
@@ -41,22 +41,40 @@ class Suggest extends AbstractRender implements Suggestible {
 	protected $delay;
 	
 	/**
+	 * Corresponder resultados
+	 * 
+	 * @var boolean
+	 */
+	protected $matcher;
+	
+	/**
+	 * Ordernar resultados
+	 * 
+	 * @var boolean
+	 */
+	protected $sorter;
+	
+	/**
 	 * Construtor
 	 * 
 	 * @param Action $action
 	 * @param integer $minLength
 	 * @param integer $delay
 	 * @param integer $items
+	 * @param boolean $matcher
+	 * @param boolean $sorter
 	 */
-	public function __construct( Action $action, $minLength = null, $delay = null, $items = null ) {
+	public function __construct( Action $action, $minLength = null, $delay = null, $items = null, $matcher = true, $sorter = true ) {
 		$this->setAction($action);
 		$this->setMinLength($minLength);
 		$this->setDelay($delay);
 		$this->setItems($items);
+		$this->setMatcher($matcher);
+		$this->setSorter($sorter);
 	}
 	
 	/**
-	 * Obtem ação
+	 * Obtem aï¿½ï¿½o
 	 *
 	 * @return Action
 	 */
@@ -65,7 +83,7 @@ class Suggest extends AbstractRender implements Suggestible {
 	}
 	
 	/**
-	 * Atribui ação
+	 * Atribui aï¿½ï¿½o
 	 *
 	 * @param Action $action
 	 */
@@ -125,6 +143,33 @@ class Suggest extends AbstractRender implements Suggestible {
 	 */
 	public function setMinLength( $minLength ) {
 		$this->minLength = ( int ) $minLength;
+	}
+	
+	/**
+	 * @return boolean
+	 */
+	public function isMatcher() {
+		return $this->matcher;
+	}
+	
+	/**
+	 * @param boolean $matcher
+	 */
+	public function setMatcher($matcher) {
+		$this->matcher = (bool) $matcher;
+	}
+	/**
+	 * @return boolean
+	 */
+	public function isSorter() {
+		return $this->sorter;
+	}
+
+	/**
+	 * @param boolean $sorter
+	 */
+	public function setSorter($sorter) {
+		$this->sorter = (bool) $sorter;
 	}
 
 }

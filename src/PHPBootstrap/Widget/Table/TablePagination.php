@@ -73,6 +73,15 @@ class TablePagination extends AbstractWidget implements Pageable {
 	}
 
 	/**
+	 * Atribui o paginador
+	 *
+	 * @param Paginator $paginator
+	 */
+	public function setPaginator( Paginator $paginator ) {
+		$this->getPagination()->setPaginator($paginator);
+	}
+	
+	/**
 	 * Obtem Limites
 	 *
 	 * @return array

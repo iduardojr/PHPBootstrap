@@ -11,9 +11,9 @@ interface DataSource {
 	const Desc = 'desc';
 
 	/**
-	 * Obtem chave de identificação
+	 * Obtem a identificação
 	 *
-	 * @return string
+	 * @return integer
 	 */
 	public function getIdentify();
 

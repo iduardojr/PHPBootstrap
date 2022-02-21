@@ -9,7 +9,7 @@ use PHPBootstrap\Validate\Measure\Ruler\Ruler;
 class Min extends AbstractMeasure {
 
 	/**
-	 * Identificação da validação
+	 * Identificaï¿½ï¿½o da validaï¿½ï¿½o
 	 *
 	 * @var string
 	 */
@@ -50,7 +50,7 @@ class Min extends AbstractMeasure {
 	 * @see Validate::getDefaultMessage()
 	 */
 	protected function getDefaultMessage() {
-		return parent::getDefaultMessage() . 'min ' . $this->min;
+		return parent::getDefaultMessage() . 'min ' . $this->context;
 	}
 	
 }

@@ -28,23 +28,24 @@ class TgTree extends AbstractRender implements Pluggable {
 	/**
 	 * Alvo
 	 * 
-	 * @var Tree
+	 * @var TreeComposite
 	 */
 	protected $target;
 	
 	/**
 	 * Construtor
 	 *
-	 * @param Tree $target
+	 * @param TreeComposite $target
 	 * @param string $toggle
 	 */
-	public function __construct( TreeElement $target, $toggle = null ) {
+	public function __construct( TreeComposite $target, $toggle = null ) {
 		$this->setTarget($target);
 		$this->setToggle($toggle);
 	}
 	
 	/**
-	 * Obterm alternador
+	 * Obtem alternador
+	 * 
 	 * @return string
 	 */
 	public function getToggle() {
@@ -72,9 +73,9 @@ class TgTree extends AbstractRender implements Pluggable {
 	/**
 	 * Atribui o alvo
 	 * 
-	 * @param Tree $target
+	 * @param TreeComposite $target
 	 */
-	public function setTarget( Tree $target ) {
+	public function setTarget( TreeComposite $target ) {
 		$this->target = $target;
 	}
 

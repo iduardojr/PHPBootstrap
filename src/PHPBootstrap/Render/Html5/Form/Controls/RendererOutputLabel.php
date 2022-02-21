@@ -4,6 +4,7 @@ namespace PHPBootstrap\Render\Html5\Form\Controls;
 use PHPBootstrap\Widget\Form\Controls\Label;
 use PHPBootstrap\Render\Html5\HtmlNode;
 use PHPBootstrap\Render\Html5\RendererWidget;
+use PHPBootstrap\Widget\Widget;
 
 /**
  * Renderizador de rotulo

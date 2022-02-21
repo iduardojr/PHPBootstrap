@@ -10,7 +10,7 @@ use PHPBootstrap\Widget\Form\Controls\Decorator\InputInline;
 class Uneditable extends Output implements InputInline, InputPicker {
 
 	// ID Renderizador
-	const RendererType = 'core.widget.form.control.output.uneditable';
+	const RendererType = 'phpbootstrap.widget.form.control.output.uneditable';
 
 	/**
 	 * Construtor

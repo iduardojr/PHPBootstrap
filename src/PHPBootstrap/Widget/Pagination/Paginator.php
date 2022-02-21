@@ -109,10 +109,10 @@ class Paginator {
 				break;
 			
 			case self::PageLast:
-				$page = $this->getTotalPages();
+				$page = $this->getPages();
 				break;
 		}
-		$this->page = ( int ) $page < 1 ? 1 : $page > $this->getPages() ? $this->getPages() : $page;
+		$this->page = ( int ) $page <= 1 ? 1 : ( $page > $this->getPages() ? $this->getPages() : $page );
 	}
 	
 	/**

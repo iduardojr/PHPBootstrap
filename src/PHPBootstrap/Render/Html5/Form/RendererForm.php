@@ -41,6 +41,7 @@ class RendererForm extends RendererWidget {
 			$node->appendNode($action);
 		}
 		$form = new HtmlNode('form');
+		$form->addClass('hide');
 		$form->setAttribute('name', $ui->getName());
 		$form->setAttribute('method', $ui->getMethod());
 		$form->setAttribute('enctype', $ui->getEncoding());

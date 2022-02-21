@@ -20,7 +20,7 @@
 		options.ajax = true;
 		options.response = $this.data('response');
 		options.target = '#' + $this.attr('target');
-		options.success = function( event, widget, data ) {
+		options.execute = function( event, widget, data ) {
 			var event = $.Event('update'),
 				$target = $(widget.options.target);
 			$target.trigger(event, data, $this);

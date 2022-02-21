@@ -6,6 +6,7 @@ use PHPBootstrap\Render\Context;
 use PHPBootstrap\Render\Html5\HtmlNode;
 use PHPBootstrap\Render\Html5\RendererWidget;
 use PHPBootstrap\Widget\Form\Controls\XComboBox;
+use PHPBootstrap\Widget\Widget;
 
 /**
  * Renderizador de xcombobox

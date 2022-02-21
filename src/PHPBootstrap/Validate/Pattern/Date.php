@@ -16,7 +16,7 @@ class Date extends Pattern {
 	 */
 	public function __construct( DateFormat $format, $message = null ) {
 		$this->context = $format;
-		$this->message;
+		$this->message = $message;
 	}
 	
 	/**

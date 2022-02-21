@@ -9,7 +9,7 @@ use PHPBootstrap\Validate\Measure\Ruler\Ruler;
 class Range extends AbstractMeasure {
 	
 	/**
-	 * Identificação da validação
+	 * Identificaï¿½ï¿½o da validaï¿½ï¿½o
 	 *
 	 * @var string
 	 */
@@ -61,7 +61,7 @@ class Range extends AbstractMeasure {
 	 * @see Validate::getDefaultMessage()
 	 */
 	protected function getDefaultMessage() {
-		return parent::getDefaultMessage() . 'between ' . $this->min . ' and ' . $this->max;
+		return parent::getDefaultMessage() . 'between ' . $this->context[0] . ' and ' . $this->context[1];
 	}
 }
 ?>

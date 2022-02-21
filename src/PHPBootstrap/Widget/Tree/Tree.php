@@ -4,11 +4,12 @@ namespace PHPBootstrap\Widget\Tree;
 use PHPBootstrap\Widget\AbstractWidget;
 use PHPBootstrap\Common\ArrayCollection;
 use PHPBootstrap\Common\ArrayIterator;
+use PHPBootstrap\Widget\Action\Action;
 
 /**
  * Arvore
  */
-class Tree extends AbstractWidget implements TreeElement {
+class Tree extends AbstractWidget implements TreeComposite {
 	
 	// ID Renderizador
 	const RendererType = 'phpbootstrap.widget.tree';
@@ -31,19 +32,29 @@ class Tree extends AbstractWidget implements TreeElement {
 	protected $nodes;
 	
 	/**
+	 * Ação 
+	 * 
+	 * @var Action
+	 */
+	protected $collapsable;
+	
+	/**
 	 * Construtor
 	 *
 	 * @param string $name
+	 * @param Action $collapsable
 	 * @param string $style
 	 */
-	public function __construct( $name, $style = null ) {
+	public function __construct( $name, Action $collapsable = null, $style = null ) {
 		$this->nodes = new ArrayCollection();
 		$this->setName($name);
+		$this->setCollapsable($collapsable);
 		$this->setStyle($style);
 	}
 	
 	/**
-	 * @see TreeElement::getIdentify()
+	 * 
+	 * @see TreeComposite::getIdentify()
 	 */
 	public function getIdentify() {
 		return $this->getName();
@@ -66,24 +77,40 @@ class Tree extends AbstractWidget implements TreeElement {
 	public function setStyle( $style ) {
 		$this->style = $style;
 	}
+	
+	/**
+	 * Atribui a ação de abrir o nó
+	 *
+	 * @param Action $collapsable
+	 */
+	public function setCollapsable( Action $collapsable = null ) {
+		$this->collapsable = $collapsable;
+	}
+	
+	/**
+	 *
+	 * @see TreeComposite::getCollapsable()
+	 */
+	public function getCollapsable() {
+		return $this->collapsable;
+	}
 
 	/**
 	 * Adiciona um nó
 	 *
-	 * @param TreeNode $node
-	 * @throws \RuntimeException
+	 * @param TreeElement $node
 	 */
-	public function addNode( TreeNode $node ) {
-		$this->nodes->append($node);
+	public function addNode( TreeElement $node ) {
 		$node->setParent($this);
+		$this->nodes->append($node);
 	}
 	
 	/**
 	 * Remove um nó
 	 *
-	 * @param TreeNode $node
+	 * @param TreeElement $node
 	 */
-	public function removeNode( TreeNode $node ) {
+	public function removeNode( TreeElement $node ) {
 		$this->nodes->remove($node);
 	}
 	
@@ -97,13 +124,14 @@ class Tree extends AbstractWidget implements TreeElement {
 	}
 	
 	/**
-	 * Obtem um nó a partir do valor
+	 * Obtem um nó a partir da identificação
 	 *
-	 * @param mixed $value
+	 * @param mixed $identify
+	 * @return TreeElement
 	 */
-	public function getNode( $value ) {
+	public function getNode( $identify ) {
 		foreach ( $this->getNodes() as $node ) {
-			$find = $this->findNode($node, $value);
+			$find = $this->findNode($node, $identify);
 			if ( $find ) {
 				return $find;
 			}
@@ -114,21 +142,22 @@ class Tree extends AbstractWidget implements TreeElement {
 	/**
 	 * Busca um nó
 	 *
-	 * @param TreeNode $node
-	 * @param mixed $value
-	 * @return TreeNode
+	 * @param TreeElement $node
+	 * @param mixed $identify
+	 * @return TreeElement
 	 */
-	private function findNode( TreeNode $node, $value ){
-		if ( $node->getValue() === $value ) {
+	private function findNode( TreeElement $node, $identify ){
+		if ( $node->getIdentify() === $identify ) {
 			return $node;
 		}
 		foreach( $node->getNodes() as $node ) {
-			$find = $this->findNode($node, $value);
+			$find = $this->findNode($node, $identify);
 			if ( $find ) {
 				return $find;
 			}
 		}
 		return null;
 	}
+
 }
 ?>

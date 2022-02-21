@@ -14,8 +14,8 @@ use PHPBootstrap\Widget\Misc\Alert;
 use PHPBootstrap\Widget\Action\TgStorage;
 
 require_once('src/PHPBootstrap/Common/ClassLoader.php');
-ClassLoader::setIncludePaths(array('D:/Trabalhos/WampServer/www/PHPBootstrap/src/', 
-								   'D:/Trabalhos/WampServer/www/PHPBootstrap/tests/'));
+ClassLoader::setIncludePaths(array('D:/wamp/www/PHPBootstrap/src/', 
+								   'D:/wamp/www/PHPBootstrap/tests/'));
 
 
 $loader = new ClassLoader();
@@ -147,12 +147,13 @@ if ( isset($_GET['class']) ) {
 	<link rel="stylesheet" href="vendor/bootstrap-datepicker/bootstrap-datepicker.css" type="text/css" media="all" />
 	<link rel="stylesheet" href="vendor/bootstrap-timepicker/bootstrap-timepicker-0.2.3.css" type="text/css" media="all" />
 	<link rel="stylesheet" href="vendor/bootstrap-colorpicker/bootstrap-colorpicker.css" type="text/css" media="all" />
+	<link rel="stylesheet" href="vendor/chosen/chosen-1.0.0.css" type="text/css" media="all" />
 	<link rel="stylesheet" href="src/resources/phpbootstrap.css" type="text/css" media="all" />
 	
 	<style>
 		body { padding: 50px; font-size: 12px;  }
 		.block { margin-bottom: 15px; clear: both; }
-		.block em { font-size: 15px; display:block; margin-bottom: 5px; }
+		.block > em { font-size: 15px; display:block; margin-bottom: 5px; }
 		#box-person { background: #fff; width: 250px; position: fixed; right: 50px; }
 	</style>
 	<script type="text/javascript" src="vendor/fckeditor/fckeditor.js"></script>
@@ -169,6 +170,7 @@ if ( isset($_GET['class']) ) {
 <body>
 	<?php require_once('testsjs/' . $_GET['w'] . '.php'); ?>
 	<script type="text/javascript" src="vendor/bootstrap/bootstrap-2.3.2.js"></script>
+	<script type="text/javascript" src="vendor/chosen/chosen-1.0.0.js"></script>
 	<script type="text/javascript" src="vendor/bootstrap-datepicker/bootstrap-datepicker.js"></script>
 	<script type="text/javascript" src="vendor/bootstrap-datepicker/locales/bootstrap-datepicker.pt-BR.js"></script>
 	<script type="text/javascript" src="vendor/bootstrap-timepicker/bootstrap-timepicker-0.2.3.js"></script>

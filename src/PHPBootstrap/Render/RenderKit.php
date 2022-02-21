@@ -14,7 +14,7 @@ class RenderKit {
 	protected static $instance;
 
 	/**
-	 * Coleção de renderizadores
+	 * Coleï¿½ï¿½o de renderizadores
 	 *
 	 * @var array
 	 */
@@ -53,6 +53,7 @@ class RenderKit {
 		$this->renderers['phpbootstrap.widget.tree'] = 'PHPBootstrap\Render\Html5\Tree\RendererTree';
 		$this->renderers['phpbootstrap.widget.tree.toggle'] = 'PHPBootstrap\Render\Html5\Tree\RendererTgTree';
 		$this->renderers['phpbootstrap.widget.tree.node'] = 'PHPBootstrap\Render\Html5\Tree\RendererTreeNode';
+		$this->renderers['phpbootstrap.widget.tree.leaf'] = 'PHPBootstrap\Render\Html5\Tree\RendererTreeLeaf';
 		$this->renderers['phpbootstrap.widget.thumbnail'] = 'PHPBootstrap\Render\Html5\Thumbnail\RendererThumbnail';
 		$this->renderers['phpbootstrap.widget.thumbnail.list'] = 'PHPBootstrap\Render\Html5\Thumbnail\RendererThumbnailList';
 		$this->renderers['phpbootstrap.widget.media'] = 'PHPBootstrap\Render\Html5\Media\RendererMedia';
@@ -70,6 +71,9 @@ class RenderKit {
 		$this->renderers['phpbootstrap.widget.button'] = 'PHPBootstrap\Render\Html5\Button\RendererButton';
 		$this->renderers['phpbootstrap.widget.button.group'] = 'PHPBootstrap\Render\Html5\Button\RendererButtonGroup';
 		$this->renderers['phpbootstrap.widget.button.toolbar'] = 'PHPBootstrap\Render\Html5\Button\RendererButtonToolbar';
+		$this->renderers['phpbootstrap.widget.button.toogle'] = 'PHPBootstrap\Render\Html5\Button\RendererTgButton';
+		$this->renderers['phpbootstrap.widget.button.toogle.checkbox'] = 'PHPBootstrap\Render\Html5\Button\RendererTgButtonCheckbox';
+		$this->renderers['phpbootstrap.widget.button.toogle.radio'] = 'PHPBootstrap\Render\Html5\Button\RendererTgButtonRadio';
 		$this->renderers['phpbootstrap.widget.carousel'] = 'PHPBootstrap\Render\Html5\Carousel\RendererCarousel';
 		$this->renderers['phpbootstrap.widget.carousel.item'] = 'PHPBootstrap\Render\Html5\Carousel\RendererCarouselItem';
 		$this->renderers['phpbootstrap.widget.modal'] = 'PHPBootstrap\Render\Html5\Modal\RendererModal';
@@ -118,6 +122,8 @@ class RenderKit {
 		$this->renderers['phpbootstrap.widget.form.control.input.checkboxlist'] = 'PHPBootstrap\Render\Html5\Form\Controls\RendererInputCheckBoxList';
 		$this->renderers['phpbootstrap.widget.form.control.input.radiobuttonlist'] = 'PHPBootstrap\Render\Html5\Form\Controls\RendererInputRadioButtonList';
 		$this->renderers['phpbootstrap.widget.form.control.input.combobox'] = 'PHPBootstrap\Render\Html5\Form\Controls\RendererInputComboBox';
+		$this->renderers['phpbootstrap.widget.form.control.input.listbox'] = 'PHPBootstrap\Render\Html5\Form\Controls\RendererInputListBox';
+		$this->renderers['phpbootstrap.widget.form.control.input.chosenbox'] = 'PHPBootstrap\Render\Html5\Form\Controls\RendererInputChosenBox';
 		$this->renderers['phpbootstrap.widget.form.control.input.xfilebox'] = 'PHPBootstrap\Render\Html5\Form\Controls\RendererInputXFileBox';
 		$this->renderers['phpbootstrap.widget.form.control.input.xcombobox'] = 'PHPBootstrap\Render\Html5\Form\Controls\RendererInputXComboBox';
 		$this->renderers['phpbootstrap.widget.form.control.decorator.typehead'] = 'PHPBootstrap\Render\Html5\Form\Controls\RendererDecoratorTypeHead';
@@ -140,7 +146,7 @@ class RenderKit {
 	}
 
 	/**
-	 * Obtem uma instância
+	 * Obtem uma instï¿½ncia
 	 *
 	 * @return RenderKit
 	 */

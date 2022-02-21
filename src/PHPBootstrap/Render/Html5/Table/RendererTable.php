@@ -58,7 +58,7 @@ class RendererTable extends RendererWidget {
 				while ( $ds->next() ) {
 					$tr = new HtmlNode('tr');
 					if ( $ui->getContextRow() ) {
-						$class = call_user_func($ui->getContextRow(), $ds->fetch());
+						$class = call_user_func($ui->getContextRow(), $ds->fetch(), $ds->getIdentify());
 						if ( $class ) {
 							$tr->addClass($class);
 						}

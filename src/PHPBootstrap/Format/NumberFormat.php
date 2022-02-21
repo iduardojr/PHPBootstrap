@@ -4,7 +4,7 @@ namespace PHPBootstrap\Format;
 use PHPBootstrap\Widget\Form\Controls\Decorator\MaskMoney;
 
 /**
- * Formatação de numero
+ * Formataï¿½ï¿½o de numero
  */
 class NumberFormat implements Formatter, NumberVisitor {
 
@@ -23,7 +23,7 @@ class NumberFormat implements Formatter, NumberVisitor {
 	protected $decimal;
 
 	/**
-	 * Precisão
+	 * Precisï¿½o
 	 *
 	 * @var integer
 	 */
@@ -90,7 +90,7 @@ class NumberFormat implements Formatter, NumberVisitor {
 		if ( $value === null || $value === '' ) {
 			return 0;
 		}
-		if ( preg_match($this->regex(), $value) <= 0 ) {
+		if ( preg_match('/^' . $this->regex() . '$/', $value) <= 0 ) {
 			$pattern = '#' . $this->thousands . '###';
 			$pattern .= $this->precision > 0 ? ( $this->decimal . str_repeat('#', $this->precision) ) : '';
 			throw new \InvalidArgumentException('value not is format: ' . $pattern);

@@ -26,6 +26,13 @@ class ButtonGroup extends AbstractWidget implements Btn, BtnChain, Embeddable {
 	 * @var ArrayCollection
 	 */
 	protected $items;
+	
+	/**
+	 * Alternador
+	 * 
+	 * @var TgButtonGroup
+	 */
+	protected $toggle;
 
 	/**
 	 * Construtor
@@ -64,7 +71,7 @@ class ButtonGroup extends AbstractWidget implements Btn, BtnChain, Embeddable {
 	}
 	
 	/**
-	 * Adiciona um botão
+	 * Adiciona um botï¿½o
 	 *
 	 * @param Button $item
 	 * @return boolean
@@ -79,7 +86,7 @@ class ButtonGroup extends AbstractWidget implements Btn, BtnChain, Embeddable {
 	}
 	
 	/**
-	 * Remove um botão
+	 * Remove um botï¿½o
 	 *
 	 * @param Button $item
 	 * @return boolean
@@ -107,6 +114,22 @@ class ButtonGroup extends AbstractWidget implements Btn, BtnChain, Embeddable {
 			}
 		}	
 		return null;
+	}
+	
+	/**
+	 *
+	 * @param TgButtonGroup $toggle
+	 */
+	public function setToggle( TgButtonGroup $toggle = null ) {
+		$this->toggle = $toggle;
+	}
+	
+	/**
+	 *
+	 * @return TgButtonGroup
+	 */
+	public function getToggle() {
+		return $this->toggle;
 	}
 
 

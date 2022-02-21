@@ -44,7 +44,7 @@ class Pattern extends AbstractValidate implements Patternable {
 	 * @see AbstractValidate::valid()
 	 */
 	public function valid( $value ) {
-		return preg_match('/^' . $this->context . '$/', $value) > 0;
+		return preg_match('/^' . $this->getContext() . '$/', $value) > 0;
 	}
 	
 	/**

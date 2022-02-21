@@ -50,12 +50,14 @@ class RendererColumnText extends RendererColumn {
 		}
 		$value = $ds->{$ui->getName()};
 		if ( $ui->getFilter() ) {
-			$value = call_user_func($ui->getFilter(), $value, $ds->fetch());
+			$value = call_user_func($ui->getFilter(), $value, $ds->fetch(), $ds->getIdentify());
 		}
 		if ( $value instanceof Widget ) {
 			$value = $this->toRender($value, new Context($node));
+		} elseif (is_object($value) && method_exists( $value, '__toString')) {
+			$node->appendNode((string) $value);
 		} else {
-			$node->appendNode($value);
+		    $node->appendNode($value);
 		}
 		
 		$td->appendNode($node);

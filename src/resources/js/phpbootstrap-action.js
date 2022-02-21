@@ -10,7 +10,9 @@
 		options: {},
 		
 		toggle: function() {
-			window.location = this.options.remote;
+			if ( this.options.remote) {
+				window.location = this.options.remote;
+			}
 		}
 	};
 	
@@ -61,8 +63,10 @@
 		
 		toggle: function() {
 			this.abort();
-			if ( $.isFunction(this.options.before) ) {
-				this.options.before.call(this);
+			if ( $.isFunction(this.options.send) ) {
+				if ( this.options.send.call(this) === false ) {
+					
+				}
 			}
 			this.request = $.ajax( {
 				url: this.options.remote, 
@@ -70,8 +74,8 @@
 					if ( $.isFunction(this.options.execute) ) {
 						this.options.execute.apply(this, arguments);
 					}
-					if ( $.isFunction(this.options.after) ) {
-						this.options.after.call(this);
+					if ( $.isFunction(this.options.sent) ) {
+						this.options.sent.call(this);
 					}
 				}, this ),
 				dataType: this.options.response
@@ -81,8 +85,8 @@
 		abort: function() {
 			if ( this.request ) {
 				this.request.abort();
-				if ( $.isFunction(this.options.after) ) {
-					this.options.after.call(this);
+				if ( $.isFunction(this.options.sent) ) {
+					this.options.sent.call(this);
 				}
 			}
 		}
@@ -99,14 +103,14 @@
 		options: null,
 		
 		toggle: function() {
-			if ( $.isFunction(this.options.before) ) {
-				this.options.before.call(this);
+			if ( $.isFunction(this.options.send) ) {
+				this.options.send.call(this);
 			}
 			if ( $.isFunction(this.options.execute) ) {
 				this.options.execute.call(this, this.options.storage);
 			}
-			if ( $.isFunction(this.options.after) ) {
-				this.options.after.call(this);
+			if ( $.isFunction(this.options.sent) ) {
+				this.options.sent.call(this);
 			}
 		}
 		
@@ -156,11 +160,11 @@
 						execute: $.proxy( function( data, textStatus, jqXHR ) {
 							this._trigger('execute', this, data, textStatus, jqXHR );
 						}, this),
-						before: $.proxy( function() {
-							this._trigger('before', this);
+						send: $.proxy( function() {
+							this._trigger('send', this);
 						}, this),
-						after: $.proxy(function() {
-							this._trigger('after', this);
+						sent: $.proxy(function() {
+							this._trigger('sent', this);
 						}, this)
 					});
 					if ( this.options.ajax ) {
@@ -192,34 +196,36 @@
 		disabled: false,
 		ajax: false, 
 		response: 'html',
-		before: null,
-		execute: function( e, $this, data, textStatus, jqXHR ){
-			var event = $.Event('update');
-			if ( $this.options.target ) {
-				$($this.options.target).trigger(event, data, $this);
-			}
-			if ( ! event.isDefaultPrevented() ) {
-				if ( $this.options.response == $this.Text ){
-					$($this.options.target).html(data);
-				} else if ( $this.options.response == $this.Html ){
-					$($this.options.target).replaceWith(data);
-				} else {
-					$.each( data, function( key, value ) {
-						var el = $('#' + key );
-						var event = $.Event('update');
-						el.trigger(event, value, $this);
-						if ( ! event.isDefaultPrevented() ) {
-							if ( el.is(':input') ) {
-								el.val(value);
-							} else {
-								el.html(value);
-							};
+		send: null,
+		execute: function( e, ui, data, textStatus, jqXHR ){
+			if ( ui.options.response == ui.Json) {
+				$.each( data, function( key, value ) {
+					var el = $('#' + key );
+					var event = $.Event('update');
+					el.trigger(event, value);
+					if ( ! event.isDefaultPrevented() ) {
+						if ( el.is(':input') ) {
+							el.val(value);
+						} else {
+							el.html(value);
 						};
-					});
-				};
-			};
+					};
+				});
+			} else {
+				if ( ui.options.target ) {
+					var event = $.Event('update');
+					$(ui.options.target).trigger(event, data);
+					if ( ! event.isDefaultPrevented() ) {
+						if ( ui.options.response == ui.Text ){
+							$(ui.options.target).html(data);
+						} else if ( ui.options.response == ui.Html ){
+							$(ui.options.target).replaceWith(data);
+						}
+					}
+				}
+			}
 		},
-		after: null
+		sent: null
 	});
 	
 	/* ACTION DATA-API
@@ -241,6 +247,8 @@
 				options.response = $this.data('response');
 				options.target = '#' + $this.attr('target');
 			}
+		} else {
+			delete options.target;
 		}
 		$this.action('option', options);
 		

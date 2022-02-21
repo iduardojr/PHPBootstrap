@@ -17,14 +17,6 @@ class TextArea extends AbstractInputEntry {
 	protected $rows;
 	
 	/**
-	 *
-	 * @see AbstractInputTextBox::setFilter()
-	 */
-	public function setFilter( $filter ) {
-		parent::setFilter($filter);
-	}
-	
-	/**
 	 * Obtem a quantidade de linhas
 	 *
 	 * @return integer

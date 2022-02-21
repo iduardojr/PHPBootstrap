@@ -116,7 +116,7 @@ class Application {
 	}
 
 	/**
-	 * Executa a aplicação
+	 * Executa a aplicaï¿½ï¿½o
 	 *
 	 * @param HttpRequest $request
 	 * @param HttpResponse $response
@@ -143,13 +143,17 @@ class Application {
 				$dispatched = true;
 			}
 		}
+		
 		if ( ! $dispatched ) {
 			$dispatcher->dispatch($request, $response);
 		}
+		
 		foreach ( $this->plugins as $plugin ) {
 			$plugin->postDispatch($request, $response, $dispatcher);
 		}
+		
 		$response->send();
+		
 	}
 
 }

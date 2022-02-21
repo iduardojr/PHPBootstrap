@@ -5,7 +5,7 @@ use PHPBootstrap\Render\Html5\HtmlNode;
 use PHPBootstrap\Widget\Form\Controls\Uneditable;
 
 /**
- * Renderizador de campo nao editável
+ * Renderizador de campo nao editÃ¡vel
  */
 class RendererOutputUneditable extends RendererOutput {
 
@@ -16,7 +16,8 @@ class RendererOutputUneditable extends RendererOutput {
 	protected function _render( Uneditable $ui, HtmlNode $node ) {
 		$node->addClass('uneditable-input');
 		parent::_render($ui, $node);
+		$node->removeClass('output');
 	}
-
+	
 }
 ?>

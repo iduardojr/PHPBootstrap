@@ -6,6 +6,7 @@ use PHPBootstrap\Widget\Form\Controls\Decorator\Mask;
 use PHPBootstrap\Widget\Form\Controls\Decorator\Maskable;
 use PHPBootstrap\Widget\Form\Controls\Decorator\InputPicker;
 use PHPBootstrap\Widget\Form\Controls\Decorator\Suggestible;
+use PHPBootstrap\Widget\Form\TextEditable;
 
 
 /**
@@ -24,7 +25,7 @@ class TextBox extends AbstractInputTextBox implements InputPicker {
 	protected $mask;
 
 	/**
-	 * Sugestão
+	 * Sugestï¿½o
 	 *
 	 * @var Suggestible
 	 */
@@ -38,7 +39,7 @@ class TextBox extends AbstractInputTextBox implements InputPicker {
 	protected $formatter;
 
 	/**
-	 * Atribui sugestão
+	 * Atribui sugestï¿½o
 	 *
 	 * @param Suggestible $suggestion
 	 */
@@ -47,7 +48,7 @@ class TextBox extends AbstractInputTextBox implements InputPicker {
 	}
 
 	/**
-	 * Obtem sugestão
+	 * Obtem sugestï¿½o
 	 *
 	 * @return Suggestible
 	 */
@@ -104,12 +105,7 @@ class TextBox extends AbstractInputTextBox implements InputPicker {
 	 * @see TextEditable::setText()
 	 */
 	public function setText( $text ) {
-		if ( ! ( is_scalar($text) || is_null($text) ) ) {
-			throw new \InvalidArgumentException('value is not scalar');
-		}
-		foreach ( $this->filters as $filter ) {
-			$text = call_user_func($filter, $text);
-		}
+		$text = $this->filter($text);
 		if ( $this->value !== $text ) {
 			$this->valid = null;
 			$this->value = $text;

@@ -1,5 +1,5 @@
 <?php 
-use PHPBootstrap\Widget\Tree\TreeNode;
+use PHPBootstrap\Widget\Tree\TreeElement;
 use PHPBootstrap\Widget\Tree\Tree;
 ?>
 <fieldset>
@@ -8,22 +8,22 @@ use PHPBootstrap\Widget\Tree\Tree;
 		<em>Tree</em>
 		<?php
 		$ui = new Tree('treeview');
-		$node1 = new TreeNode('item-1', 'Item 1');
-		$node2 = new TreeNode('item-1.1', 'Item 1.1');
-		$node2->addNode(new TreeNode('item-1.1.1', 'Item 1.1.1'));
-		$node2->addNode(new TreeNode('item-1.1.2', 'Item 1.1.2'));
-		$node2->addNode(new TreeNode('item-1.1.3', 'Item 1.1.3'));
+		$node1 = new TreeElement('item-1', 'Item 1');
+		$node2 = new TreeElement('item-1.1', 'Item 1.1');
+		$node2->addNode(new TreeElement('item-1.1.1', 'Item 1.1.1'));
+		$node2->addNode(new TreeElement('item-1.1.2', 'Item 1.1.2'));
+		$node2->addNode(new TreeElement('item-1.1.3', 'Item 1.1.3'));
 		$node1->addNode($node2);
-		$node1->addNode(new TreeNode('item-1.2', 'Item 1.2'));
+		$node1->addNode(new TreeElement('item-1.2', 'Item 1.2'));
 		$ui->addNode($node1);
 		
-		$node1 = new TreeNode('item-2', 'Item 2');
-		$node2 = new TreeNode('item-2.1', 'Item 2.1');
-		$node2->addNode(new TreeNode('item-2.1.1', 'Item 2.1.1'));
-		$node2->addNode(new TreeNode('item-2.1.2', 'Item 2.1.2'));
-		$node2->addNode(new TreeNode('item-2.1.3', 'Item 2.1.3'));
+		$node1 = new TreeElement('item-2', 'Item 2');
+		$node2 = new TreeElement('item-2.1', 'Item 2.1');
+		$node2->addNode(new TreeElement('item-2.1.1', 'Item 2.1.1'));
+		$node2->addNode(new TreeElement('item-2.1.2', 'Item 2.1.2'));
+		$node2->addNode(new TreeElement('item-2.1.3', 'Item 2.1.3'));
 		$node1->addNode($node2);
-		$node1->addNode(new TreeNode('item-2.2', 'Item 2.2', null, false));
+		$node1->addNode(new TreeElement('item-2.2', 'Item 2.2', null, false));
 		$ui->addNode($node1);
 		$ui->render();
 		?>

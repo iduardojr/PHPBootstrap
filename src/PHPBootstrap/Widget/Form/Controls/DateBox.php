@@ -19,7 +19,7 @@ class DateBox extends AbstractTextBoxComponent {
 	 * Construtor
 	 *
 	 * @param string $name
-	 * @param DateFormat $pattern
+	 * @param Date $pattern
 	 * @param string $message
 	 */
 	public function __construct( $name, Date $pattern ) {
@@ -33,7 +33,7 @@ class DateBox extends AbstractTextBoxComponent {
 	/**
 	 * Obtem o formato
 	 *
-	 * @return TimeFormat
+	 * @return DateFormat
 	 */
 	public function getFormat() {
 		return $this->toggle->getFormat();
@@ -57,6 +57,7 @@ class DateBox extends AbstractTextBoxComponent {
 	public function setPattern( Date $rule ) {
 		$this->input->setPattern($rule);
 		$this->toggle->setFormat($rule->getFormat());
+		$this->input->setFormatter($rule->getFormat());
 		$this->input->setMask(str_replace(array( 'd', 'm', 'y' ), '9', $rule->getFormat()->pattern()));
 	}
 

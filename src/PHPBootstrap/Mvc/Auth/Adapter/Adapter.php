@@ -4,7 +4,7 @@ namespace PHPBootstrap\Mvc\Auth\Adapter;
 /**
  * Interface de um adaptador
  */
-class Adapter {
+abstract class Adapter {
 
 	/**
 	 * Busca os dados a partir da identidade
@@ -12,29 +12,30 @@ class Adapter {
 	 * @param string $identity
 	 * @return boolean
 	 */
-	public function getByIdentity( $identity );
+	public abstract function getByIdentity( $identity );
+
 
 	/**
 	 * Obtem a credencial
 	 *
 	 * @return string
 	 */
-	public function getCredential();
+	public abstract function getCredential();
 
 	/**
-	 * Executa um algoritmo de segurança sobre a credencial
+	 * Executa um algoritmo de seguranï¿½a sobre a credencial
 	 * 
 	 * @param string $credential
 	 * @return string
 	 */
-	public function algoSecure( $credential );
+	public abstract function algoSecure( $credential );
 
 	/**
 	 * Obtem os dados
 	 * 
 	 * @return mixed
 	 */
-	public function getData();
+	public abstract function getData();
 
 }
 ?>

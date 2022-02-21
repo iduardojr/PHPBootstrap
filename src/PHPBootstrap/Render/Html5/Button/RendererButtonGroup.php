@@ -28,6 +28,11 @@ class RendererButtonGroup extends RendererWidget {
 		if ( $ui->getVertical() ) {
 			$node->addClass('btn-group-vertical');
 		}
+		
+		if ( $ui->getToggle() ) {
+			$this->toRender($ui->getToggle(), new Context($node));
+		}
+		
 		foreach ( $ui->getButtons() as $button ) {
 			$context = new Context();
 			$this->toRender($button, $context);

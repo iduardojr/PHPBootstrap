@@ -1,42 +1,147 @@
 <?php
 namespace PHPBootstrap\Widget\Tree;
 
-use PHPBootstrap\Render\Render;
+use PHPBootstrap\Common\ArrayCollection;
+use PHPBootstrap\Widget\Widget;
+use PHPBootstrap\Widget\Button\Button;
+use PHPBootstrap\Widget\AbstractRender;
 
 /**
  * Elemento de arvore
  */
-interface TreeElement extends Render {
+abstract class TreeElement extends AbstractRender {
 	
 	/**
-	 * Obtem a identificação do elemento
-	 * 
-	 * @return string
-	 */
-	public function getIdentify();
-	
-	/**
-	 * Adiciona um nó
+	 * Identificação
 	 *
-	 * @param TreeNode $node
-	 * @throws \BadMethodCallException
+	 * @var mixed
 	 */
-	public function addNode( TreeNode $node );
+	protected $identify;
 	
 	/**
-	 * Remove um nó
+	 * Rotulo
 	 *
-	 * @param TreeNode $node
-	 * @throws \BadMethodCallException
+	 * @var string|Widget
 	 */
-	public function removeNode( TreeNode $node );
+	protected $label;
 	
 	/**
-	 * Obtem os nós
+	 * Botões
+	 *
+	 * @var ArrayCollection
+	 */
+	protected $buttons;
+	
+	/**
+	 * Pai
+	 *
+	 * @var TreeComposite
+	 */
+	protected $parent;
+	
+	/**
+	 * Construtor
+	 *
+	 * @param string $identify
+	 * @param string|Widget $label
+	 * @param Button|array $buttons
+	 */
+	public function __construct( $identify, $label, $buttons = null ) {
+		$this->buttons = new ArrayCollection();
+		$this->setIdentify($identify);
+		$this->setLabel($label);
+		if ( $buttons !== null ) {
+			if ( !is_array($buttons) ) {
+				$buttons = array($buttons);
+			}
+			foreach( $buttons as $button ) {
+				$this->addButton($button);
+			}
+		}
+	}
+	
+	/**
+	 * Atribui uma identificação
+	 *
+	 * @param string $identify
+	 */
+	public function setIdentify( $identify ) {
+		$this->identify = $identify;
+	}
+	
+	/**
+	 *
+	 * @see TreeElement::getIdentify()
+	 */
+	public function getIdentify() {
+		return $this->identify;
+	}
+	
+	/**
+	 * Obtem o rotulo
+	 *
+	 * @return string|Widget
+	 */
+	public function getLabel() {
+		return $this->label;
+	}
+	
+	/**
+	 * Atribui o rotulo
+	 *
+	 * @param string|Widget $label
+	 */
+	public function setLabel( $label ) {
+		if ( ! ( is_scalar($label) || $label === null || $label instanceof Widget ) ) {
+			throw new \InvalidArgumentException('label not is type string or instance of PHPBootstrap\Widget\Widget');
+		}
+		$this->label = $label;
+	}
+	
+	/**
+	 * Obtem pai
+	 *
+	 * @return TreeComposite
+	 */
+	public function getParent() {
+		return $this->parent;
+	}
+	
+	/**
+	 * Atribui pai
+	 *
+	 * @param TreeComposite $parent
+	 */
+	public function setParent( TreeComposite $parent ) {
+		$this->parent = $parent;
+	}
+	
+	/**
+	 * Adiciona um botão
+	 *
+	 * @param Button $button
+	 */
+	public function addButton( Button $button ) {
+		$this->buttons->append($button);
+	}
+	
+	/**
+	 * Remove um botão
+	 *
+	 * @param Button $button
+	 */
+	public function removeButton( Button $button ) {
+		$this->buttons->remove($button);
+	}
+	
+	/**
+	 * Obtem os botões
 	 *
 	 * @return ArrayIterator
 	 */
-	public function getNodes();
+	public function getButtons() {
+		return $this->buttons->getElements();
+	}
 	
 }
 ?>

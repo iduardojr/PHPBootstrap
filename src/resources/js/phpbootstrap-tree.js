@@ -3,43 +3,72 @@
 	/* TREE CLASS DEFINITION
 	 * ====================== */
 	var Tree = {
+		history: {},
 		_create: function() {
 			if ( this.options.persist ) {
-				var data = $.cookie(this.options.persist),
-					that = this;
-				if ( data !== undefined ) {
+				var history = $.cookie(this.options.persist);
+				if ( history !== undefined ) {
 					if ( ! $.cookie.json ) {
-						data = JSON.parse(data);
+						history = JSON.parse(history);
 					}
-					$.each( data, function( node, value ) {
-						node = $('li[id="' + node + '"]', that.element);
-						if ( node.is('.expandable,.collapsable') ) {
-							value ? that.expand(node) : that.collapse(node);
-						}
-					});
+					this._reset(history);
 				}
 			}
 		},
+		
+		_reset: function( history ) {
+			var that = this;
+			this.history = {};
+			$.each(history, function( identify, value ) {
+				var node = $('li[id="' + identify + '"]', that.element);
+				if ( node.is('li.expandable,li.collapsable') ) {
+					value ? that.expand(node) : that.collapse(node);
+				} else {
+					that.history[identify] = value;
+				}
+			});
+		}, 
 
-		toggle: function( node ) {
+		toggle: function( node, isAll ) {
 			if ( node.is('.expandable') ) {
-				this.expand(node);
+				this.expand(node, isAll);
 			} else if ( node.is('.collapsable') ) {
 				this.collapse(node);
 			}
 		},
-
-		expand: function ( node ) {
-			if ( $('ul > li', node).size() > 0 ) {
-				node.removeClass('expandable');
-				node.addClass('collapsable');
-				this._trigger('expand', {'node': node, 'ui': this});
-				this.persist();
+		
+		expand: function ( node, isAll ) {
+			if ( node.is('.expandable') ) {
+				var hitarea = $('> .hitarea', node);
+				var identify = node.attr('id');
+				if ( $('ul > li', node).size() > 0 || hitarea.is(':not(a[href])') ) {
+					node.removeClass('expandable');
+					node.addClass('collapsable');
+					this._trigger('expand', {'node': node, 'ui': this});
+					this.persist();
+				} else {
+					var that = this;
+					node.addClass('loading');
+					this._trigger('loading', {'node': node, 'ui': this});
+					$.get(hitarea.attr('href'), function ( data ) {
+						node.removeClass('loading');
+						node.replaceWith(data);
+						node = $('li[id="' + identify + '"]', that.element);
+						that._trigger('loaded', {'node': node, 'ui': that});
+						if ( isAll ) {
+							$('ul > li', node).each( function ( i, node1 ) {
+								that.expand($(node1), isAll);
+							});
+						}
+						that.persist();
+						that._reset(that.history);
+					}, 'html');
+				}
 			}
 		},
 
 		collapse: function( node ) {
-			if ( $('ul > li', node).size() > 0 ) {
+			if ( node.is('.collapsable') ) {
 				node.removeClass('collapsable');
 				node.addClass('expandable');
 				this._trigger('collapse', {'node': node, 'ui': this});
@@ -49,16 +78,16 @@
 
 		persist: function() {
 			if ( this.options.persist ) {
-				var data = {};
+				var history = {};
 				this.element.find('.expandable,.collapsable')
 							.each(function( i , node ) {
 								node = $(node);
-								data[node.attr('id')] = node.is('.collapsable');
+								history[node.attr('id')] = node.is('.collapsable');
 							});
 				if ( ! $.cookie.json) {
-					data = JSON.stringify(data);
+					history = JSON.stringify(history);
 				} 
-				$.cookie(this.options.persist, data, this.options.cookie);
+				$.cookie(this.options.persist, history, this.options.cookie);
 			}
 		}
 
@@ -68,7 +97,7 @@
 	 * ======================= */
 	$.plugin('tree', Tree, {
 		persist: false,
-		cookie: {} 
+		cookie: {}
 	});
 	
    /* TREE DATA-API
@@ -79,16 +108,16 @@
 				node = $this.data('target') ? $($this.data('target')) : $this.parents('li:first');
 				tree = node.closest('.tree');
 				tree.tree('toggle', node);
+				return false;
 	    });
 		
 		$('body').on('click.tree.data-api', '[data-tree]', function ( e ) {
 			var $this = $(e.currentTarget),
 				tree = $($this.data('target'));
 				$('li', tree).each(function (i, node) {
-					tree.tree($this.data('tree'), $(node));
+					tree.tree($this.data('tree'), $(node), true);
 				});
 	    });
-		
 	});
 	
 }(jQuery));

@@ -5,7 +5,7 @@ use PHPBootstrap\Mvc\Auth\Storage\Storage;
 use PHPBootstrap\Mvc\Auth\Adapter\Adapter;
 
 /**
- * Autenticação
+ * Autenticaï¿½ï¿½o
  */
 class Auth {
 	
@@ -57,11 +57,10 @@ class Auth {
 			return self::CredentialEmpty;
 		}
 		try {
-			$this->logout();
 			if (! $this->adapter->getByIdentity($identity)){
 				return self::IdentityNotFound;
 			}
-			if ( $this->adapter->getCredential() !== $this->adapter->algoSecure($credential)) {
+			if ( $this->adapter->algoSecure($this->adapter->getCredential()) !== $credential) {
 				return self::CredentialInvalid;
 			}
 			$this->storage->write($this->adapter->getData());

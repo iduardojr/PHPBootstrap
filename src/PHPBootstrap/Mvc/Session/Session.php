@@ -88,13 +88,22 @@ final class Session implements \IteratorAggregate {
 		}
 		unset($_SESSION[$this->namespace][$name]);
 	}
+	
+	/**
+	 * Converte a sessão em array
+	 *
+	 * @return array
+	 */
+	public function toArray() {
+		return $_SESSION[$this->namespace];
+	}
 
 	/**
 	 *
 	 * @see IteratorAggregate::getIterator()
 	 */
 	public function getIterator() {
-		return new ArrayIterator($_SESSION[$this->namespace]);
+		return new ArrayIterator($this->toArray());
 	}
 	
 	/**

@@ -6,7 +6,7 @@ use PHPBootstrap\Render\Html5\RendererDependsResponse;
 use PHPBootstrap\Widget\Form\Controls\Decorator\Suggest;
 
 /**
- * Renderizador de sugestão
+ * Renderizador de sugestï¿½o
  */
 class RendererDecoratorSuggest extends RendererDependsResponse {
 
@@ -25,6 +25,12 @@ class RendererDecoratorSuggest extends RendererDependsResponse {
 		}
 		if ( $ui->getMinLength() ) {
 			$node->setAttribute('data-min-length', $ui->getMinLength());
+		}
+		if (! $ui->isMatcher()) {
+			$node->setAttribute('data-matcher', $ui->isMatcher());
+		}
+		if (! $ui->isSorter()) {
+			$node->setAttribute('data-sorter', $ui->isSorter());
 		}
 	}
 

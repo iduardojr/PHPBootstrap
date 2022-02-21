@@ -33,12 +33,12 @@ class RendererColumnAction extends RendererColumn {
 		$button->setSize($ui->getSize());
 		$button->setTooltip($ui->getTooltip());
 		if ( $ui->getToggle() ) {
-			$ui->getToggle()->setParameter('key', $ds->{$ds->getIdentify()} );
+			$ui->getToggle()->setParameter('key', $ds->getIdentify());
 		}
 		$button->setToggle($ui->getToggle());
 		
 		if ( $ui->getContext() ) {
-			call_user_func($ui->getContext(), $button, $ds->fetch());
+			call_user_func($ui->getContext(), $button, $ds->fetch(), $ds->getIdentify());
 		}
 		
 		$context = new Context();

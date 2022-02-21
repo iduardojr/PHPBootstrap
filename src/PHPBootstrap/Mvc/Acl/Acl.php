@@ -14,7 +14,7 @@ class Acl {
 	protected $roles;
 
 	/**
-	 * Permissão default
+	 * Permissao default
 	 * 
 	 * @var boolean
 	 */
@@ -95,7 +95,7 @@ class Acl {
 	}
 	
 	/**
-	 * Revoga uma permissão 
+	 * Revoga uma permissï¿½o 
 	 * 
 	 * @param string|array $role
 	 * @param string|array $resource
@@ -127,14 +127,19 @@ class Acl {
 	}
 
 	/**
-	 * Verifica se há permissão de acesso de perfil a um determinado recurso
+	 * Verifica se hï¿½ permissï¿½o de acesso de perfil a um determinado recurso
 	 *
 	 * @param string $role
 	 * @param string $resource
 	 * @param string $privilege
+	 * @param Assertion $assertion
+	 * @return boolean
 	 */
-	public function isAllowed( $role, $resource, $privilege = null ) {
+	public function isAllowed( $role, $resource, $privilege = null, Assertion $assertion = null ) {
 		$privilege = $privilege === null ? '*' : $privilege;
+		if ( $assertion !== null && ! $assertion->assert($this, $role, $resource, $privilege) ) {
+			return false;
+		}
 		if ( isset($this->roles[$role][$resource][$privilege]) ) {
 			return $this->roles[$role][$resource][$privilege];
 		} 

@@ -43,6 +43,21 @@ abstract class AbstractInputEntry extends AbstractInputBox implements TextEditab
 		}
 		$this->filters->add($filter);
 	}
+	
+	/**
+	 * @param string $text
+	 * @return string
+	 * @throws \InvalidArgumentException
+	 */
+	protected function filter($text) {
+		if ( ! ( is_scalar($text) || is_null($text) ) ) {
+			throw new \InvalidArgumentException('value is not scalar');
+		}
+		foreach ( $this->filters as $filter ) {
+			$text = call_user_func($filter, $text);
+		}
+		return $text;
+	}
 
 	/**
 	 * Remove um filtro de entrada de texto
@@ -58,12 +73,7 @@ abstract class AbstractInputEntry extends AbstractInputBox implements TextEditab
 	 * @see TextEditable::setText()
 	 */
 	public function setText( $text ) {
-		if ( ! ( is_scalar($text) || is_null($text) ) ) {
-			throw new \InvalidArgumentException('value is not scalar');
-		}
-		foreach ( $this->filters as $filter ) {
-			$text = call_user_func($filter, $text);
-		}
+		$text = $this->filter($text);
 		$this->setValue($text);
 	}
 
@@ -85,7 +95,7 @@ abstract class AbstractInputEntry extends AbstractInputBox implements TextEditab
 	}
 
 	/**
-	 * Obtem validador do padrão
+	 * Obtem validador do padrï¿½o
 	 *
 	 * @return Patternable
 	 */

@@ -19,13 +19,6 @@ class ArrayIterator implements \Iterator {
 	 * @var array
 	 */
 	protected $current;
-	
-	/**
-	 * Primeiro elemento
-	 * 
-	 * @var boolean
-	 */
-	protected $first;
 
 	/**
 	 * Construtor

@@ -5,25 +5,26 @@
 		list-style: none;
 		font-size: 14px;
 	}
-	li {  margin: 0; padding: 3px 0 3px 20px; position: relative; background: url(images/tree-line.gif) repeat-y;
-		> .tree-node { cursor: pointer; margin-left: 3px;
+	li { margin: 0; padding: 3px 0 3px 20px; position: relative; background: url(images/tree-line.gif) repeat-y; 
+		> .hitarea { background: url(images/tree-hitarea-leaf.gif) left center no-repeat; position: absolute; height: 20px; width: 20px; left: 0; top: 2px; }
+		> .tree-label { cursor: pointer; margin-left: 3px;
 			.btn { opacity: 0.3; filter: alpha(opacity=30); margin-left: 3px; line-height: 16px; display:none; 
 				&:hover { opacity: 1; filter: alpha(opacity=100); }
 			}
 			&:hover .btn { 	display: inline-block; }
 			.btn-link { padding: 0; }
 		}
-		.hitarea { background: url(images/tree-hitarea-leaf.gif) left center no-repeat; position: absolute; height: 20px; width: 20px; left: 0; top: 2px; }
+		&:last-child { background-position: 0 -37px; background-repeat: no-repeat; }
 		&.collapsable > .hitarea { background-image: url(images/tree-hitarea-opened.gif); cursor: pointer; }
 		&.expandable {
 			> ul { display: none; }
 			> .hitarea { background-image: url(images/tree-hitarea-closed.gif); cursor: pointer; }
 		}
-		&:last-child { background-position: 0 -37px; background-repeat: no-repeat; }
 	}
+	
 	&.filetree li {
-		> .hitarea + .tree-node { padding-left: 20px; background: url(images/file.gif) 0 0 no-repeat; }
-		&.expandable > .hitarea + .tree-node { background-image: url(images/folder-closed.gif); }
-		&.collapsable > .hitarea + .tree-node { background-image: url(images/folder.gif); }
+		&.tree-leaf > .hitarea + .tree-label { padding-left: 20px; background: url(images/file.gif) 0 0 no-repeat; }
+		&.expandable > .hitarea + .tree-label { background-image: url(images/folder-closed.gif); }
+		&.collapsable > .hitarea + .tree-label { background-image: url(images/folder.gif); }
 	}
 }

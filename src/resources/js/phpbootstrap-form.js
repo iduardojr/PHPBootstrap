@@ -4,7 +4,14 @@
 	 * ====================== */
 	var Form = {
 		
+		Text: 'text',
+		Html: 'html',
+		Json: 'json',
+			
 		request: null,
+		response: null,
+		invalidList: null,
+		validList: null,
 		
 		_create: function () {
 			this.element.validate({
@@ -20,8 +27,9 @@
 			this._trigger('loading', this);
 			this.request = $.getJSON(url, $.proxy(function( data ) {
 				this.request = null;
-				this.refresh(data);
-				this._trigger('loaded', {'ui': this, 'response': data});
+				this.response = data;
+				this._trigger('refresh', this);
+				this._trigger('loaded', this);
 			}, this));
 		},
 		
@@ -29,23 +37,9 @@
 			if ( this.request ) {
 				this.request.abort();
 				this.request = null;
-				this._trigger('loaded', { 'ui': this });
+				this.response = null;
+				this._trigger('loaded', this);
 			}
-		},
-		
-		refresh: function( data ) {
-			$.each(data, function(key, value) {
-				var el = $('#' + key );
-				var event = $.Event('update');
-				el.trigger(event, value);
-				if ( ! event.isDefaultPrevented() ) {
-					if ( el.is(':input') ) {
-						el.val(value);
-					} else {
-						el.html(value);
-					};
-				};
-			});
 		},
 		
 		elements: function ( selector ) {
@@ -88,17 +82,29 @@
 											   .attr('enctype', this.element.prop('enctype'))
 											   .appendTo('body');
 			
+			this.elements('select').each( function(i, item) {
+				$(item).val($(item).val());
+			});
+			
 			form.append(this.elements(':not(:button, :disabled)')
-							.clone()
+							.clone(true)
 							.removeAttr('form')
 							.removeAttr('id'));
+			
+			$.each( this.elements('textarea'), function( i, item ){
+				$('textarea[name=' + $(item).attr('id') + ']', form).val($(item).val());
+			});
 			
 			if ( this.isAjax() ) {
 				this.abort();
 				form.ajaxSubmit({
 					dataType: this.options.format,
-					success: $.proxy( function( response ) {
-						this._trigger('success', response);
+					success: $.proxy( function( data ) {
+						this.request = null;
+						this.response = data;
+						this._trigger('success', this);
+						this._trigger('sent', this);
+						this.response = null;
 					}, this)
 				});
 				this.request = form.data('jqxhr');
@@ -124,12 +130,14 @@
 			return element.valid();
 		},
 		
-		error: function ( errors, valids ) {
-			if ( errors.length ) {
-				this._trigger('error', {'list': errors, 'ui': this});
+		error: function ( invalidList, validList ) {
+			this.invalidList = invalidList;
+			this.validList = validList;
+			if ( this.invalidList.length ) {
+				this._trigger('error', this);
 			}
-			if ( valids.length ){
-				this._trigger('valid', {'list': valids, 'ui': this});
+			if ( this.validList.length ){
+				this._trigger('valid', this);
 			}
 		}
 	};
@@ -139,6 +147,46 @@
 	$.plugin('form', Form, { 
 		ajax: false,
 		format: 'html',
+		refresh: function( e, ui ) {
+			$.each(ui.response, function( key, value ) {
+				var el = $('#' + key );
+				var event = $.Event('update');
+				el.trigger(event, value);
+				if ( ! event.isDefaultPrevented() ) {
+					if ( el.is(':input') ) {
+						el.val(value);
+					} else {
+						el.html(value);
+					};
+				};
+			});
+		},
+		success: function( e, ui ){
+			if ( ui.options.format == ui.Json ) {
+				$.each( ui.response, function( key, value ) {
+					var el = $('#' + key );
+					var event = $.Event('update');
+					el.trigger(event, value);
+					if ( ! event.isDefaultPrevented() ) {
+						if ( el.is(':input') ) {
+							el.val(value);
+						} else {
+							el.html(value);
+						};
+					};
+				});
+			} else {
+				var event = $.Event('update');
+				ui.element.trigger(event, ui.response);
+				if ( ! event.isDefaultPrevented() ) {
+					if ( ui.options.format == ui.Text ){
+						ui.element.html(ui.response);
+					} else if ( ui.options.format == ui.Html ){
+						ui.element.replaceWith(ui.response);
+					}
+				}
+			}
+		}
 	});
 	
    /* FORM DATA-API

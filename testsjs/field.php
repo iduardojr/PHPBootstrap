@@ -20,6 +20,9 @@ use PHPBootstrap\Widget\Form\Controls\RadioButton;
 use PHPBootstrap\Widget\Form\Controls\RadioButtonList;
 use PHPBootstrap\Widget\Form\Controls\Decorator\Embed;
 use PHPBootstrap\Widget\Button\Button;
+use PHPBootstrap\Validate\Pattern\Number;
+use PHPBootstrap\Widget\Form\Controls\ListBox;
+use PHPBootstrap\Widget\Form\Controls\ChosenBox;
 ?>
 <fieldset>
 	<legend>Test Widget JavaScript</legend>
@@ -106,7 +109,7 @@ use PHPBootstrap\Widget\Button\Button;
 	<div class="block">
 		<em>NumberBox</em>
 		<?php
-		$ui = new NumberBox('money', new MoneyFormat(2, ',', '.', 'R$ '), '');
+		$ui = new NumberBox('money', new Number(new MoneyFormat(2, ',', '.', 'R$ '), ''));
 		$ui->render();
 		?>
 		<br clear="all">
@@ -256,6 +259,65 @@ use PHPBootstrap\Widget\Button\Button;
 		<a href="#combobox" class="btn" data-method="value" data-params='[1]'>Set Value: '1'</a>
 		<a href="#combobox" class="btn" data-method="value" data-params='[2]'>Set Value: '2'</a>
 		<a href="#combobox" class="btn" data-method="value">Get Value</a>
+	</div>
+	<div class="block">
+		<em>ListBox</em>
+		<?php
+		$ui = new ListBox('listbox');
+		$ui->addOption(1, 'Um');
+		$ui->addOption(2, 'Dois');
+		$ui->addOption(3, 'Três');
+		$ui->addOption(4, 'Quatro');
+		$ui->addOption(5, 'Cinco');
+		$ui->setValue(3);
+		$ui->render();
+		?>
+		<br clear="all">
+		<a href="#listbox" class="btn" data-method="disabled" data-params='[1]'>Disable</a>
+		<a href="#listbox" class="btn" data-method="disabled" data-params='[0]'>Enable</a>
+		<a href="#listbox" class="btn" data-method="value" data-params='[null]'>Set Value: 'null'</a>
+		<a href="#listbox" class="btn" data-method="value" data-params='[1]'>Set Value: '1'</a>
+		<a href="#listbox" class="btn" data-method="value" data-params='[[1,2]]'>Set Value: '1,2'</a>
+		<a href="#listbox" class="btn" data-method="value">Get Value</a>
+	</div>
+	<div class="block">
+		<em>ChosenBox (single)</em>
+		<?php
+		$ui = new ChosenBox('chosenbox-single');
+		$ui->setPlaceholder('Selecione uma opção');
+		$ui->addOption('', '');
+		$ui->addOption(1, 'Um');
+		$ui->addOption(2, 'Dois');
+		$ui->addOption(3, 'Três');
+		$ui->addOption(4, 'Quatro');
+		$ui->addOption(5, 'Cinco');
+		$ui->render();
+		?>
+		<br clear="all">
+		<br clear="all">
+		<a href="#chosenbox-single" class="btn" data-method="disabled" data-params='[1]'>Disable</a>
+		<a href="#chosenbox-single" class="btn" data-method="disabled" data-params='[0]'>Enable</a>
+		<a href="#chosenbox-single" class="btn" data-method="value" data-params='[null]'>Set Value: 'null'</a>
+		<a href="#chosenbox-single" class="btn" data-method="value" data-params='[1]'>Set Value: '1'</a>
+		<a href="#chosenbox-single" class="btn" data-method="value" data-params='[2]'>Set Value: '2'</a>
+		<a href="#chosenbox-single" class="btn" data-method="value">Get Value</a>
+	</div>
+	<div class="block">
+		<em>ChosenBox (multiple)</em>
+		<?php
+		$ui->setName('chosenbox-multiple');
+		$ui->removeOption('');
+		$ui->setMultiple(true);
+		$ui->render();
+		?>
+		<br clear="all">
+		<br clear="all">
+		<a href="#chosenbox-multiple" class="btn" data-method="disabled" data-params='[1]'>Disable</a>
+		<a href="#chosenbox-multiple" class="btn" data-method="disabled" data-params='[0]'>Enable</a>
+		<a href="#chosenbox-multiple" class="btn" data-method="value" data-params='[null]'>Set Value: 'null'</a>
+		<a href="#chosenbox-multiple" class="btn" data-method="value" data-params='[1]'>Set Value: '1'</a>
+		<a href="#chosenbox-multiple" class="btn" data-method="value" data-params='[[1,2]]'>Set Value: '1,2'</a>
+		<a href="#chosenbox-multiple" class="btn" data-method="value">Get Value</a>
 	</div>
 	<div class="block">
 		<em>XComboBox</em>

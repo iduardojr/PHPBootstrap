@@ -12,7 +12,7 @@ use PHPBootstrap\Widget\Form\Form;
 class Output extends AbstractWidget implements Inputable {
 
 	// ID Renderizador
-	const RendererType = 'core.widget.form.control.output';
+	const RendererType = 'phpbootstrap.widget.form.control.output';
 
 	/**
 	 * Transforma o dado

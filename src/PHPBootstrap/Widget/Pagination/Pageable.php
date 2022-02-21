@@ -9,11 +9,18 @@ use PHPBootstrap\Widget\Widget;
 interface Pageable extends Widget {
 
 	/**
-	 * Obtem paginador
+	 * Obtem o paginador
 	 * 
 	 * @return Paginator
 	 */
 	public function getPaginator();
+	
+	/**
+	 * Atribui o paginador
+	 *
+	 * @param Paginator $paginator
+	 */
+	public function setPaginator(Paginator $paginator);
 	
 }
 ?>

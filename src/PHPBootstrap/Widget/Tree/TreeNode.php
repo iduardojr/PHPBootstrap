@@ -1,33 +1,24 @@
 <?php
 namespace PHPBootstrap\Widget\Tree;
 
-use PHPBootstrap\Widget\AbstractRender;
 use PHPBootstrap\Common\ArrayCollection;
 use PHPBootstrap\Common\ArrayIterator;
-use PHPBootstrap\Widget\Button\Button;
-use PHPBootstrap\Widget\Widget;
+use PHPBootstrap\Render\RenderKit;
 
 /**
  * Nó
  */
-class TreeNode extends AbstractRender implements TreeElement {
+class TreeNode extends TreeElement implements TreeComposite {
 	
 	// ID Renderizador
 	const RendererType = 'phpbootstrap.widget.tree.node';
 	
 	/**
-	 * Rotulo
-	 * 
-	 * @var string|Widget
+	 * Numero de nós
+	 *
+	 * @var integer
 	 */
-	protected $label;
-	
-	/**
-	 * Botões
-	 * 
-	 * @var ArrayCollection
-	 */
-	protected $buttons;
+	protected $numberNodes;
 	
 	/**
 	 * Nós
@@ -37,20 +28,6 @@ class TreeNode extends AbstractRender implements TreeElement {
 	protected $nodes;
 	
 	/**
-	 * Pai
-	 *
-	 * @var TreeNode
-	 */
-	protected $parent;
-	
-	/**
-	 * Folha
-	 * 
-	 * @var boolean
-	 */
-	protected $leaf;
-	
-	/**
 	 * Aberto
 	 *
 	 * @var boolean
@@ -58,143 +35,33 @@ class TreeNode extends AbstractRender implements TreeElement {
 	protected $opened;
 	
 	/**
-	 * Identificação
-	 * 
-	 * @var mixed
-	 */
-	protected $identify;
-	
-	/**
 	 * Construtor
 	 *
 	 * @param string $identify
 	 * @param string|Widget $label
 	 * @param Button|array $buttons
-	 * @param boolean|null $leaf
+	 * @param integer $numberNodes
 	 */
-	public function __construct( $identify, $label, $buttons = null, $leaf = null) {
+	public function __construct( $identify, $label, $buttons = null, $numberNodes = 0 ) {
 		$this->nodes = new ArrayCollection();
-		$this->buttons = new ArrayCollection();
-		$this->setIdentify($identify);
-		$this->setLabel($label);
-		if ( $buttons !== null ) {
-			if ( !is_array($buttons) ) {
-				$buttons = array($buttons);
-			}
-			foreach( $buttons as $button ) {
-				$this->addButton($button);
-			}
-		}
-		$this->setLeaf($leaf);
-	}
-	
-	/**
-	 * Atribui uma identificação
-	 *
-	 * @param string $identify
-	 */
-	public function setIdentify( $identify ) {
-		$this->identify = $identify;
+		parent::__construct($identify, $label, $buttons);
+		$this->setNumberNodes($numberNodes);
 	}
 	
 	/**
 	 * 
-	 * @see TreeElement::getIdentify()
+	 * @see TreeComposite::addNode()
 	 */
-	public function getIdentify() {
-		return $this->identify;
-	}
-	
-	/**
-	 * Obtem o rotulo
-	 * 
-	 * @return string|Widget
-	 */
-	public function getLabel() {
-		return $this->label;
-	}
-
-	/**
-	 * Atribui o rotulo
-	 * 
-	 * @param string|Widget $label
-	 */
-	public function setLabel( $label ) {
-		if ( ! ( is_scalar($label) || $label === null || $label instanceof Widget ) ) {
-			throw new \InvalidArgumentException('label not is type string or instance of PHPBootstrap\Widget\Widget');
-		}
-		$this->label = $label;
-	}
-
-	/**
-	 * Obtem pai
-	 * 
-	 * @return TreeElement
-	 */
-	public function getParent() {
-		return $this->parent;
-	}
-
-	/**
-	 * Atribui pai
-	 * 
-	 * @param TreeElement $parent
-	 */
-	public function setParent( TreeElement $parent ) {
-		$this->parent = $parent;
-	}
-	
-	/**
-	 * Adiciona um botão
-	 *
-	 * @param Button $button
-	 */
-	public function addButton( Button $button ) {
-		$this->buttons->append($button);
-	}
-	
-	/**
-	 * Remove um botão
-     *
-	 * @param Button $button
-	 */
-	public function removeButton( Button $button ) {
-		$this->buttons->remove($button);
-	}
-
-	/**
-	 * Obtem os botões
-	 * 
-	 * @return ArrayIterator
-	 */
-	public function getButtons() {
-		return $this->buttons->getElements();
-	}
-	
-	/**
-	 * Adiciona um nó
-	 *
-	 * @param TreeNode $node
-	 * @throws \BadMethodCallException
-	 */
-	public function addNode( TreeNode $node ) {
-		if ( $this->leaf === true ) {
-			throw new \BadMethodCallException('unssuported method. Node is leaf');
-		}
+	public function addNode( TreeElement $node ) {
 		$node->setParent($this);
 		$this->nodes->append($node);
 	}
 	
 	/**
-	 * Remove um nó
-	 *
-	 * @param TreeNode $node
-	 * @throws \BadMethodCallException
+	 * 
+	 * @see TreeComposite::removeNode()
 	 */
-	public function removeNode( TreeNode $node ) {
-		if ( $this->leaf === true ) {
-			throw new \BadMethodCallException('unssuported method. Node is leaf');
-		}
+	public function removeNode( TreeElement $node ) {
 		$this->nodes->remove($node);
 	}
 	
@@ -208,12 +75,21 @@ class TreeNode extends AbstractRender implements TreeElement {
 	}
 	
 	/**
-	 * Verifica se é nó folha
+	 * Atribui o numero de nós
 	 *
-	 * @return boolean
+	 * @param integer $numberNodes
 	 */
-	public function isLeaf() {
-		return ! ( $this->nodes->count() > 0 || $this->leaf === false ) ;
+	public function setNumberNodes( $numberNodes ) {
+		$this->numberNodes = ( int ) $numberNodes;
+	}
+	
+	/**
+	 * Obtem o numero de nós
+	 *
+	 * @return integer
+	 */
+	public function getNumberNodes() {
+		return $this->nodes->isEmpty() ? $this->numberNodes : $this->nodes->count();
 	}
 	
 	/**
@@ -222,7 +98,7 @@ class TreeNode extends AbstractRender implements TreeElement {
 	 * @return boolean
 	 */
 	public function getOpened() {
-		return $this->opened || $this->nodes->count() == 0;
+		return $this->opened;
 	}
 	
 	/**
@@ -231,35 +107,29 @@ class TreeNode extends AbstractRender implements TreeElement {
 	 * @param boolean $opened
 	 */
 	public function setOpened( $opened ) {
-		$this->opened = (bool) $opened;
+		$this->opened = ( bool ) $opened;
 		if ( $this->parent instanceof TreeNode && $this->opened ) {
 			$this->parent->setOpened(true);
 		}
 	}
 	
 	/**
-	 * Obtem se é um nó folha
 	 * 
-	 * @return boolean|null
+	 * @see TreeComposite::getCollapsable()
 	 */
-	public function getLeaf() {
-		return $this->leaf;
-	}
-
-	/**
-	 * Atribui um nó folha ou não
-	 * 
-	 * @param boolean|null $leaf
-	 */
-	public function setLeaf( $leaf ) {
-		if ( $leaf !== null) {
-			$leaf = (bool) $leaf;
+	public function getCollapsable() {
+		if ( $this->parent ) {
+			return $this->parent->getCollapsable();
 		}
-		if ( $leaf === true ) {
-			$this->nodes->clear();
-		}
-		$this->leaf = $leaf;
+		return null;
 	}
 	
+	/**
+	 *
+	 * @see Renderable::render()
+	 */
+	public function render() {
+		RenderKit::getInstance()->render($this);
+	}
 }
 ?>

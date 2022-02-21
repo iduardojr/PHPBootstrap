@@ -9,10 +9,10 @@ use PHPBootstrap\Widget\Dropdown\TgDropdown;
 /**
  * Renderizador do alternador do dropdrown
  */
-class RendererTgDropdown extends RendererDependsResponse {
-
+class RendererTgDropDown extends RendererDependsResponse {
+	
 	/**
-	 * 
+	 *
 	 * @see RendererDependsResponse::_render()
 	 */
 	protected function _render( TgDropdown $ui, HtmlNode $node ) {

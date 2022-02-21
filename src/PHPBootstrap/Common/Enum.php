@@ -16,7 +16,7 @@ final class Enum {
 	 * Converte o valor no tipo do enumerador
 	 *
 	 * @param string|null $value
-	 * @param array|object|string
+	 * @param array|object|string $enum
 	 * @param string|null $default
 	 * @return string|null
 	 * @throws \UnexpectedValueException

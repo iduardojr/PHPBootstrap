@@ -55,8 +55,8 @@ abstract class AbstractWidget extends AbstractRender implements Widget {
 	}
 
 	/**
-	 *
-	 * @see Widget::render()
+	 * 
+	 * @see Renderable::render()
 	 */
 	public function render() {
 		RenderKit::getInstance()->render($this);

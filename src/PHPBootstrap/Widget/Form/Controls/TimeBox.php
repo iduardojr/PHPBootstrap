@@ -40,7 +40,7 @@ class TimeBox extends AbstractTextBoxComponent {
 	}
 
 	/**
-	 * Obtem o padrão
+	 * Obtem o padrï¿½o
 	 *
 	 * @return Time
 	 */
@@ -49,13 +49,14 @@ class TimeBox extends AbstractTextBoxComponent {
 	}
 
 	/**
-	 * Atribui o padrão
+	 * Atribui o padrï¿½o
 	 *
 	 * @param Time $rule
 	 */
 	public function setPattern( Time $rule ) {
-		$this->input->setPattern($rule);
 		$this->toggle->setFormat($rule->getFormat());
+		$this->input->setPattern($rule);
+		$this->input->setFormatter($rule->getFormat());
 		$this->input->setMask(str_replace(array( 'h', 'H', 'm', 's' ), '9', $rule->getFormat()->pattern()));
 	}
 
@@ -137,7 +138,7 @@ class TimeBox extends AbstractTextBoxComponent {
 	}
 
 	/**
-	 * Atribui a exibição de cambos de entrada
+	 * Atribui a exibiï¿½ï¿½o de cambos de entrada
 	 *
 	 * @param boolean $showInputs
 	 */

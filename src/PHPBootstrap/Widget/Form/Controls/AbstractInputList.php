@@ -5,12 +5,12 @@ use PHPBootstrap\Widget\Form\Controls\Decorator\InputQuery;
 use PHPBootstrap\Common\ArrayCollection;
 
 /**
- * Campo de entrada com uma lista de opções
+ * Campo de entrada com uma lista de opï¿½ï¿½es
  */
 abstract class AbstractInputList extends AbstractInputSpan implements InputQuery {
 
 	/**
-	 * Opções
+	 * Opï¿½ï¿½es
 	 *
 	 * @var ArrayCollection
 	 */
@@ -38,7 +38,7 @@ abstract class AbstractInputList extends AbstractInputSpan implements InputQuery
 	}
 
 	/**
-	 * Adiciona uma opção
+	 * Adiciona uma opï¿½ï¿½o
 	 *
 	 * @param scalar $value
 	 * @param scalar $label
@@ -46,9 +46,25 @@ abstract class AbstractInputList extends AbstractInputSpan implements InputQuery
 	public function addOption( $value, $label ) {
 		$this->options->set($value, $label);
 	}
+	
+	/**
+	 * Atribui options
+	 *
+	 * @param array|\Traversable $options
+	 * @throws \InvalidArgumentException
+	 */
+	public function setOptions( $options ) {
+		if ( ! ( is_array($options) || $options instanceof \Traversable ) ) {
+			throw new \InvalidArgumentException('options not is instance of Traversable or type array');
+		}
+		$this->options->clear();
+		foreach( $options as $value => $label ) {
+			$this->addOption($value, $label);
+		}
+	}
 
 	/**
-	 * Remove uma opção
+	 * Remove uma opï¿½ï¿½o
 	 * 
 	 * @param scalar $value
 	 */
@@ -57,7 +73,7 @@ abstract class AbstractInputList extends AbstractInputSpan implements InputQuery
 	}
 
 	/**
-	 * Obtem as opções
+	 * Obtem as opï¿½ï¿½es
 	 *
 	 * @return \Iterator
 	 */

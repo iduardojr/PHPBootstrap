@@ -9,11 +9,12 @@ use PHPBootstrap\Widget\Form\Controls\Decorator\InputPicker;
 use PHPBootstrap\Validate\Measurable;
 use PHPBootstrap\Validate\Patternable;
 use PHPBootstrap\Validate\Requirable;
+use PHPBootstrap\Widget\Form\Controls\Decorator\Embeddable;
 
 /**
  * Campo oculto
  */
-class Hidden extends AbstractInput implements TextEditable, InputQuery, InputPicker {
+class Hidden extends AbstractInput implements TextEditable, InputQuery, InputPicker, Embeddable {
 
 	// ID Renderizador
 	const RendererType = 'phpbootstrap.widget.form.control.input.hidden';
@@ -43,7 +44,6 @@ class Hidden extends AbstractInput implements TextEditable, InputQuery, InputPic
 		$this->addFilter('trim');
 	}
 	
-
 	/**
 	 * Adiciona um filtro de entrada de texto
 	 *
@@ -64,6 +64,21 @@ class Hidden extends AbstractInput implements TextEditable, InputQuery, InputPic
 	 */
 	public function removeFilter( $filter ) {
 		$this->filters->remove($filter);
+	}
+	
+	/**
+	 * @param string $text
+	 * @return string
+	 * @throws \InvalidArgumentException
+	 */
+	protected function filter($text) {
+		if ( ! ( is_scalar($text) || is_null($text) ) ) {
+			throw new \InvalidArgumentException('value is not scalar');
+		}
+		foreach ( $this->filters as $filter ) {
+			$text = call_user_func($filter, $text);
+		}
+		return $text;
 	}
 
 	/**
@@ -89,12 +104,7 @@ class Hidden extends AbstractInput implements TextEditable, InputQuery, InputPic
 	 * @see TextEditable::setText()
 	 */
 	public function setText( $text ) {
-		if ( ! ( is_scalar($text) || is_null($text) ) ) {
-			throw new \InvalidArgumentException('value is not scalar');
-		}
-		foreach ( $this->filters->getIterator() as $filter ) {
-			$text = call_user_func($filter, $text);
-		}
+		$text = $this->filter($text);
 		if ( $this->value !== $text ) {
 			$this->valid = null;
 			$this->value = $text;
@@ -142,7 +152,7 @@ class Hidden extends AbstractInput implements TextEditable, InputQuery, InputPic
 	}
 
 	/**
-	 * Obtem validador do padrão
+	 * Obtem validador do padrï¿½o
 	 *
 	 * @return Patternable
 	 */

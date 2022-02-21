@@ -53,7 +53,11 @@ class RendererInputComboBox extends AbstractRendererInputList {
 	protected function renderOption( ComboBox $ui, $value, $label ) {
 		$node = new HtmlNode('option');
 		$node->setAttribute('value', $value);
-		if ( $ui->getValue() == $value ) {
+		$options = $ui->getValue();
+		if ( ! is_array($options) ) {
+			$options = array($options);
+		}
+		if ( in_array($value, $options) ) {
 			$node->setAttribute('selected', 'selected');
 		}
 		$node->appendNode($label);

@@ -52,7 +52,8 @@ class DateTimeFormat implements DateFormatter {
 			}
 		}
 		if ( $value instanceof \DateTime ) {
-			if ( count($value->getLastErrors()) == 0 ){
+			$errors = $value->getLastErrors();
+			if ( $errors['error_count'] <= 0 ){
 				$value = $value->getTimestamp();
 			}
 		}
@@ -106,7 +107,8 @@ class DateTimeFormat implements DateFormatter {
 			$year = '(1[6-9]|[2-9]\d)\d{2}';
 			$year29 = '(((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26]))|((16|[2468][048]|[3579][26])00))';
 			
-			$date = array_shift(preg_split('/\s/i', $pattern, 2));
+			$split = preg_split('/\s/i', $pattern, 2);
+			$date = array_shift($split);
 			
 			if ( preg_match('/(^Y|Y$)/', $date) > 0 ) {
 				$dayMonth = preg_replace('/(^Y.|.Y)$/', '', $date);

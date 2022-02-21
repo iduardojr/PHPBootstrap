@@ -72,7 +72,11 @@
     		this.$element.addClass('loading');
 			return $.getJSON(this.options.source, { 'query': this.query, 'items': this.options.items }, $.proxy(function( data ) {
 				this.request = null;
-				this.process(data);
+				if (data.error) {
+					alert(data.error);
+				} else {
+					this.process(data);
+				}
 				this.$element.removeClass('loading');
 			}, this));
     		
@@ -93,33 +97,21 @@
     	    });
     	},
     	
-    	matcher: function ( item ) {
-    		var label = typeof item == 'string' ? item : item.label;
-    	   	return ~label.toLowerCase().indexOf(this.query.toLowerCase());
+    	matcher: function (item) {
+			var callback = this.options.matcher;
+			if($.isFunction(callback)) {
+				return callback.call(this, item);
+			}
+			return true;
     	},
     	
-    	sorter: function ( items ) {
-    		var beginswith = [],
-	        	caseSensitive = [],
-	        	caseInsensitive = [],
-	        	item, label;
-
-    		 while ( item = items.shift() ) {
-    			
-    			label = typeof item == 'string' ? item : item.label;
-
-    			if ( ! label.toLowerCase().indexOf(this.query.toLowerCase()) ) {
-    				beginswith.push(item);
-    			} else if (~label.indexOf(this.query)) {
-    				caseSensitive.push(item);
-    			} else {
-    				caseInsensitive.push(item);
-    			};
-    			
-    		}
-
-    		return beginswith.concat(caseSensitive, caseInsensitive);
-	    },
+    	sorter: function (items) {
+			if($.isFunction(this.options.sorter)) {
+				var callback = this.options.sorter;
+				return callback.call(this, items);
+			}
+			return items;
+		},
     	
     	trigger: function( type, data ) {
 			var callback = this.options[type],
@@ -140,6 +132,7 @@
 			
 		request: null,
 		query: null,
+		result: null,
 		
 		_create: function() {
 			this.element.on('blur', $.proxy(this.lookup, this));
@@ -150,7 +143,8 @@
 			if ( this.request ) {
 				this.request.abort();
 				this.request = null;
-				this._trigger('loaded', { ui: this, data: {} });
+				this.result = null;
+				this._trigger('loaded', this);
 			}
 		},
 		
@@ -158,12 +152,13 @@
 			if ( this.query != this.element.val() ) {
 				this.query = this.element.val();
 				this.abort();
-				if ( this.options.remote ) {
+				if ( this.options.remote && this.query.length > 0 ) {
 					this._trigger('loading', this);
 					this.request = $.getJSON( this.options.remote, {'query': this.query }, $.proxy( function( result ) {
 						this.request = null;
-						this._trigger('process', { ui: this, data: result });
-						this._trigger('loaded', { ui: this, data: result });
+						this.result = result;
+						this._trigger('process', this);
+						this._trigger('loaded', this);
 					}, this));
 				}
 			}
@@ -192,13 +187,39 @@
 
 	$.fn.suggest.defaults = $.extend({}, $.fn.typeahead.defaults, { 
 		source: '', 
-		delay: 300, 
-		select: function( e, data, $this ) {
+		delay: 300,
+		matcher: function ( item ) {
+    			var label = typeof item == 'string' ? item : item.label;
+    	   		return ~label.toLowerCase().indexOf(this.query.toLowerCase());
+		},
+		sorter: function ( items ) {
+    		var beginswith = [],
+	        	caseSensitive = [],
+	        	caseInsensitive = [],
+	        	item, label;
+		
+    		 while ( item = items.shift() ) {
+    			
+    			label = typeof item == 'string' ? item : item.label;
+
+    			if ( ! label.toLowerCase().indexOf(this.query.toLowerCase()) ) {
+    				beginswith.push(item);
+    			} else if (~label.indexOf(this.query)) {
+    				caseSensitive.push(item);
+    			} else {
+    				caseInsensitive.push(item);
+    			};
+    			
+    		}
+
+    		return beginswith.concat(caseSensitive, caseInsensitive);
+	    },  
+		select: function( e, data ) {
 			if ( $.isPlainObject(data) && $.isPlainObject(data.value) ) {
 				$.each( data.value, function( key, value ) {
 					var el = $('#' + key );
 					var event = $.Event('update');
-					el.trigger(event, value, $this);
+					el.trigger(event, value);
 					if ( ! event.isDefaultPrevented() ) {
 						if ( el.is(':input,label,fieldset') ) {
 							el.val(value);
@@ -217,11 +238,11 @@
 		loading: function ( e, ui ) {
 			ui.element.addClass('loading');
 		},
-	    loaded: function( e, data ) {
-			data.ui.element.removeClass('loading');
+	    loaded: function( e, ui ) {
+			ui.element.removeClass('loading');
 		},
-		process: function ( e, response ) {
-			$.each( response.data, function( key, value ) {
+		process: function ( e, ui ) {
+			$.each( ui.result, function( key, value ) {
 				var el = $('#' + key );
 				var event = $.Event('update');
 				el.trigger(event, value);

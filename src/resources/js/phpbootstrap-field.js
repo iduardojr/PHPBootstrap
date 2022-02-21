@@ -207,21 +207,74 @@
 		
 	});
 	
+	/* CHOSENBOX CLASS DEFINITION
+	 * ====================== */
+	var ChosenBox = $.extend({}, Default, {
+		
+		create: function ( element ) {
+			element.chosen(element.data('options'));
+			element.next().removeAttr('style');
+		},
+		
+		set: function ( element, value ) {
+			Default.set(element, value);
+			element.trigger("chosen:updated");
+		},
+		
+		disable: function ( element ) {
+			Default.disable(element);
+			element.trigger("chosen:updated");
+		},
+		
+		enable: function( element ) {
+			Default.enable(element);
+			element.trigger("chosen:updated");
+		},
+		
+		get: function ( element ) {
+			var value = Default.get(element);
+			return element.is('[multiple]') && ! $.isArray(value) ? [value] : value;
+		}, 
+		
+		defaultValue: function( element ) {
+			var value = []; 
+			element.children().each( function(i, item) {
+				if ( item.defaultSelected ) {
+					value.push(item.value);
+				}
+			});
+			return element.is('[multiple]') ? value : value.shift();
+		}
+	});
+	
+	/* LISTBOX CLASS DEFINITION
+	 * ====================== */
+	var ListBox = $.extend({}, Default, {
+		
+		get: function ( element ) {
+			var value = Default.get(element);
+			return ! $.isArray(value) ? [value] : value;
+		}, 
+		
+		defaultValue: function( element ) {
+			var value = []; 
+			element.children().each( function(i, item) {
+				if ( item.defaultSelected ) {
+					value.push(item.value);
+				}
+			});
+			return value;
+		}
+	});
+	
 	/* COMBOBOX CLASS DEFINITION
 	 * ====================== */
 	var ComboBox = $.extend({}, Default, {
 		
 		defaultValue: function( element ) {
-			var value = ''; 
-			element.children()
-				   .each( function(i, item){
-						if ( item.defaultSelected ) {
-							value = item.value;
-							return false;
-						}
-				   });
-			return value;
+			return ListBox.defaultValue(element).shift();
 		}
+	
 	});
 	
 	/* XCOMBOBOX CLASS DEFINITION
@@ -440,6 +493,10 @@
 			return this.element.is('.disabled,:disabled');
 		},
 		
+		get: function() {
+			return this.control;
+		},
+		
 		reset: function() {
 			this.value(this.control.defaultValue(this.element));
 		}
@@ -463,15 +520,27 @@
 		'CheckBoxList': CheckableList,
 		'RadioButtonList': CheckableList,
 		'ComboBox': ComboBox,
+		'ListBox': ListBox,
 		'XComboBox': XComboBox,
+		'ChosenBox': ChosenBox,
 		'XFileBox': XFileBox
 	};
 	
    /* FIELD DATA-API
 	* ============== */
 	$(function () {
+		$.valHooks.select.set = function(elem, value ) {
+			var values = jQuery.makeArray( value );
+			if ( !values.length ) {
+				elem.selectedIndex = -1;
+				return null;
+			}
+			$(elem).find("option").each(function( i, item ) {
+				$(item)[$.inArray( $(item).val(), values ) >= 0 ? 'attr' : 'removeAttr']('selected', 'selected');
+			});
+		};
 		
-		$('[data-control=RichText]').field();
+		$('[data-control=RichText], [data-control=ChosenBox]').field();
 		
 		$('body').on('focus.field.data-api', '[data-control]', function( e ) {
 			var $this = $(e.currentTarget);
@@ -483,6 +552,7 @@
 		$('body').on('update.field.data-api', '[data-control]', function( e, data ) {
 			var $this = $(e.currentTarget);
 			$this.field('value', data);
+			return false;
 		});
 		
 		$('body').on('focus.field.data-api', '[data-mask]', function( e ) {
@@ -492,7 +562,10 @@
 		
 		$('body').on('focus.field.data-api', '[data-mask-money]', function( e ) {
 			var $this = $(e.currentTarget);
+			if ( ! $this.data('MaskMoney') ) {
 				$this.maskMoney($this.data('mask-money'));
+				$this.data('MaskMoney', true);
+			}
 		});
 		
 	});

@@ -5,6 +5,7 @@ use PHPBootstrap\Widget\Form\Controls\Fieldset;
 use PHPBootstrap\Render\Html5\RendererWidget;
 use PHPBootstrap\Render\Html5\HtmlNode;
 use PHPBootstrap\Render\Context;
+use PHPBootstrap\Widget\Widget;
 
 /**
  * Renderizador de rotulo
@@ -23,11 +24,13 @@ class RendererOutputFieldset extends RendererWidget {
 	 * @see RendererWidget::_render()
 	 */
 	protected function _render( Fieldset $ui, HtmlNode $node ) {
-		$node->appendNode('<legend>' . $ui->getLegend() . '</legend>');
+		if ( $ui->getLegend() ) {
+			$node->appendNode('<legend>' . $ui->getLegend() . '</legend>');
+		}
 		foreach ( $ui->getIterator() as $child ) {
 			$this->toRender($child, new Context($node));
 		}
 	}
-
+	
 }
 ?>

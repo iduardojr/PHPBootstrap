@@ -43,7 +43,11 @@ class RendererControlGroup extends RendererWidget {
 			$this->toRender($child, new Context($inner));
 		}
 		if ( $ui->getHelp() ) {
-			$this->toRender($ui->getHelp(), new Context($inner));
+			$context = new Context();
+			$this->toRender($ui->getHelp(), $context);
+			$helpNode = $context->getResponse();
+			$helpNode->addClass('validate');
+			$inner->appendNode($helpNode);
 		}
 		$node->appendNode($inner);
 	}

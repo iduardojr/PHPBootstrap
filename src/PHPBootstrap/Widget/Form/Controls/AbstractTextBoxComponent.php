@@ -64,6 +64,20 @@ abstract class AbstractTextBoxComponent extends AbstractComponent implements Tex
 	}
 	
 	/**
+	 * @see AbstractComponent::setName()
+	 */
+	public function setName( $name ) {
+		return $this->input->setName($name);
+	}
+	
+	/**
+	 * @see AbstractComponent::getName()
+	 */
+	public function getName() {
+		return $this->input->getName();
+	}
+	
+	/**
 	 *
 	 * @see Inputable::prepare()
 	 */

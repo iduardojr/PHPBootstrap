@@ -19,7 +19,7 @@ class ControlGroup extends AbstractContainer {
 	const Error  = 'error';
 
 	/**
-	 * Rotulo
+	 * RÃ³tulo
 	 *
 	 * @var Label
 	 */
@@ -103,7 +103,7 @@ class ControlGroup extends AbstractContainer {
 	}
 
 	/**
-	 * Obtem a gravidade da validação
+	 * Obtem a gravidade da validaï¿½ï¿½o
 	 *
 	 * @return string
 	 */
@@ -112,7 +112,7 @@ class ControlGroup extends AbstractContainer {
 	}
 
 	/**
-	 * Atribui uma gravidade da validação:
+	 * Atribui uma gravidade da validaï¿½ï¿½o:
 	 * - ControlGroup.Info
 	 * - ControlGroup.Success
 	 * - ControlGroup.Warning
