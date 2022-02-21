@@ -1,0 +1,32 @@
+.table {
+	.cell { overflow: hidden; height: 20px; }
+	.no-border + .no-border {  border-left: 0px; }
+	td, th { text-align: center; vertical-align: middle; }
+	input[type=checkbox]{ margin-bottom: 4px; }
+	th { white-space: nowrap; 
+		a, span { position: relative; }
+		a:hover { text-decoration: none; }
+		i { position: absolute; top: 50%; right: -16px; margin-top: -8px;}
+	}
+	.table-footer td, 
+	.table-paginator td {
+		padding: 0;
+	}
+}
+
+.table-pagination { margin: 0;
+	.pager-bar, .pager, .pagination { margin: 0 auto; }
+	.label, .loading { float: right; margin: 6px; }
+	.limit { float: left; padding: 4px; 
+		a { margin: 0 0 0 3px; }
+	}
+	.loading { width: 22px; height: 16px; margin: 8px 0; display: none; }
+}
+
+.grid-summary { padding: 0;
+	dl { margin: 0; 
+		dt, dd { padding: 5px 0; border-bottom: 1px solid #fff;}
+		dt, dd:last-child { border-bottom: transparent; }
+		dd { background: #f7f7f7; margin-left: 170px; }
+	}
+}

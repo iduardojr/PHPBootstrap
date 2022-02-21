@@ -171,7 +171,7 @@ class View implements Viewable {
 	public function fileExist( $filename ) {
 		$paths = explode(PATH_SEPARATOR, get_include_path());
 		foreach( $paths as $path ) {
-			if ( file_exists(trim($path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $filename) ) {
+			if ( file_exists( rtrim($path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $filename) ) {
 				return true;
 			}
 		}
