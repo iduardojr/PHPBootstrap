@@ -31,11 +31,11 @@ class TgModalOpen extends AbstractRender implements Pluggable, Parameterizable {
 	/**
 	 * Construtor
 	 *
-	 * @param Modal $target
+	 * @param Modal $targetModal
 	 * @param Assignable $toggle
 	 */
-	public function __construct( Modal $target, Assignable $toggle = null ) {
-		$this->setTarget($target);
+	public function __construct( $targetModal, Assignable $toggle = null ) {
+		$this->setTarget($targetModal);
 		$this->setAssignable($toggle);
 	}
 
@@ -51,10 +51,13 @@ class TgModalOpen extends AbstractRender implements Pluggable, Parameterizable {
 	/**
 	 * Atribui alvo
 	 *
-	 * @param Modal $target
+	 * @param Modal $modal
 	 */
-	public function setTarget( Modal $target ) {
-		$this->target = $target;
+	public function setTarget( $modal ) {
+		if ( ! ( is_string($modal) || !empty($modal) || $modal instanceof Modal ) ) {
+			throw new \InvalidArgumentException('target not is type string or instance of PHPBootstrap/Widget/Modal/Modal');
+		}
+		$this->target = $modal;
 	}
 
 	/**

@@ -1,11 +1,11 @@
 {
-	"name":"iduardojr/phpbootstrap",
-	"version":"1.0.0",
-	"require": {
-		"php": ">=5.3.2"
+	"name" : "iduardojr/phpbootstrap",
+	"version" : "1.0.1",
+	"require" : {
+		"php" : ">=5.3.2"
 	},
-	"autoload": {
-		"psr-4": {
+	"autoload" : {
+		"psr-4" : {
 			"PHPBootstrap\\" : "src/PHPBootstrap/"
 		}
 	}

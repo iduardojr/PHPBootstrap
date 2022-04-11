@@ -16,19 +16,22 @@ class TgModalLoad extends TgAjax {
 	 * Construtor
 	 *
 	 * @param Action $action
-	 * @param Modal $target
+	 * @param Modal $targetModal
 	 * @param string $response
 	 */
-	public function __construct( Action $action, Modal $target, $response = null ) {
-		parent::__construct($action, $target, $response);
+	public function __construct( Action $action, $targetModal, $response = null ) {
+		parent::__construct($action, $targetModal, $response);
 	}
 	
 	/**
 	 * 
 	 * @see TgAjax::setTarget()
 	 */
-	public function setTarget( Modal $target ) {
-		$this->target = $target;
+	public function setTarget( $modal ) {
+		if ( ! ( is_string($modal) || !empty($modal) || $modal instanceof Modal ) ) {
+			throw new \InvalidArgumentException('target not is type string or instance of PHPBootstrap/Widget/Modal/Modal');
+		}
+		$this->target = $modal;
 	}
 	
 }

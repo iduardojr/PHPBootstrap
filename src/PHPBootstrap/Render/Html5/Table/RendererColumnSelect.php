@@ -42,6 +42,10 @@ class RendererColumnSelect extends RendererColumn {
 			$node->setAttribute('form', $ui->getForm()->getName());
 		}
 		
+		if ( $ui->getContextChecked() && call_user_func($ui->getContextChecked(), $ds->fetch(), $ds->getIdentify()) ) {
+			$node->setAttribute('checked', 'checked');
+		}
+		
 		if ( $ui->getContextEnabled() && !call_user_func($ui->getContextEnabled(), $ds->fetch(), $ds->getIdentify()) ) {
 			$node->setAttribute('disabled', 'disabled');
 		}

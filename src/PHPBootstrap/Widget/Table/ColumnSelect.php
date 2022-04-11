@@ -4,7 +4,7 @@ namespace PHPBootstrap\Widget\Table;
 use PHPBootstrap\Widget\Form\Form;
 
 /**
- * Coluna de Seleção
+ * Coluna de SeleÃ§Ã£o
  */
 class ColumnSelect extends Column {
 	
@@ -12,11 +12,18 @@ class ColumnSelect extends Column {
 	const RendererType = 'phpbootstrap.widget.table.column.select';
 
 	/**
-	 * Contexto de Habilitação
+	 * Contexto de HabilitaÃ§Ã£o
 	 *
 	 * @var \Closure
 	 */
 	protected $contextEnabled;
+	
+	/**
+	 * Contexto de Checked
+	 *
+	 * @var \Closure
+	 */
+	protected $contextChecked;
 
 	/**
 	 * Formulario
@@ -39,7 +46,7 @@ class ColumnSelect extends Column {
 	}
 
 	/**
-	 * Obtem formulário
+	 * Obtem formulï¿½rio
 	 *
 	 * @return Form
 	 */
@@ -48,7 +55,7 @@ class ColumnSelect extends Column {
 	}
 
 	/**
-	 * Atribui Formulário
+	 * Atribui Formulï¿½rio
 	 *
 	 * @param Form $form
 	 */
@@ -57,7 +64,7 @@ class ColumnSelect extends Column {
 	}
 
 	/**
-	 * Atribui contexto de habilitação
+	 * Atribui contexto de habilitaï¿½ï¿½o
 	 *
 	 * @param \Closure $handler
 	 */
@@ -66,7 +73,7 @@ class ColumnSelect extends Column {
 	}
 
 	/**
-	 * Obtem contexto de habilitação
+	 * Obtem contexto de habilitaï¿½ï¿½o
 	 *
 	 * @return \Closure
 	 */
@@ -74,5 +81,22 @@ class ColumnSelect extends Column {
 		return $this->contextEnabled;
 	}
 
+	/**
+	 * Atribui contexto de checked
+	 *
+	 * @param \Closure $handler
+	 */
+	public function setContextChecked( \Closure $handler = null ) {
+		$this->contextChecked = $handler;
+	}
+	
+	/**
+	 * Obtem contexto de checked
+	 *
+	 * @return \Closure
+	 */
+	public function getContextChecked() {
+		return $this->contextChecked;
+	}
 }
 ?>
