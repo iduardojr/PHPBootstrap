@@ -19,14 +19,14 @@ class Router implements Routable, ActionRouter {
 	protected $resource;
 
 	/**
-	 * Padrões
+	 * Padrï¿½es
 	 *
 	 * @var array
 	 */
 	protected $defaults;
 
 	/**
-	 * Validações dos parametros
+	 * Validaï¿½ï¿½es dos parametros
 	 *
 	 * @var array
 	 */
@@ -65,7 +65,7 @@ class Router implements Routable, ActionRouter {
 	}
 
 	/**
-	 * Obtem os padrões em caso de ausensia
+	 * Obtem os padrï¿½es em caso de ausensia
 	 *
 	 * @return array
 	 */
@@ -93,7 +93,7 @@ class Router implements Routable, ActionRouter {
 	}
 
 	/**
-	 * Obtem os validações dos parametros
+	 * Obtem os validaï¿½ï¿½es dos parametros
 	 *
 	 * @return array
 	 */
@@ -225,7 +225,7 @@ class Router implements Routable, ActionRouter {
 	}
 
 	/**
-	 * Gera a expressão regular para cada tipo da parte
+	 * Gera a expressï¿½o regular para cada tipo da parte
 	 *
 	 * @param string $part
 	 * @param string $value
@@ -371,7 +371,7 @@ class Router implements Routable, ActionRouter {
 	}
 
 	/**
-	 * Formata o nome da ação
+	 * Formata o nome da aï¿½ï¿½o
 	 *
 	 * @param string $action
 	 */
@@ -427,7 +427,7 @@ class Router implements Routable, ActionRouter {
 					unset($params[$param]);
 				} else {
 					$value = count($value) == 1 ? $value[0] : $value;
-					if (empty($value)) {
+					if ($value === '') {
 						unset($params[$param]);
 					} else {
 						$params[$param] = $value;
