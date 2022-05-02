@@ -13,6 +13,7 @@ class Mask extends AbstractRender implements Maskable {
 
 	// Mascaras
 	const PhoneBR = '?(99) 9999-9999';
+	const CellBR = '?(99) 99999-9999';
 	const ZipCodeBR = '?99.999-999';
 	const CNPJ = '?99.999.999/9999-99';
 	const CPF = '?999.999.999-99';
@@ -21,7 +22,7 @@ class Mask extends AbstractRender implements Maskable {
 	const TimeShort = '?99:99';
 
 	/**
-	 * Padrão
+	 * Padrï¿½o
 	 * 
 	 * @var string
 	 */
@@ -38,7 +39,7 @@ class Mask extends AbstractRender implements Maskable {
 	}
 
 	/**
-	 * Obtem o padrão da mascara
+	 * Obtem o padrï¿½o da mascara
 	 *
 	 * @return string
 	 */
@@ -47,7 +48,7 @@ class Mask extends AbstractRender implements Maskable {
 	}
 
 	/**
-	 * Atribui um padrão para a mascara
+	 * Atribui um padrï¿½o para a mascara
 	 *
 	 * @param string $pattern
 	 * @throws \InvalidArgumentException

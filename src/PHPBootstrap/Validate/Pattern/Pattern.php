@@ -5,12 +5,12 @@ use PHPBootstrap\Validate\Patternable;
 use PHPBootstrap\Validate\AbstractValidate;
 
 /**
- * Expressão Regular
+ * Expressï¿½o Regular
  */
 class Pattern extends AbstractValidate implements Patternable {
 
 	/**
-	 * Identificação do validação
+	 * Identificaï¿½ï¿½o do validaï¿½ï¿½o
 	 *
 	 * @var string
 	 */
@@ -21,6 +21,7 @@ class Pattern extends AbstractValidate implements Patternable {
 	const Integer = '-?([0-9]+(\.0+)?|[0-9]{1,3}(\,[0-9]{3})+)';
 	const Number = '-?([0-9]+|([1-9][0-9]{0,2}(\,[0-9]{3})+))(\.[0-9]+)?';
 	const PhoneBR = '\([1-9][0-9]\)\s[1-9][0-9]{3}-[0-9]{4}';
+	const CellBR = '\([1-9][0-9]\)\s[9][0-9]{4}-[0-9]{4}';
 	const ZipCodeBR = '[0-9]{2}\.?[0-9]{3}-[0-9]{3}';
 	const DateBR = '[0-3]?[0-9]\/[0-1]?[0-9]\/[0-9]{4}';
 	const Time12H = '((0?[1-9]|1[012])(:[0-5]\d){0,2}(\s[APap][Mm]))';
