@@ -7,7 +7,7 @@ namespace PHPBootstrap\Format;
 class DateTimeFormat implements DateFormatter {
 
 	/**
-	 * Padrão do formato
+	 * Padrï¿½o do formato
 	 *
 	 * @var string
 	 */
@@ -36,7 +36,7 @@ class DateTimeFormat implements DateFormatter {
 	}
 
 	/**
-	 * Formata uma data a partir da representação em string, inteiro ou DateTime
+	 * Formata uma data a partir da representaï¿½ï¿½o em string, inteiro ou DateTime
 	 *
 	 * @param mixed $value
 	 * @return string
@@ -64,7 +64,7 @@ class DateTimeFormat implements DateFormatter {
 	}
 
 	/**
-	 * Converte para data/hora a partir da representação em string
+	 * Converte para data/hora a partir da representaï¿½ï¿½o em string
 	 *
 	 * @param string $value
 	 * @return string
@@ -98,7 +98,7 @@ class DateTimeFormat implements DateFormatter {
 			$day[2] = '(29|30)';
 			$month[2] = '(0[469]|11)';
 			
-			$day[3] = '(29|31)';
+			$day[3] = '(29|3[01])';
 			$month[3] = '(0[13578]|1[02])';
 			
 			$day[4] = '29';
@@ -159,7 +159,7 @@ class DateTimeFormat implements DateFormatter {
 	}
 
 	/**
-	 * Converte o padrão do formato para a funcao date
+	 * Converte o padrï¿½o do formato para a funcao date
 	 *
 	 * @return string
 	 */
@@ -176,7 +176,7 @@ class DateTimeFormat implements DateFormatter {
 	}
 
 	/**
-	 * Obtem a expressão regular para o padrão de data
+	 * Obtem a expressï¿½o regular para o padrï¿½o de data
 	 *
 	 * @return string
 	 */
@@ -192,7 +192,7 @@ class DateTimeFormat implements DateFormatter {
 	}
 
 	/**
-	 * Obtem a expressão regular para o padrão de hora
+	 * Obtem a expressï¿½o regular para o padrï¿½o de hora
 	 *
 	 * @return string
 	 */
