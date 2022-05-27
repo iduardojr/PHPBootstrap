@@ -13,7 +13,7 @@ class XComboBox extends AbstractInputList {
 	const RendererType = 'phpbootstrap.widget.form.control.input.xcombobox';
 	
 	/**
-	 * Estilo do botão
+	 * Estilo do botï¿½o
 	 * 
 	 * @var string
 	 */
@@ -54,7 +54,7 @@ class XComboBox extends AbstractInputList {
 	}
 	
 	/**
-	 * Atribui estilo do botão
+	 * Atribui estilo do botï¿½o
 	 * - Button.Primary
 	 * - Button.Success
 	 * - Button.Info
@@ -77,16 +77,5 @@ class XComboBox extends AbstractInputList {
 		$this->buttonStyle = Enum::ensure($style, $styles, null);
 	}
 	
-	/**
-	 *
-	 * @see AbstractInputList::getContextIdentify()
-	 */
-	public function getContextIdentify( $value = null ) {
-		if ( ! empty($value) && $this->options->containsKey($value) ) {
-			return parent::getContextIdentify() . ' :hidden[value="' . $value . '"]';
-		}
-		return parent::getContextIdentify() . ' :hidden';
-	}
-
 }
 ?>

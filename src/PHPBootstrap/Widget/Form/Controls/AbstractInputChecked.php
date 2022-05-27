@@ -42,7 +42,7 @@ abstract class AbstractInputChecked extends AbstractInputSpan implements InputQu
 	}
 
 	/**
-	 * Obtem se é em linha
+	 * Obtem se ï¿½ em linha
 	 *
 	 * @return boolean
 	 */
@@ -75,14 +75,6 @@ abstract class AbstractInputChecked extends AbstractInputSpan implements InputQu
 	 */
 	public function setLabel( $label ) {
 		$this->label = $label;
-	}
-
-	/**
-	 *
-	 * @see AbstractInput::getContextIdentify()
-	 */
-	public function getContextIdentify() {
-		return parent::getContextIdentify() . ':checked';
 	}
 
 }

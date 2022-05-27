@@ -5,12 +5,12 @@ use PHPBootstrap\Validate\AbstractValidate;
 use PHPBootstrap\Validate\Requirable;
 
 /**
- * Obrigatório
+ * Obrigatï¿½rio
  */
 class Required extends AbstractValidate implements Requirable {
 
 	/**
-	 * Identificação do validação
+	 * Identificaï¿½ï¿½o do validaï¿½ï¿½o
 	 *
 	 * @var string
 	 */
@@ -32,10 +32,8 @@ class Required extends AbstractValidate implements Requirable {
 	 * @see Validate::valid()
 	 */
 	public function valid( $value ) {
-		if ( $this->context ) {
-			if ( ! $this->notEmpty($this->context->getContextValue()) ) {
-				return true;
-			}
+		if ( ! empty($this->context) && ! $this->context->isDependency() ) {
+			return true;
 		}
 		return $this->notEmpty($value);
 	}
@@ -49,7 +47,7 @@ class Required extends AbstractValidate implements Requirable {
 	}
 	
 	/**
-	 * Verifica se um valor não é vazio
+	 * Verifica se um valor nï¿½o ï¿½ vazio
 	 *
 	 * @param mixed $value
 	 * @return boolean

@@ -26,7 +26,7 @@ class FileBox extends AbstractInput {
 	}
 
 	/**
-	 * Obtem validador do padrão
+	 * Obtem validador do padrï¿½o
 	 *
 	 * @return Upload
 	 */
@@ -62,17 +62,6 @@ class FileBox extends AbstractInput {
 			$rule->setRuler(RulerUpload::getInstance());
 		}
 		$this->validator->setLength($rule);
-	}
-	
-	/**
-	 *
-	 * @see AbstractInput::getContextValue()
-	 */
-	public function getContextValue() {
-		if ( isset($this->value['error']) && $this->value['error'] === UPLOAD_ERR_OK ) {
-			return $this->value['name'];
-		}
-		return null;
 	}
 
 }

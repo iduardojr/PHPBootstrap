@@ -81,13 +81,5 @@ abstract class AbstractInputList extends AbstractInputSpan implements InputQuery
 		return $this->options->getIterator();
 	}
 	
-	/**
-	 * 
-	 * @see AbstractInput::getContextIdentify()
-	 */
-	public function getContextIdentify( $value = null ) {
-		return parent::getContextIdentify();
-	}
-
 }
 ?>

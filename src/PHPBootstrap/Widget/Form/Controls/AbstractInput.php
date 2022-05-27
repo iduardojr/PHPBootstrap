@@ -9,11 +9,12 @@ use PHPBootstrap\Widget\Form\Controls\Decorator\InputContext;
 use PHPBootstrap\Widget\Form\Inputable;
 use PHPBootstrap\Widget\Form\Form;
 use PHPBootstrap\Widget\AbstractWidget;
+use PHPBootstrap\Validate\Required\Context;
 
 /**
  * Campo de entrada abstrato
  */
-abstract class AbstractInput extends AbstractWidget implements Inputable, InputContext {
+abstract class AbstractInput extends AbstractWidget implements Inputable {
 
 	/**
 	 * Valor do campo
@@ -21,7 +22,7 @@ abstract class AbstractInput extends AbstractWidget implements Inputable, InputC
 	 * @var mixed
 	 */
 	protected $value;
-
+	
 	/**
 	 * Auto completar
 	 *
@@ -216,28 +217,12 @@ abstract class AbstractInput extends AbstractWidget implements Inputable, InputC
 	}
 
 	/**
-	 * Obtem as regras de validação
+	 * Obtem as regras de validaï¿½ï¿½o
 	 *
 	 * @return Validate
 	 */
 	public function getValidate() {
 		return new Validate($this->validator->getValidate());
-	}
-
-	/**
-	 *
-	 * @see InputContext::getContextIdentify()
-	 */
-	public function getContextIdentify() {
-		return '#' . $this->getName();
-	}
-
-	/**
-	 *
-	 * @see Context::getContextValue()
-	 */
-	public function getContextValue() {
-		return $this->getValue();
 	}
 
 }

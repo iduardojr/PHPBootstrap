@@ -130,13 +130,5 @@ abstract class AbstractInputEntry extends AbstractInputBox implements TextEditab
 		$this->validator->setLength($rule);
 	}
 	
-	/**
-	 *
-	 * @see AbstractInput::getContextValue()
-	 */
-	public function getContextValue() {
-		return $this->getText();
-	}
-
 }
 ?>

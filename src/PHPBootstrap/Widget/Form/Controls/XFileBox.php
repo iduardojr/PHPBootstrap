@@ -50,7 +50,7 @@ class XFileBox extends AbstractInputBox {
 	}
 
 	/**
-	 * Obtem validador do padrão
+	 * Obtem validador do padrï¿½o
 	 *
 	 * @return Upload
 	 */
@@ -109,7 +109,7 @@ class XFileBox extends AbstractInputBox {
 	}
 	
 	/**
-	 * Atribui estilo do botão
+	 * Atribui estilo do botï¿½o
 	 * - Button.Primary
 	 * - Button.Success
 	 * - Button.Info
@@ -133,7 +133,7 @@ class XFileBox extends AbstractInputBox {
 	}
 
 	/**
-	 * Obtem rotulo de adição
+	 * Obtem rotulo de adiï¿½ï¿½o
 	 *
 	 * @return string
 	 */
@@ -142,7 +142,7 @@ class XFileBox extends AbstractInputBox {
 	}
 
 	/**
-	 * Atribui rotulo de adição
+	 * Atribui rotulo de adiï¿½ï¿½o
 	 *
 	 * @param string $label
 	 */
@@ -169,7 +169,7 @@ class XFileBox extends AbstractInputBox {
 	}
 
 	/**
-	 * Atribui os rotulos de adição e limpar
+	 * Atribui os rotulos de adiï¿½ï¿½o e limpar
 	 *
 	 * @param string $add
 	 * @param string $clear
@@ -177,25 +177,6 @@ class XFileBox extends AbstractInputBox {
 	public function setLabels( $add, $clear ) {
 		$this->setLabelAdd($add);
 		$this->setLabelClear($clear);
-	}
-
-	/**
-	 *
-	 * @see AbstractInput::getContextIdentify()
-	 */
-	public function getContextIdentify() {
-		return parent::getContextIdentify() . ' :file';
-	}
-
-	/**
-	 *
-	 * @see AbstractInput::getContextValue()
-	 */
-	public function getContextValue() {
-		if ( isset($this->value['error']) && $this->value['error'] === UPLOAD_ERR_OK ) {
-			return $this->value['name'];
-		}
-		return null;
 	}
 
 }

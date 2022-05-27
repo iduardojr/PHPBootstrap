@@ -2,19 +2,20 @@
 namespace PHPBootstrap\Widget\Form\Controls;
 
 use PHPBootstrap\Validate\Requirable;
-use PHPBootstrap\Widget\Button\Button;
 use PHPBootstrap\Widget\AbstractComponent;
+use PHPBootstrap\Widget\Button\Button;
+use PHPBootstrap\Widget\Form\Form;
+use PHPBootstrap\Widget\Form\TextEditable;
+use PHPBootstrap\Widget\Form\Controls\Decorator\Embed;
 use PHPBootstrap\Widget\Form\Controls\Decorator\InputQuery;
 use PHPBootstrap\Widget\Form\Controls\Decorator\Validate;
-use PHPBootstrap\Widget\Form\Controls\Decorator\InputContext;
-use PHPBootstrap\Widget\Form\Controls\Decorator\Embed;
-use PHPBootstrap\Widget\Form\TextEditable;
-use PHPBootstrap\Widget\Form\Form;
+use PHPBootstrap\Widget\Misc\Icon;
+use PHPBootstrap\Widget\Toggle\Togglable;
 
 /**
  * Campo abstrato de entrada de dados
  */
-abstract class AbstractTextBoxComponent extends AbstractComponent implements TextEditable, InputQuery, InputContext {
+abstract class AbstractTextBoxComponent extends AbstractComponent implements TextEditable, InputQuery {
 
 	/**
 	 * Campo
@@ -31,7 +32,7 @@ abstract class AbstractTextBoxComponent extends AbstractComponent implements Tex
 	protected $component;
 
 	/**
-	 * Botão
+	 * Botï¿½o
 	 *
 	 * @var Button
 	 */
@@ -47,7 +48,7 @@ abstract class AbstractTextBoxComponent extends AbstractComponent implements Tex
 	/**
 	 * Alternador
 	 *
-	 * @var Toggle
+	 * @var Togglable
 	 */
 	protected $toggle;
 
@@ -263,7 +264,7 @@ abstract class AbstractTextBoxComponent extends AbstractComponent implements Tex
 	}
 	
 	/**
-	 * Obtem as regras de validação
+	 * Obtem as regras de validaï¿½ï¿½o
 	 *
 	 * @return Validate
 	 */
@@ -280,7 +281,7 @@ abstract class AbstractTextBoxComponent extends AbstractComponent implements Tex
 	}
 
 	/**
-	 * Atribui estilo do botão
+	 * Atribui estilo do botï¿½o
 	 * - Button.Primary
 	 * - Button.Success
 	 * - Button.Info
@@ -298,7 +299,7 @@ abstract class AbstractTextBoxComponent extends AbstractComponent implements Tex
 	}
 
 	/**
-	 * Obtem estilo do botão
+	 * Obtem estilo do botï¿½o
 	 * 
 	 * @return string
 	 */
@@ -307,7 +308,7 @@ abstract class AbstractTextBoxComponent extends AbstractComponent implements Tex
 	}
 	
 	/**
-	 * Define o botão a esquerda
+	 * Define o botï¿½o a esquerda
 	 */
 	public function setButtonToLeft() {
 		$this->component->remove($this->button);
@@ -315,27 +316,11 @@ abstract class AbstractTextBoxComponent extends AbstractComponent implements Tex
 	}
 	
 	/**
-	 * Define o botão a direita
+	 * Define o botï¿½o a direita
 	 */
 	public function setButtonToRight() {
 		$this->component->remove($this->button);
 		$this->component->append($this->button);
-	}
-	
-	/**
-	 *
-	 * @see InputContext::getContextIdentify()
-	 */
-	public function getContextIdentify() {
-		return $this->input->getContextIdentify();
-	}
-	
-	/**
-	 *
-	 * @see Context::getContextValue()
-	 */
-	public function getContextValue() {
-		return $this->input->getContextValue();
 	}
 	
 }

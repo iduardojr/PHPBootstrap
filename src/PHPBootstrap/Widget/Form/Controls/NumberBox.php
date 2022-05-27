@@ -17,7 +17,7 @@ use PHPBootstrap\Validate\Pattern\Number;
 /**
  * Campo de entrada de numero
  */
-class NumberBox extends AbstractComponent implements TextEditable, InputInline, InputQuery, InputContext {
+class NumberBox extends AbstractComponent implements TextEditable, InputInline, InputQuery {
 
 	/**
 	 * Campo
@@ -232,7 +232,7 @@ class NumberBox extends AbstractComponent implements TextEditable, InputInline, 
 	}
 
 	/**
-	 * Atribui um padrão
+	 * Atribui um padrï¿½o
 	 *
 	 * @param Number $rule
 	 */
@@ -243,7 +243,7 @@ class NumberBox extends AbstractComponent implements TextEditable, InputInline, 
 	}
 
 	/**
-	 * Obtem o padrão
+	 * Obtem o padrï¿½o
 	 *
 	 * @return Number
 	 */
@@ -271,28 +271,12 @@ class NumberBox extends AbstractComponent implements TextEditable, InputInline, 
 	}
 
 	/**
-	 * Obtem as regras de validação
+	 * Obtem as regras de validaï¿½ï¿½o
 	 *
 	 * @return Validate
 	 */
 	public function getValidate() {
 		return $this->input->getValidate();
-	}
-
-	/**
-	 *
-	 * @see InputContext::getContextIdentify()
-	 */
-	public function getContextIdentify() {
-		return $this->input->getContextIdentify();
-	}
-
-	/**
-	 *
-	 * @see Context::getContextValue()
-	 */
-	public function getContextValue() {
-		return $this->input->getContextValue();
 	}
 
 }

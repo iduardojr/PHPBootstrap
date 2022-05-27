@@ -187,13 +187,5 @@ class Hidden extends AbstractInput implements TextEditable, InputQuery, InputPic
 		$this->validator->setLength($rule);
 	}
 
-	/**
-	 *
-	 * @see AbstractInput::getContextValue()
-	 */
-	public function getContextValue() {
-		return $this->getText();
-	}
-
 }
 ?>

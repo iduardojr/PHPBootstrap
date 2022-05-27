@@ -2,7 +2,7 @@
 namespace PHPBootstrap\Widget\Form\Controls;
 
 /**
- * Campo de entrada com uma lista de opções selecionaveis
+ * Campo de entrada com uma lista de opï¿½ï¿½es selecionaveis
  */
 abstract class AbstractInputListChecked extends AbstractInputList {
 	
@@ -25,7 +25,7 @@ abstract class AbstractInputListChecked extends AbstractInputList {
 	}
 
 	/**
-	 * Obtem se é em linha
+	 * Obtem se ï¿½ em linha
 	 *
 	 * @return boolean
 	 */
@@ -42,16 +42,5 @@ abstract class AbstractInputListChecked extends AbstractInputList {
 		$this->inline = ( bool ) $inline;
 	}
 	
-	/**
-	 *
-	 * @see AbstractInputList::getContextIdentify()
-	 */
-	public function getContextIdentify( $value = null ) {
-		if ( ! empty($value) && $this->options->containsKey($value) ) {
-			return parent::getContextIdentify() . ' :checked[value="' . $value . '"]';
-		}
-		return parent::getContextIdentify() . ' :checked';
-	}
-
 }
 ?>

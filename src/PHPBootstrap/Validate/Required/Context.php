@@ -12,6 +12,13 @@ interface Context {
 	 * @return mixed
 	 */
 	public function getContextValue();
+	
+	/**
+	 * Verifica se a dependência é atendida
+	 * 
+	 * @return boolean
+	 */
+	public function isDependency();
 
 }
 ?>
