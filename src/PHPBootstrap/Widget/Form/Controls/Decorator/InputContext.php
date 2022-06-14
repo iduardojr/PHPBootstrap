@@ -72,7 +72,7 @@ class InputContext implements Context {
 			}
 			return false;
 		}
-		if ( ! empty($params) ) {
+		if ( $params !== null ) {
 			$params = is_array($params) ? $params : [$params];
 			$values = is_array($values) ? $values : [$values];
 			foreach ($params as $param) {

@@ -65,10 +65,10 @@ class RendererDecoratorValidate extends RendererDependsResponse {
 				$selector.=' :checked';
 			} elseif ($input instanceof AbstractInputList) {
 				$selector.=' option:selected';
-			} elseif ( empty($param) ) {		
+			} elseif ( $param === null ) {		
 				$selector.= '[value!=""]';
 			}
-			if ( !empty($param) ) {
+			if ( $param !== null ) {
 				$selector.= '[value="' . $param . '"]';
 			}
 			$selectors[] = $selector;

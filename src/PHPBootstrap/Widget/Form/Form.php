@@ -289,12 +289,15 @@ class Form extends AbstractContainer {
 	 * Atribui dados ao formulario
 	 *
 	 * @param array $data
+	 * @param bool $isDefaultNull
 	 */
-	public function setData( array $data ) {
+	public function setData( array $data, $isDefaultNull = false ) {
 		$this->valid = null;
 		foreach ( $this->controls as $control ) {
 			$value = isset($data[$control->getName()]) ? $data[$control->getName()] : null;
-			$control->setValue($value);
+			if ( $isDefaultNull || $value ) {
+				$control->setValue($value);
+			}
 		}
 		$this->trigger(Form::ChangeValue);
 	}
@@ -303,15 +306,18 @@ class Form extends AbstractContainer {
 	 * Liga os dados submetidos ao formulario
 	 *
 	 * @param array $submittedData
+	 * @param bool $isDefaultNull
 	 */
-	public function bind( array $submittedData ) {
+	public function bind( array $submittedData, $isDefaultNull = false ) {
 		$this->valid = null;
 		foreach ( $this->controls as $control ) {
 			$value =  isset($submittedData[$control->getName()]) ? $submittedData[$control->getName()] : null;
-			if ( $control instanceof TextEditable ) {
-				$control->setText($value);
-			} else {
-				$control->setValue($value);
+			if ( $isDefaultNull || $value ) {
+				if ( $control instanceof TextEditable ) {
+					$control->setText($value);
+				} else {
+					$control->setValue($value);
+				}
 			}
 		}
 		$this->trigger(Form::ChangeValue);
