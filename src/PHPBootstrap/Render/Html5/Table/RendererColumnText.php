@@ -24,8 +24,8 @@ class RendererColumnText extends RendererColumn {
 			$th->addClass($ui->getAlign());
 		}
 		$node->appendNode($ui->getLabel());
-		
-		if ( $ui->getName() == $ds->getSort() ) {
+		$sort = explode('.', $ds->getSort());
+		if ( $ui->getName() == $ds->getSort() || ( isset($sort[1]) && $ui->getName() == $sort[1]) ) {
 			$node->appendNode('<i class="ui-icon-carat-1-' . ( $ds->getOrder() == DataSource::Desc ? 'n' : 's' ) . '"></i>');
 		}
 		if ( $ui->getToggle() ) {
