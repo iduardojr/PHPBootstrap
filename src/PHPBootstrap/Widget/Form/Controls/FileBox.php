@@ -24,6 +24,19 @@ class FileBox extends AbstractInput {
 		$form->setMethod(Form::Post);
 		$form->setEncoding(Form::MultiPart);
 	}
+	
+	/**
+	 * @see AbstractInput::setValue()
+	 */
+	public function setValue($value) {
+	    if ( ! ( is_array($value) || is_null($value) ) ) {
+	        throw new \InvalidArgumentException('value is not uploaded file');
+	    }
+	    if ( $this->value !== $value ) {
+	        $this->valid = null;
+	        $this->value = $value;
+	    }
+	}
 
 	/**
 	 * Obtem validador do padr�o
