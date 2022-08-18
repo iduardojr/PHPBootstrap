@@ -2,7 +2,6 @@
 namespace PHPBootstrap\Mvc\View;
 
 use PHPBootstrap\Mvc\Http\HttpResponse;
-use PHPBootstrap\Common\Mimetype;
 
 /**
  * Visualizador de arquivo
@@ -803,7 +802,7 @@ class FileView implements Viewable {
 	protected $extension;
 
 	/**
-	 * Forçar download
+	 * Forï¿½ar download
 	 *
 	 * @var boolean
 	 */
@@ -822,26 +821,25 @@ class FileView implements Viewable {
 	}
 
 	/**
-	 * Obtem a extensão do arquivo
+	 * Obtem a extensï¿½o do arquivo
 	 * 
 	 * @return string
 	 * @throws \RuntimeException
 	 */
 	public function getExtension() {
-		if ( ! preg_match('/\.(?P<ext>[a-z][a-z0-9]+)$/i', $this->fileName, $match) ) {
+		if ( preg_match('/\.(?P<ext>[a-z][a-z0-9]+)$/i', basename($this->fileName), $match) ) {
 			return $match['ext'];
 		}
 		throw new \RuntimeException('Filename is invalid');
 	}
 	
 	/**
-	 * Obtem a extensão do arquivo
+	 * Obtem a extensï¿½o do arquivo
 	 *
 	 * @return string
-	 * @throws \RuntimeException
 	 */
 	public function getMimetype() {
-		return Mimetype::getMimeTypeByExtension($this->getExtension());
+		return array_search($this->getExtension(), self::$defaultExtensions);
 	}
 
 	/**
@@ -860,13 +858,7 @@ class FileView implements Viewable {
 	 * @throws \InvalidArgumentException
 	 */
 	public function setFileName( $fileName ) {
-		if ( ! preg_match('/(?P<filename>^.+)\.(?P<ext>[a-z][a-z0-9]+)$/i', $fileName, $match) ) {
-			throw new \InvalidArgumentException('Filename is invalid');
-		}
 		$this->fileName = $fileName;
-		if ( $this->getAliasName() === null ) {
-			$this->aliasName = $match['filename'];
-		}
 	}
 
 	/**
@@ -876,7 +868,7 @@ class FileView implements Viewable {
 	 */
 	public function getAliasName() {
 		if ( empty($this->aliasName) ) {
-			return null;
+			return basename($this->fileName);
 		}
 		return $this->aliasName . $this->getExtension();
 	}
@@ -894,7 +886,7 @@ class FileView implements Viewable {
 	}
 
 	/**
-	 * Obtem se deve forçar o download
+	 * Obtem se deve forï¿½ar o download
 	 *
 	 * @return boolean
 	 */
@@ -903,7 +895,7 @@ class FileView implements Viewable {
 	}
 
 	/**
-	 * Atribui se deve forçar o download
+	 * Atribui se deve forÃ§ar o download
 	 *
 	 * @param boolean $force
 	 * @param string $aliasName
