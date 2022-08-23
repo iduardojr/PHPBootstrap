@@ -43,6 +43,9 @@ class RendererInputFileBox extends RendererWidget {
 		}
 		$node->setAttribute('autocomplete', $ui->getAutoComplete() ? 'on' : 'off');
 		$this->toRender($ui->getValidate(), new Context($node));
+		if ($ui->getPattern()) {
+		    $node->setAttribute('accept', '.' . implode('|.', explode('|', $ui->getPattern()->getContext())));
+		}
 		$node->setAttribute('data-control', 'FileBox');
 	}
 

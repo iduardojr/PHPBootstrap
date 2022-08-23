@@ -63,6 +63,9 @@ class RendererInputXFileBox extends RendererWidget {
 		}
 		$file->setAttribute('autocomplete', $ui->getAutoComplete() ? 'on' : 'off');
 		$this->toRender($ui->getValidate(), new Context($file));
+		if ($ui->getPattern()) {
+		    $file->setAttribute('accept', '.' . implode('|.', explode('|', $ui->getPattern()->getContext())));
+		}
 		
 		$node->appendNode($text);
 		$node->appendNode($file);
