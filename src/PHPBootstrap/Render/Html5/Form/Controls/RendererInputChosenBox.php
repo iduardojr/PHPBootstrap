@@ -23,6 +23,7 @@ class RendererInputChosenBox extends RendererInputComboBox {
 		$options['placeholder_text_' . ( $ui->getMultiple() ? 'multiple' : 'single' )] = htmlentities($ui->getPlaceholder());
 		$options['disable_search_threshold'] = $ui->getDisplaySearchThreshold();
 		$options['display_selected_options'] = $ui->getDisplaySelected();
+		$options['disable_search'] = $ui->getDisabledSearch();
 		$options['no_results_text'] = $ui->getTextNoResult();
 		$options['max_selected_options'] = $ui->getMaxSelectedOptions();
 		$options['inherit_select_classes'] = true;

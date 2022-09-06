@@ -21,7 +21,7 @@ class ChosenBox extends ComboBox {
 	protected $placeholder;
 
 	/**
-	 * Multiplas opções
+	 * Multiplas opï¿½ï¿½es
 	 * 
 	 * @var boolean
 	 */
@@ -35,7 +35,7 @@ class ChosenBox extends ComboBox {
 	protected $displaySelected;
 
 	/**
-	 * Texto não encontrado
+	 * Texto nï¿½o encontrado
 	 * 
 	 * @var string
 	 */
@@ -47,6 +47,13 @@ class ChosenBox extends ComboBox {
 	 * @var integer
 	 */
 	protected $displaySearchThreshold;
+	
+	/**
+	 * Desabilita a pesquisa 
+	 * 
+	 * @var boolean
+	 */
+	protected $disabledSearch;
 
 	/**
 	 * Construtor
@@ -70,7 +77,7 @@ class ChosenBox extends ComboBox {
 	}
 
 	/**
-	 * Obtem se é multiplos ou não
+	 * Obtem se ï¿½ multiplos ou nï¿½o
 	 *
 	 * @return boolean
 	 */
@@ -113,6 +120,15 @@ class ChosenBox extends ComboBox {
 	public function setDisplaySelected( $displaySelected ) {
 		$this->displaySelected = ( bool ) $displaySelected;
 	}
+	
+	/**
+	 * Atribuir exibiÃ§Ã£o da pesquisa 
+	 * 
+	 * @param boolean $disabledSearch
+	 */
+	public function setDisabledSearch($disabledSearch) {
+	    $this->disabledSearch = $disabledSearch;
+	}
 
 	/**
 	 * Obtem texto para quando nao houver resultados
@@ -133,7 +149,7 @@ class ChosenBox extends ComboBox {
 	}
 
 	/**
-	 * Exibir busca para uma quantidade de opções
+	 * Exibir busca para uma quantidade de opï¿½ï¿½es
 	 * 
 	 * @return integer
 	 */
@@ -142,7 +158,7 @@ class ChosenBox extends ComboBox {
 	}
 
 	/**
-	 * Atribui exibir busca para uma quantidade de opções
+	 * Atribui exibir busca para uma quantidade de opï¿½ï¿½es
 	 * 
 	 * @param integer $displaySearchThreshold
 	 */
@@ -151,7 +167,7 @@ class ChosenBox extends ComboBox {
 	}
 	
 	/**
-	 * Obtem a quantidade maxima de opções selecionadas
+	 * Obtem a quantidade maxima de opï¿½ï¿½es selecionadas
 	 *
 	 * @return integer
 	 */
@@ -165,6 +181,15 @@ class ChosenBox extends ComboBox {
 			return $max[1];
 		}
 		return null;
+	}
+	
+	/**
+	 * Obtem se a pesquisa serÃ¡ exibida
+	 * 
+	 * @return boolean
+	 */
+	public function getDisabledSearch() {
+	    return $this->disabledSearch;
 	}
 
 	/**
